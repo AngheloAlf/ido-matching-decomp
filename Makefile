@@ -43,7 +43,7 @@ OBJDUMP    := $(MIPS_BINUTILS_PREFIX)objdump
 MIPS_GCC   := $(MIPS_BINUTILS_PREFIX)gcc
 
 DISASSEMBLER  := python3 -m spimdisasm.elfObjDisasm
-DISASSEMBLER_FLAGS += --no-emit-cpload --Mreg-names o32 --no-use-fpccsr --aggressive-string-guesser
+DISASSEMBLER_FLAGS += --no-emit-cpload --Mreg-names o32 --no-use-fpccsr --aggressive-string-guesser --asm-jtbl-label jlabel
 ASM_PROCESSOR := python3 tools/asm-processor/build.py
 
 IINC       := -Iinclude -Iinclude/indy -Isrc
@@ -68,7 +68,7 @@ endif
 LDFLAGS := -nostdlib -L$(RECOMP)/ido/$(VERSION)/usr/lib/ -lc
 
 
-ASMPROCFLAGS := 
+ASM_PROC_FLAGS := --force --convert-statics=local
 OPTFLAGS := -O1
 MIPS_VERSION := -mips2
 ASFLAGS := -march=vr4300 -32 -Iinclude -KPIC
