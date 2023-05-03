@@ -9,40 +9,12 @@ def configureSpimdisasm():
     spimdisasm.common.GlobalConfig.ALLOW_UNKSEGMENT = False
     spimdisasm.common.GlobalConfig.INPUT_FILE_TYPE = spimdisasm.common.InputFileType.ELF
     spimdisasm.common.GlobalConfig.EMIT_CPLOAD = False
+    spimdisasm.common.GlobalConfig.REMOVE_POINTERS = True
+    spimdisasm.common.GlobalConfig.IGNORE_BRANCHES = True
 
 
-def getFuncsFromElf(elfFile: spimdisasm.elf32.Elf32File, syms: spimdisasm.elf32.Elf32Syms, strTable: spimdisasm.elf32.Elf32StringTable):
-    print(f"Symbols count: {len(syms)}")
-
-    for sym in syms:
-        if sym.stType != spimdisasm.elf32.Elf32SymbolTableType.FUNC.value:
-            continue
-
-        if sym.shndx == spimdisasm.elf32.Elf32SectionHeaderNumber.UNDEF.value:
-            continue
-        print(sym, strTable[sym.name])
-
-    print(elfFile.progbits[spimdisasm.common.FileSectionType.Text])
-
-
-def doElf(elfPath: Path):
-    print(elfPath)
-
-    context = spimdisasm.common.Context()
-
-    originalElfBytes = spimdisasm.common.Utils.readFileAsBytearray(elfPath)
-
-    elfFile = spimdisasm.elf32.Elf32File(originalElfBytes)
-
-    elfFile.handleHeaderIdent()
-    elfFile.handleFlags()
-
-
-    # assert ogElf.dynsym is not None and ogElf.dynstr is not None
-    # getFuncsFromElf(ogElf, ogElf.dynsym, ogElf.dynstr)
-
-
-    processedSegments, segmentPaths = spimdisasm.elfObjDisasm.getProcessedSections(context, elfFile, originalElfBytes, elfPath, Path("-"), Path("-"))
+def doElf(elfFile: spimdisasm.elf32.Elf32File, elfBytes: bytearray, context: spimdisasm.common.Context):
+    processedSegments, segmentPaths = spimdisasm.elfObjDisasm.getProcessedSections(context, elfFile, elfBytes, Path("dummy"), Path("-"), Path("-"))
 
     spimdisasm.elfObjDisasm.changeGlobalSegmentRanges(context, processedSegments)
 
@@ -56,14 +28,16 @@ def doElf(elfPath: Path):
 
     spimdisasm.frontendCommon.FrontendUtilities.analyzeProcessedFiles(processedSegments, segmentPaths, processedFilesCount)
 
+    spimdisasm.frontendCommon.FrontendUtilities.nukePointers(processedSegments, segmentPaths, processedFilesCount)
+
     for textSection in processedSegments[spimdisasm.common.FileSectionType.Text]:
         for func in textSection.symbolList:
             print(func.getName())
-            # print(func.)
-    # print(processedSegments)
-    # spimdisasm.frontendCommon.FrontendUtilities.writeProcessedFiles(processedSegments, segmentPaths, processedFilesCount)
 
-    return elfFile, context, processedSegments
+    # Disassembles to stdout
+    spimdisasm.frontendCommon.FrontendUtilities.writeProcessedFiles(processedSegments, segmentPaths, processedFilesCount)
+
+    return processedSegments
 
 
 def main():
@@ -78,10 +52,28 @@ def main():
     mainElfPath = Path(args.main_elf)
     oFilesPaths = [Path(x) for x in args.o_files]
 
-    doElf(mainElfPath)
+    context = spimdisasm.common.Context()
 
-    for oFile in oFilesPaths:
-        doElf(oFile)
+    print(mainElfPath)
+
+    elfBytes = spimdisasm.common.Utils.readFileAsBytearray(mainElfPath)
+
+    elfFile = spimdisasm.elf32.Elf32File(elfBytes)
+
+    elfFile.handleHeaderIdent()
+    elfFile.handleFlags()
+
+    doElf(elfFile, elfBytes, context)
+
+    for oPath in oFilesPaths:
+        # TODO: maybe store somewhere?
+        oContext = spimdisasm.common.Context()
+
+        oBytes = spimdisasm.common.Utils.readFileAsBytearray(oPath)
+
+        oElfFile = spimdisasm.elf32.Elf32File(oBytes)
+
+        doElf(oElfFile, oBytes, oContext)
 
 if __name__ == "__main__":
     main()
