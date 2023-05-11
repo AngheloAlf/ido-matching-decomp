@@ -16,7 +16,7 @@ ifeq ($(VERSION),7.1)
 	IDO_TC      := cc cfe
 else ifeq ($(VERSION),5.3)
 #	IDO_TC      := cc acpp as0 as1 cfe copt ugen ujoin uld umerge uopt usplit
-	IDO_TC      := cc cfe
+	IDO_TC      := c++filt
 else
 $(error Unknown or unsupported IDO version - $(VERSION))
 endif
@@ -147,8 +147,11 @@ $(BUILD)/%.o: %.c
 $(ASM)/$(VERSION)/cc/.disasm: $(IRIX_USR_DIR)/bin/cc
 	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/cc.splits.csv --split-functions $(ASM)/$(VERSION)/functions/cc --save-context $(CONTEXT)/$(VERSION)/cc.csv $< $(dir $@)
 
-$(ASM)/$(VERSION)/%/.disasm:
+$(ASM)/$(VERSION)/%/.disasm: $(IRIX_USR_DIR)/lib/%
 	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/$*.splits.csv --split-functions $(ASM)/$(VERSION)/functions/$* --save-context $(CONTEXT)/$(VERSION)/$*.csv $(IRIX_USR_DIR)/lib/$* $(ASM)/$(VERSION)/$*
+
+$(ASM)/$(VERSION)/%/.disasm: $(IRIX_USR_DIR)/lib/c++/%
+	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/$*.splits.csv --split-functions $(ASM)/$(VERSION)/functions/$* --save-context $(CONTEXT)/$(VERSION)/$*.csv $(IRIX_USR_DIR)/lib/c++/$* $(ASM)/$(VERSION)/$*
 
 
 
