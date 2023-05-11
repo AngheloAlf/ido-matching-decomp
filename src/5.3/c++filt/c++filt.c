@@ -1,3 +1,5 @@
+#include "stdio.h"
+
 // _ftext
 
 // func_00400BD0
@@ -201,8 +203,34 @@
 // demangle
 
 // func_004054C0
+// static
+void func_004054C0(FILE*);
 
-// main
+int main(int argc, char** argv) {
+    int ret = 0;
 
+    if (argc < 2) {
+        func_004054C0(stdin);
+    } else {
+        int i;
+
+        for (i = 1; i < argc; i++) {
+            FILE* f = fopen(argv[i], "r");
+
+            if (f == NULL) {
+                fprintf(stderr, "cannot open %s for reading\n", argv[i]);
+                ret++;
+            } else {
+                func_004054C0(f);
+                fclose(f);
+            }
+        }
+    }
+
+    exit(ret);
+    return 0;
+}
+
+// releaseid
 // STR_10000CA0
 
