@@ -34,8 +34,7 @@ ASM     := asm
 SYMBOLS := symbols
 CONTEXT := context
 
-CC       := $(RECOMP)/build/7.1/out/cc
-CC_OLD   := $(RECOMP)/build/5.3/out/cc
+CC       := $(RECOMP)/build/$(VERSION)/out/cc
 
 AS         := $(MIPS_BINUTILS_PREFIX)as
 LD         := $(MIPS_BINUTILS_PREFIX)ld
@@ -107,6 +106,8 @@ $(BUILD)/src/%.o: CC := $(ASM_PROCESSOR) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFL
 
 
 build/src/7.1/mld/%.o: OPTFLAGS := -O2
+build/src/5.3/%.o: MIPS_VERSION := -mips1
+build/src/5.3/c++filt/c++filt.o: OPTFLAGS := -O2
 
 # Targets
 
