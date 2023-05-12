@@ -26,10 +26,17 @@ typedef double f64;
 
 typedef s32 UNK_TYPE;
 typedef u8 UNK_TYPE1;
+#define UNK_SIZE 1
 
 
 typedef struct struct_demangle_sp24 {
-    /* 0x00 */ UNK_TYPE1 unk_00[0x1C];
+    /* 0x00 */ char* unk_0;
+    /* 0x04 */ UNK_TYPE1 pad_4[8];                       /* maybe part of unk_0[3]? */
+    /* 0x0C */ char **unk_C;
+    /* 0x10 */ UNK_TYPE unk_10;                          /* inferred */
+    /* 0x14 */ UNK_TYPE1 pad_14[6];                      /* maybe part of unk_10[2]? */
+    /* 0x1A */ u8 unk_1A;                           /* inferred */
+    /* 0x1B */ UNK_TYPE1 pad_1B[1];
 } struct_demangle_sp24; // size = 0x1C
 
 
@@ -621,8 +628,10 @@ int dem(char*, struct_demangle_sp24*, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem.s")
 #endif
 
+void dem_printcl(char**, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printcl.s")
 
+void dem_printarglist(UNK_TYPE, char*, int);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarglist.s")
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
@@ -787,90 +796,63 @@ int dem(char*, struct_demangle_sp24*, char*);
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007C0.s")
 
+void dem_printfunc(struct_demangle_sp24*, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printfunc.s")
 
-#if 0
-// ? dem_printarglist(s32, s8*, ?);                    /* extern */
-// ? dem_printcl(s32, s8*, s8*, u8);                   /* extern */
-// ? dem_printfunc(s8**, s8*, u8*);                    /* extern */
-
-int dem_print(s8** arg0, char* arg1) {
-    s8 sp30;
-    ? sp2F;
-    s24 sp2C;                                       /* compiler-managed */
-    s32 temp_a0;
-    s32 temp_a0_2;
-    s32 var_v1;
-    s8* temp_a0_3;
-    s8* temp_a0_4;
-    s8* temp_a2;
-    u8 temp_a3;
-    u8 temp_v0;
-    u8* var_a2;
-
+#ifdef NON_MATCHING
+// stack issues
+int dem_print(struct_demangle_sp24* arg0, char* arg1) {
     if ((arg0 == NULL) || (arg1 == NULL)) {
         return -1;
     }
+
     *arg1 = 0;
-    temp_a2 = arg0->unk_0;
-    if ((temp_a2 == NULL) && (temp_a0 = arg0->unk_C, (temp_a0 != 0))) {
-        dem_printcl(temp_a0, arg1, temp_a2);
+    if ((arg0->unk_0 == NULL) && (arg0->unk_C != 0)) {
+        dem_printcl(arg0->unk_C, arg1);
     } else {
-        temp_a3 = arg0->unk_1A;
-        if ((temp_a3 == 0x69) || (temp_a3 == 0x64)) {
-            sprintf(arg1, "%s:__st%c", temp_a2, temp_a3);
-        } else if (temp_a3 == 0x62) {
-            sprintf(arg1, "%s:__ptbl_vec", temp_a2, temp_a3);
+        if ((arg0->unk_1A == 0x69) || (arg0->unk_1A == 0x64)) {
+            sprintf(arg1, "%s:__st%c", arg0->unk_0, arg0->unk_1A);
+        } else if (arg0->unk_1A == 0x62) {
+            sprintf(arg1, "%s:__ptbl_vec", arg0->unk_0);
         } else {
-            temp_a0_2 = arg0->unk_C;
-            if (temp_a0_2 != 0) {
-                dem_printcl(temp_a0_2, &sp30, temp_a2, temp_a3);
-                strcat(arg1, &sp30);
+            int var_v1;
+            char sp30[0x400];
+            char* var_a2;
+
+            if (arg0->unk_C != 0) {
+                dem_printcl(arg0->unk_C, sp30);
+                strcat(arg1, sp30);
                 strcat(arg1, "::");
             }
-            var_a2 = &(&sp30)[strlen(&sp30)].unk_-1;
-            var_v1 = 0;
-            if ((u32) var_a2 >= (u32) &sp30) {
-loop_18:
-                temp_v0 = *var_a2;
-                if (temp_v0 == 0x3E) {
-                    var_v1 += 1;
-                    goto block_24;
-                }
-                if (temp_v0 == 0x3C) {
-                    var_v1 -= 1;
-                    goto block_24;
-                }
-                if ((temp_v0 != 0x3A) || (var_v1 != 0)) {
-block_24:
-                    var_a2 -= 1;
-                    if (var_a2 == &sp2F) {
 
-                    } else {
-                        goto loop_18;
+            var_a2 = &sp30[strlen(sp30)-1];
+            var_v1 = 0;
+            for (; var_a2 >= sp30; var_a2--) {
+                if (*var_a2 == '>') {
+                    var_v1 += 1;
+                } else if (*var_a2 == '<') {
+                    var_v1 -= 1;
+                } else if (*var_a2 == ':') {
+                    if (var_v1 == 0) {
+                        break;
                     }
                 }
             }
 
-            temp_a0_3 = arg0->unk_0;
-            if ((*temp_a0_3 == *"__ct") && (sp2C = var_a2, var_a2 = (u8* ) sp2C, (strcmp(temp_a0_3, "__ct") == 0))) {
-                strcat(arg1, var_a2 + 1);
+            if ((arg0->unk_0[0] == *"__ct") && ((strcmp(arg0->unk_0, "__ct") == 0))) {
+                strcat(arg1, &var_a2[1]);
+            } else if ((arg0->unk_0[0] == *"__dt") && (strcmp(arg0->unk_0, "__dt") == 0)) {
+                strcat(arg1, "~");
+                strcat(arg1, &var_a2[1]);
             } else {
-                temp_a0_4 = arg0->unk_0;
-                if (((u8) *temp_a0_4 == *"__dt") && (sp2C = var_a2, (strcmp(temp_a0_4, "__dt") == 0))) {
-                    sp2C = var_a2;
-                    strcat(arg1, "~");
-                    strcat(arg1, var_a2 + 1);
-                } else {
-                    dem_printfunc(arg0, &sp30, var_a2);
-                    strcat(arg1, &sp30);
-                }
+                dem_printfunc(arg0, sp30);
+                strcat(arg1, sp30);
             }
 
             if (arg0->unk_10 != 0) {
                 strcat(arg1, "(");
-                dem_printarglist(arg0->unk_10, &sp30, 0);
-                strcat(arg1, &sp30);
+                dem_printarglist(arg0->unk_10, sp30, 0);
+                strcat(arg1, sp30);
                 strcat(arg1, ")");
             }
 
@@ -879,6 +861,7 @@ block_24:
             }
         }
     }
+
     return 0;
 }
 #else
