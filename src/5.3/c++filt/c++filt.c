@@ -61,38 +61,19 @@ typedef enum enum_dem_explain_arg0 {
     /* 16 */ ENUM_DEM_EXPLAIN_ARG_16,
 } enum_dem_explain_arg0;
 
-// static char* B_10000DD0;
-// .space 0x04
 
-// static UNK_TYPE B_10000DD4;
-// .space 0x04
+static int D_10000000 = 0;
+static int D_10000004 = -1;
 
-// static UNK_TYPE B_10000DD8;
-// .space 0x04
+static char* B_10000DD0;
+static char B_10000DD4;
+static char* B_10000DD8;
+static int B_10000DDC;
+static int B_10000DE0[10];
+static int B_10000E08[10];
+static char B_10000E30[10];
+static char* B_10000E3C;
 
-// static UNK_TYPE B_10000DDC;
-// .space 0x04
-
-// static UNK_TYPE B_10000DE0;
-// .space 0x28
-
-// static UNK_TYPE B_10000E08;
-// .space 0x28
-
-// static UNK_TYPE B_10000E30;
-// .space 0x0C
-
-// static UNK_TYPE B_10000E3C;
-// .space 0x04
-
-// static UNK_TYPE __Argc;
-// .space 0x04
-
-// static UNK_TYPE __Argv;
-// .space 0x04
-
-// static UNK_TYPE __rld_obj_head;
-// .space 0x04
 
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_ftext.s")
@@ -167,7 +148,6 @@ static char* func_00400EF8(char* arg0) {
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00402D50.s")
 
 #ifdef NON_EQUIVALENT
-char* func_00400EF8(char*);
 void func_00400FA4(char*, int);
 char** func_004011B4(void);
 UNK_TYPE *func_00401B48(UNK_TYPE, UNK_TYPE, UNK_TYPE);
@@ -650,174 +630,54 @@ void dem_printcl(char**, char*);
 void dem_printarglist(UNK_TYPE, char*, int);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarglist.s")
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004A4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004AC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004B8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004C0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004CC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004D4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004E0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004E8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100004F8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000500.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000510.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000518.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000524.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000052C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000538.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000540.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000054C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000554.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000560.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000568.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000574.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000057C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000588.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000590.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000059C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005A4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005B0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005B8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005C4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005CC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005D8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005E0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005EC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100005F4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000600.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000608.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000614.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000061C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000628.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000630.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000063C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000644.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000650.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000658.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000664.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000066C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000678.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000680.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000068C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000694.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006A0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006A8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006B4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006BC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006C8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006D0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006DC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006E4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006F0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100006F8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000704.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000070C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000718.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000720.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000072C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000734.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000740.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000748.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000754.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000075C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000768.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000770.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_1000077C.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000784.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000790.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000798.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007A4.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007AC.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007B8.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007C0.s")
-extern UNK_TYPE D_10000000;
-// .word 0x00000000
-
-extern UNK_TYPE D_10000004;
-// .word 0xFFFFFFFF
-
-extern const char* D_10000008[];
+struct _struct_D_10000008_0x8 {
+    /* 0x0 */ s8* unk_0;                            /* inferred */
+    /* 0x4 */ s8* unk_4;                            /* inferred */
+};                                                  /* size = 0x8 */
+
+static struct _struct_D_10000008_0x8 D_10000008[0x29] = {
+    { "__pp", "operator++" },
+    { "__as", "operator=" },
+    { "__vc", "operator[]" },
+    { "__nw", "operator new" },
+    { "__dl", "operator delete" },
+    { "__rf", "operator->" },
+    { "__ml", "operator*" },
+    { "__mm", "operator--" },
+    { "__oo", "operator||" },
+    { "__md", "operator%" },
+    { "__mi", "operator-" },
+    { "__rs", "operator>>" },
+    { "__ne", "operator!=" },
+    { "__gt", "operator>" },
+    { "__ge", "operator>=" },
+    { "__or", "operator|" },
+    { "__aa", "operator&&" },
+    { "__nt", "operator!" },
+    { "__apl", "operator+=" },
+    { "__amu", "operator*=" },
+    { "__amd", "operator%=" },
+    { "__ars", "operator>>=" },
+    { "__aor", "operator|=" },
+    { "__cm", "operator," },
+    { "__dv", "operator/" },
+    { "__pl", "operator+" },
+    { "__ls", "operator<<" },
+    { "__eq", "operator==" },
+    { "__lt", "operator<" },
+    { "__le", "operator<=" },
+    { "__ad", "operator&" },
+    { "__er", "operator^" },
+    { "__co", "operator~" },
+    { "__ami", "operator-=" },
+    { "__adv", "operator/=" },
+    { "__als", "operator<<=" },
+    { "__aad", "operator&=" },
+    { "__aer", "operator^=" },
+    { "__rm", "operator->*" },
+    { "__cl", "operator()" },
+    { NULL, NULL },
+};
 
 void dem_printfunc(struct_demangle_sp24*, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printfunc.s")
