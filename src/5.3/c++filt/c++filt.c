@@ -41,6 +41,25 @@ typedef struct struct_demangle_sp24 {
     /* 0x1B */ UNK_TYPE1 pad_1B[1];
 } struct_demangle_sp24;                             /* size = 0x1C */
 
+typedef enum enum_dem_explain_arg0 {
+    /*  1 */ ENUM_DEM_EXPLAIN_ARG_1 = 1,
+    /*  2 */ ENUM_DEM_EXPLAIN_ARG_2,
+    /*  3 */ ENUM_DEM_EXPLAIN_ARG_3,
+    /*  4 */ ENUM_DEM_EXPLAIN_ARG_4,
+    /*  5 */ ENUM_DEM_EXPLAIN_ARG_5,
+    /*  6 */ ENUM_DEM_EXPLAIN_ARG_6,
+    /*  7 */ ENUM_DEM_EXPLAIN_ARG_7,
+    /*  8 */ ENUM_DEM_EXPLAIN_ARG_8,
+    /*  9 */ ENUM_DEM_EXPLAIN_ARG_9,
+    /* 10 */ ENUM_DEM_EXPLAIN_ARG_10,
+    /* 11 */ ENUM_DEM_EXPLAIN_ARG_11,
+    /* 12 */ ENUM_DEM_EXPLAIN_ARG_12,
+    /* 13 */ ENUM_DEM_EXPLAIN_ARG_13,
+    /* 14 */ ENUM_DEM_EXPLAIN_ARG_14,
+    /* 15 */ ENUM_DEM_EXPLAIN_ARG_15,
+    /* 16 */ ENUM_DEM_EXPLAIN_ARG_16,
+} enum_dem_explain_arg0;
+
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_ftext.s")
 
@@ -51,7 +70,13 @@ typedef struct struct_demangle_sp24 {
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_mcount.s")
 
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400DE4.s")
+static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
+    char sp20[0x400];
+
+    sprintf(sp20, arg0, arg1, arg2);
+    fprintf(stderr, "demangle fatal error: %s\n", sp20);
+    exit(1);
+}
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400E64.s")
 
@@ -789,7 +814,45 @@ int dem_print(struct_demangle_sp24*, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_print.s")
 #endif
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_explain.s")
+const char* dem_explain(enum_dem_explain_arg0 arg) {
+    switch (arg) {
+        case ENUM_DEM_EXPLAIN_ARG_1:
+            return "static construction function";
+        case ENUM_DEM_EXPLAIN_ARG_2:
+            return "static destruction function";
+        case ENUM_DEM_EXPLAIN_ARG_3:
+            return "virtual table";
+        case ENUM_DEM_EXPLAIN_ARG_4:
+            return "ptbl vector pointing to vtbls";
+        case ENUM_DEM_EXPLAIN_ARG_5:
+            return "function";
+        case ENUM_DEM_EXPLAIN_ARG_6:
+            return "member function";
+        case ENUM_DEM_EXPLAIN_ARG_7:
+            return "static member function";
+        case ENUM_DEM_EXPLAIN_ARG_8:
+            return "constant member function";
+        case ENUM_DEM_EXPLAIN_ARG_9:
+            return "conversion operator member function";
+        case ENUM_DEM_EXPLAIN_ARG_10:
+            return "constructor";
+        case ENUM_DEM_EXPLAIN_ARG_11:
+            return "destructor";
+        case ENUM_DEM_EXPLAIN_ARG_12:
+            return "data";
+        case ENUM_DEM_EXPLAIN_ARG_13:
+            return "member data";
+        case ENUM_DEM_EXPLAIN_ARG_14:
+            return "local variable";
+        case ENUM_DEM_EXPLAIN_ARG_15:
+            return "class type";
+        case ENUM_DEM_EXPLAIN_ARG_16:
+            return "template type";
+    }
+
+    func_00400DE4("bad type passed to dem_explain()", NULL, NULL);
+    return "";
+}
 
 int demangle(char* arg0, char* dst) {
     char sp40[0x1000];
