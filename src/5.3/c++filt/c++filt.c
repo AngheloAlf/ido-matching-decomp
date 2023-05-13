@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include "inttypes.h"
 
 typedef signed char            s8;
 typedef unsigned char          u8;
@@ -60,6 +61,39 @@ typedef enum enum_dem_explain_arg0 {
     /* 16 */ ENUM_DEM_EXPLAIN_ARG_16,
 } enum_dem_explain_arg0;
 
+// static char* B_10000DD0;
+// .space 0x04
+
+// static UNK_TYPE B_10000DD4;
+// .space 0x04
+
+// static UNK_TYPE B_10000DD8;
+// .space 0x04
+
+// static UNK_TYPE B_10000DDC;
+// .space 0x04
+
+// static UNK_TYPE B_10000DE0;
+// .space 0x28
+
+// static UNK_TYPE B_10000E08;
+// .space 0x28
+
+// static UNK_TYPE B_10000E30;
+// .space 0x0C
+
+// static UNK_TYPE B_10000E3C;
+// .space 0x04
+
+// static UNK_TYPE __Argc;
+// .space 0x04
+
+// static UNK_TYPE __Argv;
+// .space 0x04
+
+// static UNK_TYPE __rld_obj_head;
+// .space 0x04
+
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_ftext.s")
 
@@ -78,9 +112,47 @@ static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) 
     exit(1);
 }
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400E64.s")
+#ifdef NON_MATCHING
+static
+// extern
+char * B_10000DD0;
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400EF8.s")
+// regalloc
+char* func_00400E64(s32 size) {
+    char* temp_t7;
+    char* var_v1;
+
+    if (size <= 0) {
+        func_00400DE4("bad argument to gs()", NULL, NULL);
+    }
+
+    var_v1 = B_10000DD0;
+    while (((uintptr_t)var_v1 % 4) != 0) {
+        temp_t7 = var_v1 + 1;
+        B_10000DD0 = temp_t7;
+        var_v1 = temp_t7;
+    }
+
+    B_10000DD0 = var_v1 + size;
+    return var_v1;
+}
+
+#else
+// static
+char* func_00400E64(int size);
+// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400E64.s")
+#endif
+
+static char* func_00400EF8(char* arg0) {
+    char* temp_v0;
+
+    if ((arg0 == NULL) || (arg0[0] == '\0')) {
+        func_00400DE4("bad argument to copy()", NULL, NULL);
+    }
+    temp_v0 = func_00400E64(strlen(arg0) + 1);
+    strcpy(temp_v0, arg0);
+    return temp_v0;
+}
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400FA4.s")
 
@@ -95,7 +167,6 @@ static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00402D50.s")
 
 #ifdef NON_EQUIVALENT
-void func_00400DE4(const char*, UNK_TYPE, UNK_TYPE);
 char* func_00400EF8(char*);
 void func_00400FA4(char*, int);
 char** func_004011B4(void);
@@ -740,6 +811,13 @@ void dem_printarglist(UNK_TYPE, char*, int);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007B8.s")
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_100007C0.s")
+extern UNK_TYPE D_10000000;
+// .word 0x00000000
+
+extern UNK_TYPE D_10000004;
+// .word 0xFFFFFFFF
+
+extern const char* D_10000008[];
 
 void dem_printfunc(struct_demangle_sp24*, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printfunc.s")
