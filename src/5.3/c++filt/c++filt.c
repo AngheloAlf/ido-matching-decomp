@@ -58,7 +58,7 @@ typedef enum enum_dem_explain_arg0 {
     /* 13 */ ENUM_DEM_EXPLAIN_ARG_13,
     /* 14 */ ENUM_DEM_EXPLAIN_ARG_14,
     /* 15 */ ENUM_DEM_EXPLAIN_ARG_15,
-    /* 16 */ ENUM_DEM_EXPLAIN_ARG_16,
+    /* 16 */ ENUM_DEM_EXPLAIN_ARG_16
 } enum_dem_explain_arg0;
 
 
@@ -69,7 +69,7 @@ static char* B_10000DD0;
 static char B_10000DD4;
 static char* B_10000DD8;
 static int B_10000DDC;
-static int B_10000DE0[10];
+static char* B_10000DE0[10];
 static int B_10000E08[10];
 static char B_10000E30[10];
 static char* B_10000E3C;
@@ -135,9 +135,46 @@ static char* func_00400EF8(char* arg0) {
     return temp_v0;
 }
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400FA4.s")
+#if 0
+void func_00400FA4(char* arg0, int arg1) {
+    int var_a0;
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004010F8.s")
+    if ((arg0 == NULL) || (*arg0 == 0) || (arg1 <= 0)) {
+        func_00400DE4("bad argument to push()", NULL, NULL);
+    }
+    var_a0 = D_10000004 + 1;
+    if (var_a0 >= 0xA) {
+        func_00400DE4("overflow of stack in push()", NULL, NULL);
+        var_a0 = D_10000004 + 1;
+    }
+    D_10000004 = var_a0;
+    B_10000DE0[D_10000004] = B_10000DD8;
+    B_10000E08[D_10000004] = B_10000DDC;
+    B_10000E30[D_10000004] = B_10000DD4;
+    B_10000DD8 = arg0;
+    B_10000DDC = arg1;
+    if (arg1 > 0) {
+        B_10000DD4 = *arg0;
+        B_10000DD8 = arg0 + 1;
+    } else {
+        B_10000DD4 = 0;
+    }
+    B_10000DDC = arg1 - 1;
+}
+#else
+// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400FA4.s")
+#endif
+
+static void func_004010F8(void) {
+    if (D_10000004 < 0) {
+        func_00400DE4("bad argument to pop()", NULL, NULL);
+    }
+
+    B_10000DD8 = B_10000DE0[D_10000004];
+    B_10000DDC = B_10000E08[D_10000004];
+    B_10000DD4 = B_10000E30[D_10000004];
+    D_10000004--;
+}
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
 
@@ -631,8 +668,8 @@ void dem_printarglist(UNK_TYPE, char*, int);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarglist.s")
 
 struct _struct_D_10000008_0x8 {
-    /* 0x0 */ s8* unk_0;                            /* inferred */
-    /* 0x4 */ s8* unk_4;                            /* inferred */
+    /* 0x0 */ const char* unk_0;                            /* inferred */
+    /* 0x4 */ const char* unk_4;                            /* inferred */
 };                                                  /* size = 0x8 */
 
 static struct _struct_D_10000008_0x8 D_10000008[0x29] = {
