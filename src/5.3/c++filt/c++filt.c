@@ -61,18 +61,30 @@ typedef enum enum_dem_explain_arg0 {
     /* 16 */ ENUM_DEM_EXPLAIN_ARG_16
 } enum_dem_explain_arg0;
 
+typedef struct struct_00401A70_arg0 {
+    /* 0x00 */ int unk_00;
+    /* 0x04 */ int unk_04;
+    /* 0x08 */ int unk_08;
+    /* 0x0C */ int unk_0C;
+    /* 0x10 */ int unk_10;
+    /* 0x14 */ int unk_14;
+    /* 0x18 */ int unk_18;
+    /* 0x1C */ int unk_1C;
+    /* 0x20 */ char unk_20;
+} struct_00401A70_arg0;
+
 
 static int D_10000000 = 0;
 static int D_10000004 = -1;
 
-static char* B_10000DD0;
+static void* B_10000DD0;
 static char B_10000DD4;
 static char* B_10000DD8;
 static int B_10000DDC;
 static char* B_10000DE0[10];
 static int B_10000E08[10];
 static char B_10000E30[10];
-static char* B_10000E3C;
+static struct_00401A70_arg0* B_10000E3C;
 
 
 
@@ -120,7 +132,7 @@ char* func_00400E64(s32 size) {
 
 #else
 // static
-char* func_00400E64(int size);
+void* func_00400E64(int size);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400E64.s")
 #endif
 
@@ -178,7 +190,24 @@ static void func_004010F8(void) {
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401A70.s")
+static struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
+    struct_00401A70_arg0* temp_v0;
+
+    if (arg0 == NULL) {
+        func_00400DE4("bad argument to arg_copy()", NULL, NULL);
+    }
+    temp_v0 = func_00400E64(sizeof(struct_00401A70_arg0));
+    temp_v0->unk_00 = arg0->unk_00;
+    temp_v0->unk_20 = arg0->unk_20;
+    temp_v0->unk_04 = arg0->unk_04;
+    temp_v0->unk_08 = arg0->unk_08;
+    temp_v0->unk_10 = arg0->unk_10;
+    temp_v0->unk_14 = arg0->unk_14;
+    temp_v0->unk_1C = arg0->unk_1C;
+    temp_v0->unk_0C = arg0->unk_0C;
+    temp_v0->unk_18 = 0;
+    return temp_v0;
+}
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
 
