@@ -808,32 +808,29 @@ int demangle(char* arg0, char* dst) {
     return 0;
 }
 
-#ifdef NON_MATCHING
-// static
-void func_004054C0(FILE* arg0) {
+static void func_004054C0(FILE* arg0) {
     char sp458[0x400];
-    char sp50[0x458-0x50];
-    char* var_s0;
+    char var_v0;
     char* temp_a0;
-    int var_v0;
+    char sp50[0x400];
+    char* var_s0;
 
     while (fgets(sp458, 0x400, arg0) != NULL) {
         var_s0 = sp458;
 
         while (1) {
-            while ((*var_s0 != 0) && (*var_s0 < 0x21)) {
+            while (*var_s0 && *var_s0 < 0x21) {
                 putc_locked(*var_s0, stdout);
-
-                var_s0 += 1;
+                var_s0++;
             }
 
-            if (*var_s0 == 0) {
+            if (!*var_s0) {
                 break;
             }
 
             temp_a0 = var_s0;
-            while ((*var_s0 != 0) && (*var_s0 >= 0x21)) {
-                var_s0 += 1;
+            while (*var_s0 && *var_s0 >= 0x21) {
+                var_s0++;
             }
 
             var_v0 = *var_s0;
@@ -845,11 +842,6 @@ void func_004054C0(FILE* arg0) {
         }
     }
 }
-#else
-// static
-void func_004054C0(FILE*);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004054C0.s")
-#endif
 
 int main(int argc, char** argv) {
     int ret = 0;
