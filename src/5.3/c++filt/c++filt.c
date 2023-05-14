@@ -77,7 +77,7 @@ typedef struct struct_00401A70_arg0 {
 static int D_10000000 = 0;
 static int D_10000004 = -1;
 
-static void* B_10000DD0;
+static char* B_10000DD0;
 static char B_10000DD4;
 static char* B_10000DD8;
 static int B_10000DDC;
@@ -105,36 +105,22 @@ static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) 
     exit(1);
 }
 
-#ifdef NON_MATCHING
-static
-// extern
-char * B_10000DD0;
-
-// regalloc
-char* func_00400E64(s32 size) {
-    char* temp_t7;
+static void* func_00400E64(int size) {
     char* var_v1;
 
     if (size <= 0) {
         func_00400DE4("bad argument to gs()", NULL, NULL);
     }
 
-    var_v1 = B_10000DD0;
-    while (((uintptr_t)var_v1 % 4) != 0) {
-        temp_t7 = var_v1 + 1;
-        B_10000DD0 = temp_t7;
-        var_v1 = temp_t7;
+
+    while (((uintptr_t)B_10000DD0 % 4) ) {
+        B_10000DD0++;
     }
 
+    var_v1 = B_10000DD0;
     B_10000DD0 = var_v1 + size;
     return var_v1;
 }
-
-#else
-// static
-void* func_00400E64(int size);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400E64.s")
-#endif
 
 static char* func_00400EF8(char* arg0) {
     char* temp_v0;
