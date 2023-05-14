@@ -87,6 +87,16 @@ static char B_10000E30[10];
 static struct_00401A70_arg0* B_10000E3C;
 
 
+typedef struct struct_dem_printarglist_arg0 {
+    /* 0x00 */ int unk_00;
+    /* 0x04 */ UNK_TYPE1 unk_04[0x14];
+    /* 0x18 */ struct struct_dem_printarglist_arg0* unk_18;
+    /* 0x1C */ UNK_TYPE1 unk_1C[0x4];
+    /* 0x20 */ char unk_20;
+} struct_dem_printarglist_arg0; // size >= 0x24
+
+void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
+
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_ftext.s")
 
@@ -679,8 +689,36 @@ int dem(char*, struct_demangle_sp24*, char*);
 void dem_printcl(char**, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printcl.s")
 
-void dem_printarglist(UNK_TYPE, char*, int);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarglist.s")
+void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
+    if ((arg0 == NULL) || (arg1 == NULL) || (arg2 < 0) || (arg2 >= 2)) {
+        func_00400DE4("bad argument to dem_printarglist()", NULL, NULL);
+    }
+
+    if ((arg0->unk_20 == 0x76) && (arg0->unk_00 == 0)&& (arg0->unk_18 != NULL) && (arg0->unk_18->unk_20 == 0x65) && (arg0->unk_18->unk_18 == 0)) {
+        strcpy(arg1, "...");
+    } else if ((arg0->unk_20 == 0x76) && (arg0->unk_00 == 0)) {
+        strcpy(arg1, "void");
+    } else {
+        int var_s1;
+
+        arg1[0] = 0;
+        var_s1 = 0;
+        while (arg0 != NULL) {
+            char sp4C[0x400];
+            var_s1++;
+
+            if (var_s1 >= 2) {
+                strcat(arg1, (arg0->unk_20 == 0x65) ? " " : ",");
+            }
+
+            dem_printarg(arg0, sp4C, arg2);
+            strcat(arg1, sp4C);
+            arg0 = arg0->unk_18;
+        }
+    }
+}
+
+// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
 
 struct _struct_D_10000008_0x8 {
     /* 0x0 */ const char* unk_0;                            /* inferred */
