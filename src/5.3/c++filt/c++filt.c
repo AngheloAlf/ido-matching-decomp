@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "inttypes.h"
+#include "ctype.h"
 
 typedef signed char            s8;
 typedef unsigned char          u8;
@@ -29,6 +30,12 @@ typedef s32 UNK_TYPE;
 typedef u8 UNK_TYPE1;
 #define UNK_SIZE 1
 
+//#define STATIC static
+#ifndef PERMUTER
+#define STATIC static
+#else
+#define STATIC 
+#endif
 
 typedef enum enum_dem_explain_arg0 {
     /*  1 */ ENUM_DEM_EXPLAIN_ARG_1 = 1,
@@ -89,26 +96,28 @@ typedef struct struct_00401A70_arg0 {
 } struct_00401A70_arg0;
 
 
-static int D_10000000 = 0;
-static int D_10000004 = -1;
+STATIC int D_10000000 = 0;
+STATIC int D_10000004 = -1;
 
-static char* B_10000DD0;
-static char B_10000DD4;
-static char* B_10000DD8;
-static int B_10000DDC;
-static char* B_10000DE0[10];
-static int B_10000E08[10];
-static char B_10000E30[10];
-static struct_00401A70_arg0* B_10000E3C;
+STATIC char* B_10000DD0;
+STATIC char B_10000DD4;
+STATIC char* B_10000DD8;
+STATIC int B_10000DDC;
+STATIC char* B_10000DE0[10];
+STATIC int B_10000E08[10];
+STATIC char B_10000E30[10];
+STATIC struct_00401A70_arg0* B_10000E3C;
 
 
 void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
 void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2);
 
+// STATIC
+struct_dem_printarglist_arg0 *func_00402D50(void);
 
 
 
-static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
+STATIC void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
     char sp20[0x400];
 
     sprintf(sp20, arg0, arg1, arg2);
@@ -116,7 +125,7 @@ static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) 
     exit(1);
 }
 
-static void* func_00400E64(int size) {
+STATIC void* func_00400E64(int size) {
     char* var_v1;
 
     if (size <= 0) {
@@ -133,7 +142,7 @@ static void* func_00400E64(int size) {
     return var_v1;
 }
 
-static char* func_00400EF8(char* arg0) {
+STATIC char* func_00400EF8(char* arg0) {
     char* temp_v0;
 
     if ((arg0 == NULL) || (arg0[0] == '\0')) {
@@ -175,7 +184,7 @@ void func_00400FA4(char* arg0, int arg1);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400FA4.s")
 #endif
 
-static void func_004010F8(void) {
+STATIC void func_004010F8(void) {
     if (D_10000004 < 0) {
         func_00400DE4("bad argument to pop()", NULL, NULL);
     }
@@ -187,53 +196,45 @@ static void func_004010F8(void) {
 }
 
 #ifdef NON_EQUIVALENT
+//#if 1
+// STATIC
 struct_dem_printcl_arg0* func_004011B4(void) {
     char sp74[0x400];
     int var_a2_2; // sp70
+    char* var_v1_2;
     int sp68;
+    int var_a2;
+    int var_t1;
     struct_dem_printcl_arg0* sp60;
     struct_dem_printcl_arg0* sp5C;
-    char* sp4C;
-    char* var_v1_2;
-    int temp_a0_2;
-    int temp_t4;
-
-    int var_a2;
-    int var_a3;
     int var_a3_2;
+    int var_a3;
     int var_s0;
     int var_s0_2;
-    int var_t1;
-
-    char* temp_a0;
     struct_dem_printarglist_arg0* temp_v0;
     struct_dem_printcl_arg0* temp_s5;
-
-
-
     char var_a0;
-    char* temp_a0_3;
-    char* temp_v1;
-    char* var_v1;
 
     sp60 = NULL;
     sp5C = NULL;
 
     var_t1 = 1;
     var_a2 = 0;
-    if (__ctype[*B_10000DD8+1] & 4) {
+
+    if (isdigit(*B_10000DD8)) {
         var_a2 = 1;
-        if (__ctype[B_10000DD8[1]+1] & 4) {
+        if (isdigit(B_10000DD8[1])) {
             var_a2 = 2;
         }
     }
-    temp_a0 = &B_10000DD8[var_a2];
-    if ((__ctype[B_10000DD4+1] & 4) && (temp_a0[0] == 0x51) && (__ctype[temp_a0[1] +1] & 4) && (temp_a0[2] == 0x5F)) {
+
+    if ((isdigit(B_10000DD4)) && (B_10000DD8[var_a2] == 0x51) && (isdigit(B_10000DD8[var_a2+1])) && (B_10000DD8[var_a2+2] == 0x5F)) {
         if (B_10000DDC > 0) {
             B_10000DD4 = *B_10000DD8++;
         } else {
             B_10000DD4 = 0;
         }
+
         B_10000DDC--;
         if (var_a2 != 0) {
             if (B_10000DDC > 0) {
@@ -252,6 +253,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             B_10000DDC -= 1;
         }
     }
+
     if (B_10000DD4 == 0x51) {
         sp68 = 1;
         if (B_10000DDC > 0) {
@@ -260,16 +262,16 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             B_10000DD4 = 0;
         }
         B_10000DDC -= 1;
-        temp_a0_2 = B_10000DD4 - 0x30;
-        if (!(__ctype[B_10000DD4+1] & 4)) {
+
+        if (!isdigit(B_10000DD4)) {
             D_10000000 = 1;
             return NULL;
         }
-        if (temp_a0_2 <= 0) {
+        if (B_10000DD4 - 0x30 <= 0) {
             D_10000000 = 1;
             return NULL;
         }
-        var_t1 = temp_a0_2;
+        var_t1 = B_10000DD4 - 0x30;
         if (B_10000DDC > 0) {
             B_10000DD4 = *B_10000DD8++;
         } else {
@@ -280,22 +282,24 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             D_10000000 = 1;
             return NULL;
         }
-        if (B_10000DDC > 0) {
 
+        if (B_10000DDC > 0) {
             B_10000DD4 = *B_10000DD8++;
         } else {
             B_10000DD4 = 0;
         }
+
         B_10000DDC -= 1;
-        sp68 = temp_a0_2;
+        sp68 = var_t1;
     }
 
     sp68 = var_t1 - 1;
     while (sp68 > 0) {
-        if (!(__ctype[B_10000DD4+1] & 4)) {
+        if (!isdigit(B_10000DD4)) {
             D_10000000 = 1;
             return NULL;
         }
+
         var_a3 = B_10000DD4 - 0x30;
         if (B_10000DDC > 0) {
             B_10000DD4 = *B_10000DD8++;
@@ -305,8 +309,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
 
         B_10000DDC--;
 
-
-        if (__ctype[B_10000DD4+1] & 4) {
+        if (isdigit(B_10000DD4)) {
             var_a3 = ((var_a3 * 0xA) + B_10000DD4) - 0x30;
             if (B_10000DDC > 0) {
                 B_10000DD4 = *B_10000DD8++;
@@ -316,7 +319,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             B_10000DDC--;
         }
 
-        if (__ctype[B_10000DD4+1] & 4) {
+        if (isdigit(B_10000DD4)) {
             var_a3 = ((var_a3 * 0xA) + B_10000DD4) - 0x30;
             if (B_10000DDC > 0) {
                 B_10000DD4 = *B_10000DD8++;
@@ -333,7 +336,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
         var_a2_2 = 0;
 
         while (var_a2_2 < var_a3) {
-            if (!(__ctype[B_10000DD4+1] & 7) && (B_10000DD4 != 0x5F)) {
+            if (!isalnum(B_10000DD4) && (B_10000DD4 != 0x5F)) {
                 D_10000000 = 1;
                 return NULL;
             }
@@ -349,55 +352,49 @@ struct_dem_printcl_arg0* func_004011B4(void) {
 
 
         sp74[var_a2_2] = 0;
-        var_s0 = 0;
         temp_s5 = func_00400E64(0x10);
         temp_s5->unk_8 = func_00400EF8(sp74);
         temp_s5->unk_4 = NULL;
 
-        var_v1 = sp74;
-        while (var_s0 != var_a2_2) {
-            if ((var_v1[0] == 0x5F) && (var_v1[1] == 0x5F) && (var_v1[2] == 0x70) && (var_v1[3] == 0x74)) {
+        for (var_s0 = 0; var_s0 < var_a2_2; var_s0++) {
+            if ((sp74[var_s0] == 0x5F) && (sp74[var_s0+1] == 0x5F) && (sp74[var_s0+2] == 0x70) && (sp74[var_s0+3] == 0x74)) {
                 break;
             }
-            var_s0 += 1;
-            var_v1 += 1;
         }
 
-        temp_v1 = &sp74[var_s0];
         if (var_s0 == 0) {
             D_10000000 = 1;
             return NULL;
         }
         if (var_s0 == var_a2_2) {
             temp_s5->unk_0 = func_00400EF8(sp74);
-
         } else {
-            if ((temp_v1[4] != 0x5F) || (temp_v1[5] != 0x5F)) {
+            if ((sp74[var_s0+4] != 0x5F) || (sp74[var_s0+5] != 0x5F)) {
                 D_10000000 = 1;
                 return NULL;
             }
-            temp_v1[0] = 0;
-            sp4C = temp_v1;
+            sp74[var_s0] = 0;
             temp_s5->unk_0 = func_00400EF8(sp74);
-    
-            var_a3_2 = sp4C[6] - 0x30;
-            if (!(__ctype[sp4C[6]+1] & 4)) {
+
+            var_a3_2 = sp74[var_s0+6] - 0x30;
+            if (!(isdigit(sp74[var_s0+6]))) {
                 D_10000000 = 1;
                 return NULL;
             }
-            var_a0 = sp4C[6+1];
             var_s0_2 = var_s0 + 6 + 1;
-            var_v1_2 = &sp4C[6+1];
-    
-            if (__ctype[var_a0+1] & 4) {
+            var_a0 = sp74[var_s0_2];
+            var_v1_2 = &sp74[var_s0_2];
+
+            if (0) { }
+            if (isdigit(var_a0)) {
                 var_a3_2 = (var_a0 + (var_a3_2 * 0xA)) - 0x30;
                 var_a0 = var_v1_2[1];
-                var_s0_2 += 1;
-    
+
                 var_v1_2 += 1;
+                var_s0_2 += 1;
             }
-    
-            if (__ctype[var_a0+1] & 4) {
+
+            if (isdigit(var_a0)) {
                 var_a3_2 = (var_a0 + (var_a3_2 * 0xA)) - 0x30;
                 var_s0_2 += 1;
                 var_v1_2 += 1;
@@ -414,6 +411,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
                 D_10000000 = 1;
                 return NULL;
             }
+
             func_00400FA4(&sp74[var_s0_2+1], var_a3_2 - 1);
             temp_v0 = func_00402D50();
             if ((temp_v0 == NULL) || (B_10000DD4 != 0)) {
@@ -440,7 +438,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
 #endif
 
-static struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
+STATIC struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
     struct_00401A70_arg0* temp_v0;
 
     if (arg0 == NULL) {
@@ -461,7 +459,6 @@ static struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
 
-struct_dem_printarglist_arg0 *func_00402D50(void);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00402D50.s")
 
 #ifdef NON_EQUIVALENT
@@ -549,7 +546,7 @@ s32 dem(char* arg0, struct_demangle_sp24* arg1, s8* arg2) {
     temp_v1 = (u8) *arg0;
     if ((temp_v1 == 0x5F) && (arg0[1] == 0x5F)) {
         var_a0 = arg0 + 2;
-        temp_t8 = __ctype[arg0[2]+1] & 4;
+        temp_t8 = isdigit(arg0[2]);
         if (temp_t8 != 0) {
             var_a1 = 0;
             if (temp_t8 != 0) {
@@ -559,7 +556,7 @@ s32 dem(char* arg0, struct_demangle_sp24* arg1, s8* arg2) {
                     temp_a1 = var_v0 + (var_a1 * 0xA);
                     var_v0 = (u8) *var_a0;
                     var_a1 = temp_a1 - 0x30;
-                } while (__ctype[var_v0+1] & 4);
+                } while (isdigit(var_v0));
             }
 
             if ((u8) *var_a0 != 0) {
@@ -608,7 +605,7 @@ s32 dem(char* arg0, struct_demangle_sp24* arg1, s8* arg2) {
         if ((temp_v0_3 == 0x5F) && (var_a0_3[1] == 0x5F) && (var_a0_3[2] == 0x70) && (var_a0_3[3] == 0x74) && (var_a0_3[4] == 0x5F) && (var_a0_3[5] == 0x5F)) {
             var_v1_2 = 1;
         }
-        if ((var_v1_2 == 0) && (arg0[0] == 0x5F) && (arg0[1] == 0x5F) && (arg0[2] == 0x51) && (__ctype[arg0[3]+1] & 4) && (arg0[4] == 0x5F)) {
+        if ((var_v1_2 == 0) && (arg0[0] == 0x5F) && (arg0[1] == 0x5F) && (arg0[2] == 0x51) && (isdigit(arg0[3])) && (arg0[4] == 0x5F)) {
             var_v1_2 = 2;
         }
 
@@ -754,7 +751,7 @@ s32 dem(char* arg0, struct_demangle_sp24* arg1, s8* arg2) {
                     B_10000DD4 = 0;
                 }
                 B_10000DDC = temp_t7_2 - 1;
-                if (!(__ctype[B_10000DD4+1] & 4)) {
+                if (!(isdigit(B_10000DD4))) {
                     return -1;
                 }
                 var_a1_2 = B_10000DD4 - 0x30;
@@ -767,7 +764,7 @@ s32 dem(char* arg0, struct_demangle_sp24* arg1, s8* arg2) {
                 }
                 temp_t8_6 = B_10000DDC - 1;
                 B_10000DDC = temp_t8_6;
-                temp_t6_5 = __ctype[B_10000DD4+1] & 4;
+                temp_t6_5 = isdigit(B_10000DD4);
                 var_v0_4 = temp_t6_5;
                 if (temp_t6_5 != 0) {
                     var_a1_2 = ((var_a1_2 * 0xA) + B_10000DD4) - 0x30;
@@ -779,7 +776,7 @@ s32 dem(char* arg0, struct_demangle_sp24* arg1, s8* arg2) {
                         B_10000DD4 = 0;
                     }
                     B_10000DDC = temp_t8_6 - 1;
-                    var_v0_4 = __ctype[B_10000DD4+1] & 4;
+                    var_v0_4 = isdigit(B_10000DD4);
                 }
                 if (var_v0_4 != 0) {
                     var_a1_2 = ((var_a1_2 * 0xA) + B_10000DD4) - 0x30;
@@ -1190,7 +1187,7 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
+// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
 #endif
 
 struct _struct_D_10000008_0x8 {
@@ -1198,7 +1195,7 @@ struct _struct_D_10000008_0x8 {
     /* 0x4 */ const char* unk_4;                            /* inferred */
 };                                                  /* size = 0x8 */
 
-static struct _struct_D_10000008_0x8 D_10000008[0x29] = {
+STATIC struct _struct_D_10000008_0x8 D_10000008[0x29] = {
     { "__pp", "operator++" },
     { "__as", "operator=" },
     { "__vc", "operator[]" },
@@ -1318,9 +1315,9 @@ int dem_print(struct_demangle_sp24*, char*);
 const char* dem_explain(enum_dem_explain_arg0 arg) {
     switch (arg) {
         case ENUM_DEM_EXPLAIN_ARG_1:
-            return "static construction function";
+            return "STATIC construction function";
         case ENUM_DEM_EXPLAIN_ARG_2:
-            return "static destruction function";
+            return "STATIC destruction function";
         case ENUM_DEM_EXPLAIN_ARG_3:
             return "virtual table";
         case ENUM_DEM_EXPLAIN_ARG_4:
@@ -1330,7 +1327,7 @@ const char* dem_explain(enum_dem_explain_arg0 arg) {
         case ENUM_DEM_EXPLAIN_ARG_6:
             return "member function";
         case ENUM_DEM_EXPLAIN_ARG_7:
-            return "static member function";
+            return "STATIC member function";
         case ENUM_DEM_EXPLAIN_ARG_8:
             return "constant member function";
         case ENUM_DEM_EXPLAIN_ARG_9:
@@ -1372,7 +1369,7 @@ int demangle(char* arg0, char* dst) {
     return 0;
 }
 
-static void func_004054C0(FILE* arg0) {
+STATIC void func_004054C0(FILE* arg0) {
     char sp458[0x400];
     char var_v0;
     char* temp_a0;

@@ -1,0 +1,14 @@
+compiler_type = "ido"
+
+[preserve_macros]
+isalpha = "int"
+isupper = "int"
+islower = "int"
+isdigit = "int"
+isxdigit = "int"
+isalnum = "int"
+isspace = "int"
+ispunct = "int"
+isprint = "int"
+isgraph = "int"
+iscntrl = "int"
