@@ -106,15 +106,6 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
 void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2);
 
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_ftext.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400BD0.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/__start.s")
-
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/_mcount.s")
-
-
 static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
     char sp20[0x400];
 
@@ -754,7 +745,197 @@ void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) 
     }
 }
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
+#ifdef NON_EQUIVALENT
+void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
+    char* sp1C84;
+    char sp1884[0x400];
+    char sp1484[0x400];
+    char sp1084[0x400];
+    char spC84[0x400];
+    // spC7C ?
+    char* var_s1_2;
+    char* var_s3;
+    char sp87C[0x400];
+    int sp878;
+    // sp874 ?
+    char* var_s3_2;
+    char sp474[0x400];
+    char sp74[0x400];
+    int temp_s0;
+    int sp6C;
+    char* var_s0;
+    int var_s0_5;
+    char* var_s1;
+    int var_s5;
+
+    if ((arg0 == NULL) || (arg1 == NULL) || (arg2 < 0) || ((arg2 >= 2))) {
+        func_00400DE4("bad argument to dem_printarg()", NULL, NULL);
+    }
+    sp6C = arg2 == 0;
+    switch (arg0->unk_20) {
+    case 0x76:
+        sp1C84 = "void";
+        break;
+    case 0x63:
+        sp1C84 = "char";
+        break;
+    case 0x73:
+        sp1C84 = "short";
+        break;
+    case 0x69:
+        sp1C84 = "int";
+        break;
+    case 0x6C:
+        sp1C84 = "long";
+        break;
+    case 0x4C:
+        sp1C84 = "long long";
+        break;
+    case 0x66:
+        sp1C84 = "float";
+        break;
+    case 0x64:
+        sp1C84 = "double";
+        break;
+    case 0x72:
+        sp1C84 = "long double";
+        break;
+    case 0x65:
+        sp1C84 = "...";
+        sp6C = 1;
+        break;
+    case 0x46:
+        dem_printarg(arg0->unkC, spC84, 0);
+        dem_printarglist(arg0->unk8, sp1084, 0);
+        break;
+    case 0x43:
+        dem_printcl(arg0->unk10, sp1884);
+        sp1C84 = sp1884;
+        break;
+    default:
+        func_00400DE4("bad base type in dem_printarg()", NULL, NULL);
+        break;
+    }
+
+    sp87C[0] = 0;
+    var_s0 = arg0->unk_00;
+    if (var_s0 == 0) {
+        var_s0 = "";
+    }
+
+    var_s1 = var_s0;
+    while (*var_s1 != 0) {
+        if ((*var_s1 == 0x43) && (var_s1[1] != 0x50) && (var_s1[1] != 0x52) && (var_s1[1] != 0x4D) && (var_s1[1] != 0x56) && ((var_s1[1] != 0) || ((u8) arg0->unk_20 != 0x46))) {
+
+            strcat(sp87C, "const ");
+            break;
+        }
+        var_s1 += 1;
+    }
+
+    var_s1 = var_s0;
+    while (*var_s1 != 0) {
+        if (*var_s1 == 0x55) {
+            strcat(sp87C, "unsigned ");
+            break;
+        
+        }
+        var_s1 += 1;
+    }
+
+    var_s1 = var_s0;
+    sp74[0] = 0;
+    sp878 = 0;
+    var_s5 = 0;
+    while (*var_s1 != 0) {
+        if (*var_s1 == 0x50) {
+            sprintf(sp474, "*%s", sp74);
+            strcpy(sp74, sp474);
+        } else if (*var_s1 == 0x52) {
+            sprintf(sp474, "&%s", sp74);
+            strcpy(sp74, sp474);
+        } else if (*var_s1 == 0x4D) {
+            dem_printcl(arg0->unk14[var_s5++], sp1484);
+            sprintf(sp474, "%s::*%s", sp1484, sp74);
+            strcpy(sp74, sp474);
+        } else if ((*var_s1 == 0x43) && (((var_s1[1] == 0x50)) || ((var_s1[1] == 0x56) && (var_s1[2] == 0x50)))) {
+            sprintf(sp474, " *const%s%s", (isalnum(sp74[0]) || (sp74[0] == 0x5F)) ? " " : "" , sp74);
+            strcpy(sp74, sp474);
+            var_s1 += 1;
+            if (var_s1[1] == 0x56) {
+                var_s1 += 1;
+            }
+        } else if ((*var_s1 == 0x43) && ( (var_s1[1] == 0x52) || ((var_s1[1] == 0x56) && (var_s1[2] == 0x52)))) {
+            sprintf(sp474, " &const%s%s", (isalnum(sp74[0]) || (sp74[0] == 0x5F)) ? " " : "", sp74);
+            strcpy(sp74, sp474);
+            var_s1 += 1;
+            if (var_s1[1] == 0x56) {
+                var_s1 += 1;
+            }
+        } else if ((*var_s1 == 0x43) && (var_s1[1] == 0x4D)) {
+            dem_printcl(arg0->unk14[var_s5++], sp1484);
+            sprintf(sp474, "%s::*const%s%s", sp1484, ((isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " " : "", sp74);
+            strcpy(sp74, sp474);
+            var_s1 += 1;
+        } else if (*var_s1 == 0x41) {
+            temp_s0 = arg0->unk4[sp878];
+            sp878 += 1;
+
+            var_s3 = (sp6C != 0) ? "" : "@";
+
+            if (sp74[0] == 0) {
+                sp6C = 1;
+                sprintf(sp474, "%s[%ld]", var_s3, temp_s0);
+            } else if ((sp74[0] == 0x28) || (sp74[0] == 0x5B)) {
+                sprintf(sp474, "%s[%ld]", sp74, temp_s0);
+            } else {
+                sp6C = 1;
+                sprintf(sp474, "(%s%s)[%ld]", sp74, var_s3, temp_s0);
+            }
+            strcpy(sp74, sp474);
+        } else if ((*var_s1 != 0x55) && (*var_s1 != 0x43) && (*var_s1 != 0x53) && (*var_s1 != 0x56)) {
+            func_00400DE4("bad value in modifier list", NULL, NULL);
+        }
+        var_s1 += 1;
+    }
+
+    if (sp6C != 0) {
+        var_s3_2 = "";
+    } else {
+        var_s3_2 = "@";
+    }
+
+    if (arg0->unk_20 == 0x46) {
+        var_s0_5 = 0;
+        if (sp74[0] == 0x20) {
+            var_s0_5 = 1;
+        }
+
+        var_s1_2 = "";
+        if ((arg0->unk_00 != 0) && (arg0->unk_00[strlen(arg0->unk_00)-1]  == 0x43)) {
+            var_s1_2 = " const";
+        }
+        if (sp74[var_s0_5] != 0) {
+            sprintf(arg1, "%s%s (%s%s)(%s)%s", sp87C, spC84, sp74[var_s0_5], var_s3_2, sp1084, var_s1_2);
+        } else {
+            sprintf(arg1, "%s%s %s(%s)%s", sp87C, spC84, var_s3_2, sp1084, var_s1_2);
+        }
+    } else {
+        sprintf(arg1, "%s%s%s%s%s", sp87C, sp1C84, ((sp74[0] == 0x28) || (isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " ":"", sp74, var_s3_2);
+    }
+
+    if (arg0->unk1C != NULL) {
+        if (isdigit(*arg0->unk1C) || (*arg0->unk1C == 0x2D)) {
+            sprintf(sp474, "(%s)%s", arg1, arg0->unk1C);
+        } else {
+            sprintf(sp474, "&%s", arg0->unk1C);
+        }
+        strcpy(arg1, sp474);
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
+#endif
 
 struct _struct_D_10000008_0x8 {
     /* 0x0 */ const char* unk_0;                            /* inferred */
@@ -994,8 +1175,3 @@ int main(int argc, char** argv) {
     exit(ret);
     return 0;
 }
-
-
-// releaseid
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/STR_10000CA0.s")
-
