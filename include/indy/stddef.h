@@ -25,7 +25,7 @@
 /*	actual or intended publication of such source code.	*/
 #ifndef __STDDEF_H__
 #define __STDDEF_H__
-#ident "$Revision: 1.17 $"
+// #ident "$Revision: 1.17 $"
 
 #include <sgidefs.h>
 

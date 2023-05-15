@@ -16,7 +16,7 @@
 extern "C" {
 #endif
 
-#ident "$Revision: 3.50 $ $Author: jwag $"
+// #ident "$Revision: 3.50 $ $Author: jwag $"
 
 #if (defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS))
 #include <sys/types.h>

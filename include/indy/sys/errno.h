@@ -10,7 +10,7 @@
 #ifndef _SVC_ERRNO_H	/* wrapper symbol for kernel use */
 #define _SVC_ERRNO_H	/* subject to change without notice */
 
-#ident	"$Revision: 3.24 $"
+// #ident	"$Revision: 3.24 $"
 
 /*
  *  		PROPRIETARY NOTICE (Combined)

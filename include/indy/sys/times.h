@@ -14,7 +14,7 @@ extern "C" {
 
 /* sys/times.h */
 
-#ident	"$Revision: 3.12 $"
+// #ident	"$Revision: 3.12 $"
 
 #include <sys/types.h>
 

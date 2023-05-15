@@ -22,7 +22,7 @@
 #ifndef _FS_PROCFS_PROCFS_H	/* wrapper symbol for kernel use */
 #define _FS_PROCFS_PROCFS_H	/* subject to change without notice */
 
-#ident	"$Revision: 1.41 $"
+// #ident	"$Revision: 1.41 $"
 
 #include <sys/fault.h>
 #include <sys/siginfo.h>

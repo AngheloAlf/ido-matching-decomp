@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-#ident "$Revision: 1.35 $"
+// #ident "$Revision: 1.35 $"
 
 /* Definitions for malloc(3X) and amalloc(3P) routines */
 

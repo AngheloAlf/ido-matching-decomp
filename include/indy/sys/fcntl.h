@@ -9,8 +9,8 @@
 /*	The copyright notice above does not evidence any   	*/
 /*	actual or intended publication of such source code.	*/
 
-/*#ident	"@(#)kern-port:sys/fcntl.h	10.3"*/
-#ident	"$Revision: 3.37 $"
+/*// #ident	"@(#)kern-port:sys/fcntl.h	10.3"*/
+// #ident	"$Revision: 3.37 $"
 
 #ifndef _SYS_TYPES_H
 #include <sys/types.h>

@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#ident	"$Revision: 3.97 $"
+// #ident	"$Revision: 3.97 $"
 
 /* ANSI C Notes:
  *

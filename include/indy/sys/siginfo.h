@@ -10,7 +10,7 @@
 #ifndef _SYS_SIGINFO_H
 #define _SYS_SIGINFO_H
 
-#ident "$Revision: 1.13 $"
+// #ident "$Revision: 1.13 $"
 
 #ifdef __cplusplus
 extern "C" {

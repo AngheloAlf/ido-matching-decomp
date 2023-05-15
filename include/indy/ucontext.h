@@ -31,7 +31,7 @@
 extern "C" {
 #endif
 
-#ident "$Revision: 1.1 $"
+// #ident "$Revision: 1.1 $"
 
 #include <sys/ucontext.h>
 

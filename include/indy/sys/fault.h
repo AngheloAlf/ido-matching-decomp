@@ -11,7 +11,7 @@
  **************************************************************************/
 #ifndef __SYS_FAULT_H__
 #define __SYS_FAULT_H__
-#ident	"$Revision: 1.2 $"
+// #ident	"$Revision: 1.2 $"
 
 #include "sys/types.h"
 /*

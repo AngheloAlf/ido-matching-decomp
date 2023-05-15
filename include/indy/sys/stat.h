@@ -7,7 +7,7 @@
 
 #ifndef _SYS_STAT_H
 #define _SYS_STAT_H
-#ident	"$Revision: 3.34 $"
+// #ident	"$Revision: 3.34 $"
 
 #ifdef __cplusplus
 extern "C" {

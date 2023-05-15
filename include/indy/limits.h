@@ -24,7 +24,7 @@
 #ifndef __LIMITS_H__
 #define __LIMITS_H__
 
-#ident "$Revision: 7.27 $"
+// #ident "$Revision: 7.27 $"
 #include <sgidefs.h>
 
 #ifdef __cplusplus

@@ -26,7 +26,7 @@
 #ifndef _SYS_SELECT_H
 #define _SYS_SELECT_H
 
-#ident	"$Revision: 1.4 $"
+// #ident	"$Revision: 1.4 $"
 
 /*
  * Select uses bit masks of file descriptors in longs.

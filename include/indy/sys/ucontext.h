@@ -10,7 +10,7 @@
  */
 #ifndef _SYS__UCONTEXT_H
 #define _SYS__UCONTEXT_H
-#ident "$Revision: 1.14 $"
+// #ident "$Revision: 1.14 $"
 
 #ifdef __cplusplus
 extern "C" {

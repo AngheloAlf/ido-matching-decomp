@@ -18,7 +18,7 @@
 #ifndef _SYS_BSD_TYPES_H
 #define _SYS_BSD_TYPES_H
 
-#ident	"$Revision: 1.2 $"
+// #ident	"$Revision: 1.2 $"
 
 /*
  * These typedefs are needed by lots of BSD derived code - especially

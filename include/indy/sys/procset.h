@@ -8,7 +8,7 @@
 #ifndef _SYS_PROCSET_H
 #define _SYS_PROCSET_H
 
-#ident "$Revision: 1.6 $"
+// #ident "$Revision: 1.6 $"
 
 #include <sys/types.h>
 

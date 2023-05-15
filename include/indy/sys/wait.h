@@ -23,7 +23,7 @@
 extern "C" {
 #endif
 
-#ident "$Revision: 1.37 $"
+// #ident "$Revision: 1.37 $"
 
 /*
  * This file holds definitions relevent to the wait system call.

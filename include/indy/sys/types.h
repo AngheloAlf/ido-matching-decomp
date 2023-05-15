@@ -24,7 +24,7 @@
 #ifndef _SYS_TYPES_H
 #define _SYS_TYPES_H
 
-#ident	"$Revision: 3.70 $"
+// #ident	"$Revision: 3.70 $"
 
 #include <sgidefs.h>
 

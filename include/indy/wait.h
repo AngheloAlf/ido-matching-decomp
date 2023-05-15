@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#ident "$Revision: 1.3 $"
+// #ident "$Revision: 1.3 $"
 /*
 *
 * Copyright 1992, Silicon Graphics, Inc.
@@ -30,7 +30,7 @@ extern "C" {
 /*	The copyright notice above does not evidence any   	*/
 /*	actual or intended publication of such source code.	*/
 
-#ident	"@(#)head:wait.h	1.1"
+// #ident	"@(#)head:wait.h	1.1"
 
 
 #include <sys/wait.h>

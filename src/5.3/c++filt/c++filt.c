@@ -30,12 +30,12 @@ typedef s32 UNK_TYPE;
 typedef u8 UNK_TYPE1;
 #define UNK_SIZE 1
 
-//#define STATIC static
-#ifndef PERMUTER
 #define STATIC static
-#else
-#define STATIC 
-#endif
+//#ifndef PERMUTER
+//#define STATIC static
+//#else
+//#define STATIC 
+//#endif
 
 typedef enum enum_dem_explain_arg0 {
     /*  1 */ ENUM_DEM_EXPLAIN_ARG_1 = 1,
@@ -195,8 +195,8 @@ STATIC void func_004010F8(void) {
     D_10000004--;
 }
 
-#ifdef NON_EQUIVALENT
-//#if 1
+//#ifdef NON_EQUIVALENT
+#if 1
 // STATIC
 struct_dem_printcl_arg0* func_004011B4(void) {
     char sp74[0x400];

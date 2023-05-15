@@ -18,7 +18,7 @@ extern "C" {
 /*	The copyright notice above does not evidence any   	*/
 /*	actual or intended publication of such source code.	*/
 
-#ident "$Revision: 7.8 $"
+// #ident "$Revision: 7.8 $"
 
 /* ANSI C Notes:
  *

@@ -17,7 +17,7 @@
 extern "C" {
 #endif
 
-#ident "$Revision: 3.33 $"
+// #ident "$Revision: 3.33 $"
 /*
  * Header for tasking
  */

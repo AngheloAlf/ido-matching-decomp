@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#ident "$Revision: 1.15 $"
+// #ident "$Revision: 1.15 $"
 /*
 *
 * Copyright 1992, Silicon Graphics, Inc.

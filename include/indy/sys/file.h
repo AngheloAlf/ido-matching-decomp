@@ -14,8 +14,8 @@
 extern "C" {
 #endif
 
-/*#ident	"@(#)uts-3b2:fs/file.h	1.5"*/
-#ident	"$Revision: 3.41 $"
+/*// #ident	"@(#)uts-3b2:fs/file.h	1.5"*/
+// #ident	"$Revision: 3.41 $"
 
 #if defined(_KERNEL) || defined(_KMEMUSER)
 #include <sys/types.h>

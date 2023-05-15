@@ -14,7 +14,7 @@
  */
 #ifndef __SYS_SYSCALL_H__
 #define __SYS_SYSCALL_H__
-#ident	"$Revision: 1.29 $"
+// #ident	"$Revision: 1.29 $"
 
 #if defined(_LANGUAGE_ASSEMBLY)
 /*

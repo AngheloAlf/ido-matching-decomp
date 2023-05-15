@@ -20,7 +20,7 @@
 extern "C" {
 #endif
 
-#ident "$Revision: 3.33 $"
+// #ident "$Revision: 3.33 $"
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 /*

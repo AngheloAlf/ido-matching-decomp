@@ -12,8 +12,8 @@
 extern "C" {
 #endif
 
-/*#ident	"@(#)kern-port:sys/ioctl.h	10.2"*/
-#ident	"$Revision: 3.10 $"
+/*// #ident	"@(#)kern-port:sys/ioctl.h	10.2"*/
+// #ident	"$Revision: 3.10 $"
 /*
  *	Ioctl commands
  */

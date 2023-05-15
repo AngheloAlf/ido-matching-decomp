@@ -23,7 +23,7 @@ extern "C" {
  * rights reserved under the Copyright Laws of the United States.
  */
 
-#ident "$Revision: 1.3 $"
+// #ident "$Revision: 1.3 $"
 
 /*
  *	@(#) std.h 1.1 88/03/30 inccmd:std.h

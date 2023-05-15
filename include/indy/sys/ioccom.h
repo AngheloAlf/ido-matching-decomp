@@ -10,8 +10,8 @@
 #ifndef _FS_IOCCOM_H	/* wrapper symbol for kernel use */
 #define _FS_IOCCOM_H	/* subject to change without notice */
 
-/*#ident	"@(#)uts-3b2:fs/ioccom.h	1.3"*/
-#ident	"$Revision: 1.2 $"
+/*// #ident	"@(#)uts-3b2:fs/ioccom.h	1.3"*/
+// #ident	"$Revision: 1.2 $"
 
 /*
  *  		PROPRIETARY NOTICE (Combined)

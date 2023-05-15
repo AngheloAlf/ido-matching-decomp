@@ -12,7 +12,7 @@ extern "C" {
 /* | consent of MIPS.                                               | */
 /* ------------------------------------------------------------------ */
 
-/* #ident "$Revision: 7.8 $" */
+/* // #ident "$Revision: 7.8 $" */
 
 /* ANSI C Notes:
  *

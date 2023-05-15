@@ -26,7 +26,7 @@
  */
 
 /*	time.h	6.1	83/07/29	*/
-#ident	"$Revision: 3.31 $"
+// #ident	"$Revision: 3.31 $"
 
 #ifndef _SYS_TIME_H
 #define _SYS_TIME_H
