@@ -60,7 +60,7 @@ typedef struct struct_dem_printarglist_arg0 {
 typedef struct struct_dem_printcl_arg0 {
     /* 0x0 */ char *unk_0;
     /* 0x4 */ struct_dem_printarglist_arg0 *unk_4;
-    /* 0x8 */ UNK_TYPE1 unk_8[4];
+    /* 0x8 */ char *unk_8;
     /* 0xC */ struct struct_dem_printcl_arg0 *unk_C;
 } struct_dem_printcl_arg0; // size >= 0x10
 
@@ -104,6 +104,8 @@ static struct_00401A70_arg0* B_10000E3C;
 
 void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
 void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2);
+
+
 
 
 static void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
@@ -169,6 +171,7 @@ void func_00400FA4(char* arg0, int arg1) {
     B_10000DDC = arg1 - 1;
 }
 #else
+void func_00400FA4(char* arg0, int arg1);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400FA4.s")
 #endif
 
@@ -183,7 +186,259 @@ static void func_004010F8(void) {
     D_10000004--;
 }
 
+#ifdef NON_EQUIVALENT
+struct_dem_printcl_arg0* func_004011B4(void) {
+    char sp74[0x400];
+    int var_a2_2; // sp70
+    int sp68;
+    struct_dem_printcl_arg0* sp60;
+    struct_dem_printcl_arg0* sp5C;
+    char* sp4C;
+    char* var_v1_2;
+    int temp_a0_2;
+    int temp_t4;
+
+    int var_a2;
+    int var_a3;
+    int var_a3_2;
+    int var_s0;
+    int var_s0_2;
+    int var_t1;
+
+    char* temp_a0;
+    struct_dem_printarglist_arg0* temp_v0;
+    struct_dem_printcl_arg0* temp_s5;
+
+
+
+    char var_a0;
+    char* temp_a0_3;
+    char* temp_v1;
+    char* var_v1;
+
+    sp60 = NULL;
+    sp5C = NULL;
+
+    var_t1 = 1;
+    var_a2 = 0;
+    if (__ctype[*B_10000DD8+1] & 4) {
+        var_a2 = 1;
+        if (__ctype[B_10000DD8[1]+1] & 4) {
+            var_a2 = 2;
+        }
+    }
+    temp_a0 = &B_10000DD8[var_a2];
+    if ((__ctype[B_10000DD4+1] & 4) && (temp_a0[0] == 0x51) && (__ctype[temp_a0[1] +1] & 4) && (temp_a0[2] == 0x5F)) {
+        if (B_10000DDC > 0) {
+            B_10000DD4 = *B_10000DD8++;
+        } else {
+            B_10000DD4 = 0;
+        }
+        B_10000DDC--;
+        if (var_a2 != 0) {
+            if (B_10000DDC > 0) {
+                B_10000DD4 = *B_10000DD8++;
+            } else {
+                B_10000DD4 = 0;
+            }
+            B_10000DDC--;
+        }
+        if (var_a2 == 2) {
+            if (B_10000DDC > 0) {
+                B_10000DD4 = *B_10000DD8++;
+            } else {
+                B_10000DD4 = 0;
+            }
+            B_10000DDC -= 1;
+        }
+    }
+    if (B_10000DD4 == 0x51) {
+        sp68 = 1;
+        if (B_10000DDC > 0) {
+            B_10000DD4 = *B_10000DD8++;
+        } else {
+            B_10000DD4 = 0;
+        }
+        B_10000DDC -= 1;
+        temp_a0_2 = B_10000DD4 - 0x30;
+        if (!(__ctype[B_10000DD4+1] & 4)) {
+            D_10000000 = 1;
+            return NULL;
+        }
+        if (temp_a0_2 <= 0) {
+            D_10000000 = 1;
+            return NULL;
+        }
+        var_t1 = temp_a0_2;
+        if (B_10000DDC > 0) {
+            B_10000DD4 = *B_10000DD8++;
+        } else {
+            B_10000DD4 = 0;
+        }
+        B_10000DDC -= 1;
+        if (B_10000DD4 != 0x5F) {
+            D_10000000 = 1;
+            return NULL;
+        }
+        if (B_10000DDC > 0) {
+
+            B_10000DD4 = *B_10000DD8++;
+        } else {
+            B_10000DD4 = 0;
+        }
+        B_10000DDC -= 1;
+        sp68 = temp_a0_2;
+    }
+
+    sp68 = var_t1 - 1;
+    while (sp68 > 0) {
+        if (!(__ctype[B_10000DD4+1] & 4)) {
+            D_10000000 = 1;
+            return NULL;
+        }
+        var_a3 = B_10000DD4 - 0x30;
+        if (B_10000DDC > 0) {
+            B_10000DD4 = *B_10000DD8++;
+        } else {
+            B_10000DD4 = 0;
+        }
+
+        B_10000DDC--;
+
+
+        if (__ctype[B_10000DD4+1] & 4) {
+            var_a3 = ((var_a3 * 0xA) + B_10000DD4) - 0x30;
+            if (B_10000DDC > 0) {
+                B_10000DD4 = *B_10000DD8++;
+            } else {
+                B_10000DD4 = 0;
+            }
+            B_10000DDC--;
+        }
+
+        if (__ctype[B_10000DD4+1] & 4) {
+            var_a3 = ((var_a3 * 0xA) + B_10000DD4) - 0x30;
+            if (B_10000DDC > 0) {
+                B_10000DD4 = *B_10000DD8++;
+            } else {
+                B_10000DD4 = 0;
+            }
+            B_10000DDC -= 1;
+        }
+
+        if (var_a3 <= 0) {
+            D_10000000 = 1;
+            return NULL;
+        }
+        var_a2_2 = 0;
+
+        while (var_a2_2 < var_a3) {
+            if (!(__ctype[B_10000DD4+1] & 7) && (B_10000DD4 != 0x5F)) {
+                D_10000000 = 1;
+                return NULL;
+            }
+
+            sp74[var_a2_2] = B_10000DD4;
+            if (B_10000DDC > 0) {
+                B_10000DD4 = *B_10000DD8++;
+            } else {
+                B_10000DD4 = 0;
+            }
+            var_a2_2 += 1;
+        }
+
+
+        sp74[var_a2_2] = 0;
+        var_s0 = 0;
+        temp_s5 = func_00400E64(0x10);
+        temp_s5->unk_8 = func_00400EF8(sp74);
+        temp_s5->unk_4 = NULL;
+
+        var_v1 = sp74;
+        while (var_s0 != var_a2_2) {
+            if ((var_v1[0] == 0x5F) && (var_v1[1] == 0x5F) && (var_v1[2] == 0x70) && (var_v1[3] == 0x74)) {
+                break;
+            }
+            var_s0 += 1;
+            var_v1 += 1;
+        }
+
+        temp_v1 = &sp74[var_s0];
+        if (var_s0 == 0) {
+            D_10000000 = 1;
+            return NULL;
+        }
+        if (var_s0 == var_a2_2) {
+            temp_s5->unk_0 = func_00400EF8(sp74);
+
+        } else {
+            if ((temp_v1[4] != 0x5F) || (temp_v1[5] != 0x5F)) {
+                D_10000000 = 1;
+                return NULL;
+            }
+            temp_v1[0] = 0;
+            sp4C = temp_v1;
+            temp_s5->unk_0 = func_00400EF8(sp74);
+    
+            var_a3_2 = sp4C[6] - 0x30;
+            if (!(__ctype[sp4C[6]+1] & 4)) {
+                D_10000000 = 1;
+                return NULL;
+            }
+            var_a0 = sp4C[6+1];
+            var_s0_2 = var_s0 + 6 + 1;
+            var_v1_2 = &sp4C[6+1];
+    
+            if (__ctype[var_a0+1] & 4) {
+                var_a3_2 = (var_a0 + (var_a3_2 * 0xA)) - 0x30;
+                var_a0 = var_v1_2[1];
+                var_s0_2 += 1;
+    
+                var_v1_2 += 1;
+            }
+    
+            if (__ctype[var_a0+1] & 4) {
+                var_a3_2 = (var_a0 + (var_a3_2 * 0xA)) - 0x30;
+                var_s0_2 += 1;
+                var_v1_2 += 1;
+            }
+            if (var_a3_2 < 2) {
+                D_10000000 = 1;
+                return NULL;
+            }
+            if (var_v1_2[0] != 0x5F) {
+                D_10000000 = 1;
+                return NULL;
+            }
+            if (var_v1_2[1] == 0) {
+                D_10000000 = 1;
+                return NULL;
+            }
+            func_00400FA4(&sp74[var_s0_2+1], var_a3_2 - 1);
+            temp_v0 = func_00402D50();
+            if ((temp_v0 == NULL) || (B_10000DD4 != 0)) {
+                D_10000000 = 1;
+                return NULL;
+            }
+            func_004010F8();
+            temp_s5->unk_4 = temp_v0;
+        }
+
+        temp_s5->unk_C = NULL;
+        if (sp60 != NULL) {
+            sp5C->unk_C = temp_s5;
+        } else {
+            sp60 = temp_s5;
+        }
+        sp5C = temp_s5;
+        sp68 -= 1;
+    }
+
+    return sp60;
+}
+#else
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
+#endif
 
 static struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
     struct_00401A70_arg0* temp_v0;
@@ -206,6 +461,7 @@ static struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
 
+struct_dem_printarglist_arg0 *func_00402D50(void);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00402D50.s")
 
 #ifdef NON_EQUIVALENT
