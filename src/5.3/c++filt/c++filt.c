@@ -55,11 +55,11 @@ struct struct_dem_printcl_arg0;
 
 typedef struct struct_dem_printarglist_arg0 {
     /* 0x00 */ char* unk_00;
-    /* 0x04 */ UNK_TYPE* unk_04;                         /* inferred */
+    /* 0x04 */ long* unk_04;                         /* inferred */
     /* 0x08 */ struct struct_dem_printarglist_arg0* unk_08; /* inferred */
     /* 0x0C */ struct struct_dem_printarglist_arg0* unk_0C; /* inferred */
     /* 0x10 */ struct struct_dem_printcl_arg0* unk_10;     /* inferred */
-    /* 0x14 */ UNK_TYPE* unk_14;                        /* inferred */
+    /* 0x14 */ struct struct_dem_printcl_arg0** unk_14;                        /* inferred */
     /* 0x18 */ struct struct_dem_printarglist_arg0* unk_18;
     /* 0x1C */ char* unk_1C;
     /* 0x20 */ char unk_20;
@@ -1374,24 +1374,26 @@ void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) 
 }
 
 #ifdef NON_EQUIVALENT
+// #if 1
 void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
     char* sp1C84;
     char sp1884[0x400];
     char sp1484[0x400];
     char sp1084[0x400];
     char spC84[0x400];
-    // spC7C ?
+    // spC80 ?
     char* var_s1;
+    // spC7C ?
     char* var_s3;
     char sp87C[0x400];
     int sp878;
     // sp874 ?
-    char* var_s3_2;
+    char* var_s0;
     char sp474[0x400];
     char sp74[0x400];
-    int temp_s0;
+    // sp70 ?
+    long temp_s0;
     int sp6C;
-    char* var_s0;
     int var_s0_5;
     int var_s5;
 
@@ -1465,7 +1467,7 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
 
     var_s1 = var_s0;
     while (*var_s1 != 0) {
-        if ((*var_s1 == 0x43) && (var_s1[1] != 0x50) && (var_s1[1] != 0x52) && (var_s1[1] != 0x4D) && (var_s1[1] != 0x56) && ((var_s1[1] != 0) || (arg0->unk_20 != 0x46))) {
+        if ((var_s1[0] == 0x43) && (var_s1[1] != 0x50) && (var_s1[1] != 0x52) && (var_s1[1] != 0x4D) && (var_s1[1] != 0x56) && ((var_s1[1] != 0) || (arg0->unk_20 != 0x46))) {
             strcat(sp87C, "const ");
             break;
         }
@@ -1483,10 +1485,10 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
         var_s1 += 1;
     }
 
-    var_s1 = var_s0;
+    var_s5 = 0;
     sp74[0] = 0;
     sp878 = 0;
-    var_s5 = 0;
+    var_s1 = var_s0;
     while (*var_s1 != 0) {
         if (*var_s1 == 0x50) {
             sprintf(sp474, "*%s", sp74);
@@ -1502,14 +1504,14 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
             sprintf(sp474, " *const%s%s", (isalnum(sp74[0]) || (sp74[0] == 0x5F)) ? " " : "" , sp74);
             strcpy(sp74, sp474);
             var_s1 += 1;
-            if (var_s1[1] == 0x56) {
+            if (var_s1[0] == 0x56) {
                 var_s1 += 1;
             }
         } else if ((*var_s1 == 0x43) && ( (var_s1[1] == 0x52) || ((var_s1[1] == 0x56) && (var_s1[2] == 0x52)))) {
             sprintf(sp474, " &const%s%s", (isalnum(sp74[0]) || (sp74[0] == 0x5F)) ? " " : "", sp74);
             strcpy(sp74, sp474);
             var_s1 += 1;
-            if (var_s1[1] == 0x56) {
+            if (var_s1[0] == 0x56) {
                 var_s1 += 1;
             }
         } else if ((*var_s1 == 0x43) && (var_s1[1] == 0x4D)) {
@@ -1538,7 +1540,7 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
         var_s1 += 1;
     }
 
-    var_s3_2 = (sp6C != 0) ? "" : "@";
+    var_s3 = (sp6C != 0) ? "" : "@";
 
     if (arg0->unk_20 == 0x46) {
         var_s0_5 = 0;
@@ -1552,12 +1554,12 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
         }
 
         if (sp74[var_s0_5] != 0) {
-            sprintf(arg1, "%s%s (%s%s)(%s)%s", sp87C, spC84, sp74[var_s0_5], var_s3_2, sp1084, var_s1);
+            sprintf(arg1, "%s%s (%s%s)(%s)%s", sp87C, spC84, &sp74[var_s0_5], var_s3, sp1084, var_s1);
         } else {
-            sprintf(arg1, "%s%s %s(%s)%s", sp87C, spC84, var_s3_2, sp1084, var_s1);
+            sprintf(arg1, "%s%s %s(%s)%s", sp87C, spC84, var_s3, sp1084, var_s1);
         }
     } else {
-        sprintf(arg1, "%s%s%s%s%s", sp87C, sp1C84, ((sp74[0] == 0x28) || (isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " ":"", sp74, var_s3_2);
+        sprintf(arg1, "%s%s%s%s%s", sp87C, sp1C84, ((sp74[0] == 0x28) || (isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " ": "", sp74, var_s3);
     }
 
     if (arg0->unk_1C != NULL) {
