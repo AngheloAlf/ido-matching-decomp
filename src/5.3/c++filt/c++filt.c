@@ -69,12 +69,12 @@ typedef struct struct_dem_printcl_arg0 {
 typedef struct struct_demangle_sp24 {
     /* 0x00 */ char* unk_0;
     /* 0x04 */ s8* unk_4;                           /* inferred */
-    /* 0x08 */ UNK_TYPE * unk_8;
-    /* 0x0C */ struct_dem_printcl_arg0 *unk_C;
-    /* 0x10 */ struct_dem_printarglist_arg0 *unk_10;
-    /* 0x14 */ s32 unk_14;                          /* inferred */
-    /* 0x18 */ s16 unk_18;                          /* inferred */
-    /* 0x1A */ u8 unk_1A;                           /* inferred */
+    /* 0x08 */ struct_dem_printarglist_arg0* unk8;  /* inferred */
+    /* 0x0C */ struct_dem_printcl_arg0* unk_C;
+    /* 0x10 */ struct_dem_printarglist_arg0* unk_10;
+    /* 0x14 */ s32 unk_14;
+    /* 0x18 */ s16 unk_18;
+    /* 0x1A */ u8 unk_1A;
     /* 0x1B */ UNK_TYPE1 pad_1B[1];
 } struct_demangle_sp24;                             /* size = 0x1C */
 
@@ -1261,8 +1261,35 @@ STATIC struct _struct_D_10000008_0x8 D_10000008[0x29] = {
     { NULL, NULL },
 };
 
-void dem_printfunc(struct_demangle_sp24*, char*);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printfunc.s")
+void dem_printfunc(struct_demangle_sp24* arg0, char* arg1) {
+    int var_s1;
+    char sp34[0x400];
+
+    if ((arg0 == NULL) || (arg1 == NULL)) {
+        func_00400DE4("bad argument to dem_printfunc()", NULL, NULL);
+    }
+
+    if ((arg0->unk_0[0] == 0x5F) && (arg0->unk_0[1] == 0x5F)) {
+        if ((strncmp(arg0->unk_0, "__op", 4) == 0) && (arg0->unk8 != NULL)) {
+                dem_printarg(arg0->unk8, sp34, 0);
+                sprintf(arg1, "operator %s", sp34);
+                return;
+        } else {
+            var_s1 = 0;
+            while ((D_10000008[var_s1].unk_0 != NULL) && (strcmp(D_10000008[var_s1].unk_0, arg0->unk_0) != 0)) {
+                var_s1 += 1;
+            }
+
+            if (D_10000008[var_s1].unk_0 != NULL) {
+                strcpy(arg1, D_10000008[var_s1].unk_4);
+            } else {
+                strcpy(arg1, arg0->unk_0);
+            }
+        }
+    } else {
+        strcpy(arg1, arg0->unk_0);
+    }
+}
 
 #ifdef NON_MATCHING
 // stack issues
