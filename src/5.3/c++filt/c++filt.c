@@ -30,12 +30,7 @@ typedef s32 UNK_TYPE;
 typedef u8 UNK_TYPE1;
 #define UNK_SIZE 1
 
-//#define STATIC static
-#ifndef PERMUTER
 #define STATIC static
-#else
-#define STATIC 
-#endif
 
 typedef enum enum_dem_explain_arg0 {
     /*  1 */ ENUM_DEM_EXPLAIN_ARG_1 = 1,
@@ -112,9 +107,7 @@ STATIC struct_00401A70_arg0* B_10000E3C;
 void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
 void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2);
 
-// STATIC
-struct_dem_printarglist_arg0 *func_00402D50(void);
-
+STATIC struct_dem_printarglist_arg0 *func_00402D50(void);
 
 
 STATIC void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
@@ -435,6 +428,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
     return sp60;
 }
 #else
+struct_dem_printcl_arg0* func_004011B4(void);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
 #endif
 
@@ -457,9 +451,37 @@ STATIC struct_00401A70_arg0* func_00401A70(struct_00401A70_arg0* arg0) {
     return temp_v0;
 }
 
+struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_arg0* arg1[], int *arg2);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00402D50.s")
+STATIC struct_dem_printarglist_arg0* func_00402D50(void) {
+    struct_dem_printarglist_arg0* var_s3 = NULL; // head
+    struct_dem_printarglist_arg0* var_s0 = NULL;
+    int var_s1 = -1;
+    struct_dem_printarglist_arg0 *sp3C[100];
+    struct_dem_printarglist_arg0* temp_v0;
+    int sp34 = 0;
+
+    while (1) {
+        temp_v0 = func_00401B48(var_s1, sp3C, &sp34);
+        if (temp_v0 == NULL) {
+            if (D_10000000 != 0) {
+                return NULL;
+            }
+            return var_s3;
+        }
+
+        sp3C[++var_s1] = temp_v0;
+
+        if (var_s0 == NULL) {
+            var_s3 = temp_v0;
+            var_s0 = temp_v0;
+        } else {
+            var_s0->unk_18 = temp_v0;
+            var_s0 = temp_v0;
+        }
+    }
+}
 
 #ifdef NON_EQUIVALENT
 void func_00400FA4(char*, int);
