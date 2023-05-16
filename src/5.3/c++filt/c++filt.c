@@ -1212,12 +1212,12 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_printarg.s")
 #endif
 
-struct _struct_D_10000008_0x8 {
-    /* 0x0 */ const char* unk_0;                            /* inferred */
-    /* 0x4 */ const char* unk_4;                            /* inferred */
-};                                                  /* size = 0x8 */
+typedef struct MangledMap {
+    /* 0x0 */ const char* mangledName;
+    /* 0x4 */ const char* demangled;
+} MangledMap; // size = 0x8
 
-STATIC struct _struct_D_10000008_0x8 D_10000008[0x29] = {
+STATIC struct MangledMap D_10000008[] = {
     { "__pp", "operator++" },
     { "__as", "operator=" },
     { "__vc", "operator[]" },
@@ -1262,26 +1262,25 @@ STATIC struct _struct_D_10000008_0x8 D_10000008[0x29] = {
 };
 
 void dem_printfunc(struct_demangle_sp24* arg0, char* arg1) {
-    int var_s1;
-    char sp34[0x400];
+    int i;
+    char buff[0x400];
 
     if ((arg0 == NULL) || (arg1 == NULL)) {
         func_00400DE4("bad argument to dem_printfunc()", NULL, NULL);
     }
 
-    if ((arg0->unk_0[0] == 0x5F) && (arg0->unk_0[1] == 0x5F)) {
+    if ((arg0->unk_0[0] == '_') && (arg0->unk_0[1] == '_')) {
         if ((strncmp(arg0->unk_0, "__op", 4) == 0) && (arg0->unk8 != NULL)) {
-                dem_printarg(arg0->unk8, sp34, 0);
-                sprintf(arg1, "operator %s", sp34);
-                return;
+            dem_printarg(arg0->unk8, buff, 0);
+            sprintf(arg1, "operator %s", buff);
         } else {
-            var_s1 = 0;
-            while ((D_10000008[var_s1].unk_0 != NULL) && (strcmp(D_10000008[var_s1].unk_0, arg0->unk_0) != 0)) {
-                var_s1 += 1;
+            i = 0;
+            while ((D_10000008[i].mangledName != NULL) && (strcmp(D_10000008[i].mangledName, arg0->unk_0) != 0)) {
+                i++;
             }
 
-            if (D_10000008[var_s1].unk_0 != NULL) {
-                strcpy(arg1, D_10000008[var_s1].unk_4);
+            if (D_10000008[i].mangledName != NULL) {
+                strcpy(arg1, D_10000008[i].demangled);
             } else {
                 strcpy(arg1, arg0->unk_0);
             }
