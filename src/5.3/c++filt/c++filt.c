@@ -80,8 +80,7 @@ typedef struct struct_demangle_sp24 {
     /* 0x10 */ struct_dem_printarglist_arg0* unk_10;
     /* 0x14 */ s32 unk_14;
     /* 0x18 */ s16 unk_18;
-    /* 0x1A */ u8 unk_1A;
-    /* 0x1B */ UNK_TYPE1 pad_1B[1];
+    /* 0x1A */ char unk_1A;
 } struct_demangle_sp24;                             /* size = 0x1C */
 
 
@@ -2022,75 +2021,69 @@ void dem_printfunc(struct_demangle_sp24* arg0, char* arg1) {
     }
 }
 
-#ifdef NON_MATCHING
-// stack issues
 int dem_print(struct_demangle_sp24* arg0, char* arg1) {
+    char sp30[0x400];
+    char* var_a2;
+    int var_v1;
+
     if ((arg0 == NULL) || (arg1 == NULL)) {
         return -1;
     }
 
-    *arg1 = 0;
-    if ((arg0->unk_0 == NULL) && (arg0->unk_C != 0)) {
+    *arg1 = '\0';
+    if ((arg0->unk_0 == NULL) && (arg0->unk_C != NULL)) {
         dem_printcl(arg0->unk_C, arg1);
+    } else if ((arg0->unk_1A == 'i') || (arg0->unk_1A == 'd')) {
+        sprintf(arg1, "%s:__st%c", arg0->unk_0, arg0->unk_1A);
+    } else if (arg0->unk_1A == 'b') {
+        sprintf(arg1, "%s:__ptbl_vec", arg0->unk_0);
     } else {
-        if ((arg0->unk_1A == 0x69) || (arg0->unk_1A == 0x64)) {
-            sprintf(arg1, "%s:__st%c", arg0->unk_0, arg0->unk_1A);
-        } else if (arg0->unk_1A == 0x62) {
-            sprintf(arg1, "%s:__ptbl_vec", arg0->unk_0);
-        } else {
-            int var_v1;
-            char sp30[0x400];
-            char* var_a2;
+        if (arg0->unk_C != 0) {
+            dem_printcl(arg0->unk_C, sp30);
+            strcat(arg1, sp30);
+            strcat(arg1, "::");
+        }
 
-            if (arg0->unk_C != 0) {
-                dem_printcl(arg0->unk_C, sp30);
-                strcat(arg1, sp30);
-                strcat(arg1, "::");
-            }
+        var_v1 = strlen(sp30);
+        var_a2 = &sp30[var_v1 - 1];
 
-            var_a2 = &sp30[strlen(sp30)-1];
-            var_v1 = 0;
-            for (; var_a2 >= sp30; var_a2--) {
-                if (*var_a2 == '>') {
-                    var_v1 += 1;
-                } else if (*var_a2 == '<') {
-                    var_v1 -= 1;
-                } else if (*var_a2 == ':') {
-                    if (var_v1 == 0) {
-                        break;
-                    }
+        var_v1 = 0;
+        for (; var_a2 >= sp30; var_a2--) {
+            if (*var_a2 == '>') {
+                var_v1 += 1;
+            } else if (*var_a2 == '<') {
+                var_v1 -= 1;
+            } else if (*var_a2 == ':') {
+                if (var_v1 == 0) {
+                    break;
                 }
             }
+        }
 
-            if ((arg0->unk_0[0] == *"__ct") && ((strcmp(arg0->unk_0, "__ct") == 0))) {
-                strcat(arg1, &var_a2[1]);
-            } else if ((arg0->unk_0[0] == *"__dt") && (strcmp(arg0->unk_0, "__dt") == 0)) {
-                strcat(arg1, "~");
-                strcat(arg1, &var_a2[1]);
-            } else {
-                dem_printfunc(arg0, sp30);
-                strcat(arg1, sp30);
-            }
+        if ((arg0->unk_0[0] == *"__ct") && (strcmp(arg0->unk_0, "__ct") == 0)) {
+            strcat(arg1, &var_a2[1]);
+        } else if ((arg0->unk_0[0] == *"__dt") && (strcmp(arg0->unk_0, "__dt") == 0)) {
+            strcat(arg1, "~");
+            strcat(arg1, &var_a2[1]);
+        } else {
+            dem_printfunc(arg0, sp30);
+            strcat(arg1, sp30);
+        }
 
-            if (arg0->unk_10 != 0) {
-                strcat(arg1, "(");
-                dem_printarglist(arg0->unk_10, sp30, 0);
-                strcat(arg1, sp30);
-                strcat(arg1, ")");
-            }
+        if (arg0->unk_10 != NULL) {
+            strcat(arg1, "(");
+            dem_printarglist(arg0->unk_10, sp30, 0);
+            strcat(arg1, sp30);
+            strcat(arg1, ")");
+        }
 
-            if (arg0->unk_1A == 0x43) {
-                strcat(arg1, " const");
-            }
+        if (arg0->unk_1A == 'C') {
+            strcat(arg1, " const");
         }
     }
 
     return 0;
 }
-#else
-int dem_print(struct_demangle_sp24*, char*);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem_print.s")
-#endif
 
 const char* dem_explain(enum_dem_explain_arg0 arg) {
     switch (arg) {
