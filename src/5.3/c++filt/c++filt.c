@@ -183,169 +183,122 @@ STATIC void func_004010F8(void) {
     D_10000004--;
 }
 
+// STATIC
+#define ADV() if (B_10000DDC > 0) { \
+            B_10000DD4 = *B_10000DD8++; \
+        } else { \
+            B_10000DD4 = '\0'; \
+        } \
+        B_10000DDC--;
+
 #ifdef NON_EQUIVALENT
 //#if 1
-// STATIC
 struct_dem_printcl_arg0* func_004011B4(void) {
-    char sp74[0x400];
-    int var_a2_2; // sp70
     char* var_v1_2;
-    int sp68;
-    int var_a2;
-    int var_t1;
-    struct_dem_printcl_arg0* sp60;
-    struct_dem_printcl_arg0* sp5C;
-    int var_a3_2;
     int var_a3;
     int var_s0;
+    char sp74[0x400];
+    int var_a2;
     int var_s0_2;
-    struct_dem_printarglist_arg0* temp_v0;
+    int sp68;
     struct_dem_printcl_arg0* temp_s5;
-    char var_a0;
+    struct_dem_printcl_arg0* sp60;
+    struct_dem_printcl_arg0* sp5C;
+    struct_dem_printarglist_arg0* temp_v0;
 
     sp60 = NULL;
     sp5C = NULL;
 
-    var_t1 = 1;
+    sp68 = 1;
     var_a2 = 0;
 
-    if (isdigit(*B_10000DD8)) {
+    if (isdigit(B_10000DD8[0])) {
         var_a2 = 1;
         if (isdigit(B_10000DD8[1])) {
             var_a2 = 2;
         }
     }
 
-    if ((isdigit(B_10000DD4)) && (B_10000DD8[var_a2] == 0x51) && (isdigit(B_10000DD8[var_a2+1])) && (B_10000DD8[var_a2+2] == 0x5F)) {
-        if (B_10000DDC > 0) {
-            B_10000DD4 = *B_10000DD8++;
-        } else {
-            B_10000DD4 = 0;
-        }
+    if ((isdigit(B_10000DD4)) && (B_10000DD8[var_a2] == 'Q') && (isdigit(B_10000DD8[var_a2+1])) && (B_10000DD8[var_a2+2] == '_')) {
+        ADV()
 
-        B_10000DDC--;
         if (var_a2 != 0) {
-            if (B_10000DDC > 0) {
-                B_10000DD4 = *B_10000DD8++;
-            } else {
-                B_10000DD4 = 0;
-            }
-            B_10000DDC--;
+            ADV()
         }
+
         if (var_a2 == 2) {
-            if (B_10000DDC > 0) {
-                B_10000DD4 = *B_10000DD8++;
-            } else {
-                B_10000DD4 = 0;
-            }
-            B_10000DDC -= 1;
+            ADV()
         }
+
+        if (0) {}
     }
 
-    if (B_10000DD4 == 0x51) {
-        sp68 = 1;
-        if (B_10000DDC > 0) {
-            B_10000DD4 = *B_10000DD8++;
-        } else {
-            B_10000DD4 = 0;
-        }
-        B_10000DDC -= 1;
+    if (B_10000DD4 == 'Q') {
+        ADV()
 
         if (!isdigit(B_10000DD4)) {
             D_10000000 = 1;
             return NULL;
         }
-        if (B_10000DD4 - 0x30 <= 0) {
-            D_10000000 = 1;
-            return NULL;
-        }
-        var_t1 = B_10000DD4 - 0x30;
-        if (B_10000DDC > 0) {
-            B_10000DD4 = *B_10000DD8++;
-        } else {
-            B_10000DD4 = 0;
-        }
-        B_10000DDC -= 1;
-        if (B_10000DD4 != 0x5F) {
+
+        sp68 = B_10000DD4 - '0';
+
+        if (sp68 <= 0) {
             D_10000000 = 1;
             return NULL;
         }
 
-        if (B_10000DDC > 0) {
-            B_10000DD4 = *B_10000DD8++;
-        } else {
-            B_10000DD4 = 0;
+        ADV()
+
+        if (B_10000DD4 != '_') {
+            D_10000000 = 1;
+            return NULL;
         }
 
-        B_10000DDC -= 1;
-        sp68 = var_t1;
+        ADV()
     }
 
-    sp68 = var_t1 - 1;
-    while (sp68 > 0) {
+    while (sp68-- > 0) {
         if (!isdigit(B_10000DD4)) {
             D_10000000 = 1;
             return NULL;
         }
 
-        var_a3 = B_10000DD4 - 0x30;
-        if (B_10000DDC > 0) {
-            B_10000DD4 = *B_10000DD8++;
-        } else {
-            B_10000DD4 = 0;
-        }
-
-        B_10000DDC--;
+        var_a3 = B_10000DD4 - '0';
+        ADV()
 
         if (isdigit(B_10000DD4)) {
-            var_a3 = ((var_a3 * 0xA) + B_10000DD4) - 0x30;
-            if (B_10000DDC > 0) {
-                B_10000DD4 = *B_10000DD8++;
-            } else {
-                B_10000DD4 = 0;
-            }
-            B_10000DDC--;
+            var_a3 = (var_a3 * 10) + (B_10000DD4 - '0');
+            ADV()
         }
 
         if (isdigit(B_10000DD4)) {
-            var_a3 = ((var_a3 * 0xA) + B_10000DD4) - 0x30;
-            if (B_10000DDC > 0) {
-                B_10000DD4 = *B_10000DD8++;
-            } else {
-                B_10000DD4 = 0;
-            }
-            B_10000DDC -= 1;
+            var_a3 = (var_a3 * 10) + (B_10000DD4 - '0');
+            ADV()
         }
 
         if (var_a3 <= 0) {
             D_10000000 = 1;
             return NULL;
         }
-        var_a2_2 = 0;
 
-        while (var_a2_2 < var_a3) {
-            if (!isalnum(B_10000DD4) && (B_10000DD4 != 0x5F)) {
+        for (var_a2 = 0; var_a2 < var_a3; var_a2++) {
+            if (!isalnum(B_10000DD4) && (B_10000DD4 != '_')) {
                 D_10000000 = 1;
                 return NULL;
             }
 
-            sp74[var_a2_2] = B_10000DD4;
-            if (B_10000DDC > 0) {
-                B_10000DD4 = *B_10000DD8++;
-            } else {
-                B_10000DD4 = 0;
-            }
-            var_a2_2 += 1;
+            sp74[var_a2] = B_10000DD4;
+            ADV()
         }
 
-
-        sp74[var_a2_2] = 0;
+        sp74[var_a2] = 0;
         temp_s5 = func_00400E64(0x10);
         temp_s5->unk_8 = func_00400EF8(sp74);
         temp_s5->unk_4 = NULL;
 
-        for (var_s0 = 0; var_s0 < var_a2_2; var_s0++) {
-            if ((sp74[var_s0] == 0x5F) && (sp74[var_s0+1] == 0x5F) && (sp74[var_s0+2] == 0x70) && (sp74[var_s0+3] == 0x74)) {
+        for (var_s0 = 0; var_s0 < var_a2; var_s0++) {
+            if ((sp74[var_s0] == '_') && (sp74[var_s0+1] == '_') && (sp74[var_s0+2] == 'p') && (sp74[var_s0+3] == 't')) {
                 break;
             }
         }
@@ -354,53 +307,64 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             D_10000000 = 1;
             return NULL;
         }
-        if (var_s0 == var_a2_2) {
+
+        if (var_s0 == var_a2) {
             temp_s5->unk_0 = func_00400EF8(sp74);
         } else {
-            if ((sp74[var_s0+4] != 0x5F) || (sp74[var_s0+5] != 0x5F)) {
+            if ((sp74[var_s0+4] != '_') || (sp74[var_s0+5] != '_')) {
                 D_10000000 = 1;
                 return NULL;
             }
             sp74[var_s0] = 0;
             temp_s5->unk_0 = func_00400EF8(sp74);
 
-            var_a3_2 = sp74[var_s0+6] - 0x30;
-            if (!(isdigit(sp74[var_s0+6]))) {
-                D_10000000 = 1;
-                return NULL;
-            }
-            var_s0_2 = var_s0 + 6 + 1;
-            var_a0 = sp74[var_s0_2];
-            var_v1_2 = &sp74[var_s0_2];
+            var_s0 += 6;
 
-            if (0) { }
-            if (isdigit(var_a0)) {
-                var_a3_2 = (var_a0 + (var_a3_2 * 0xA)) - 0x30;
-                var_a0 = var_v1_2[1];
-
-                var_v1_2 += 1;
-                var_s0_2 += 1;
-            }
-
-            if (isdigit(var_a0)) {
-                var_a3_2 = (var_a0 + (var_a3_2 * 0xA)) - 0x30;
-                var_s0_2 += 1;
-                var_v1_2 += 1;
-            }
-            if (var_a3_2 < 2) {
-                D_10000000 = 1;
-                return NULL;
-            }
-            if (var_v1_2[0] != 0x5F) {
-                D_10000000 = 1;
-                return NULL;
-            }
-            if (var_v1_2[1] == 0) {
+            var_a3 = sp74[var_s0] - '0';
+            if (!(isdigit(sp74[var_s0]))) {
                 D_10000000 = 1;
                 return NULL;
             }
 
-            func_00400FA4(&sp74[var_s0_2+1], var_a3_2 - 1);
+            var_v1_2 = &sp74[var_s0];
+
+            var_s0++;
+            var_v1_2++;
+            var_s0_2 = var_s0;
+
+            if (isdigit(*var_v1_2)) {
+                var_a3 = (var_a3 * 10) + (*var_v1_2 - '0');
+                var_s0_2++;
+                var_v1_2++;
+            }
+
+            if (isdigit(*var_v1_2)) {
+                var_a3 = (var_a3 * 10) + (*var_v1_2 - '0');
+                var_s0_2++;
+                var_v1_2++;
+            }
+
+            if (var_a3 < 2) {
+                D_10000000 = 1;
+                return NULL;
+            }
+
+            if (*var_v1_2 != '_') {
+                D_10000000 = 1;
+                return NULL;
+            }
+
+            var_s0_2++;
+            var_v1_2++;
+
+            var_a3--;
+
+            if (*var_v1_2 == 0) {
+                D_10000000 = 1;
+                return NULL;
+            }
+
+            func_00400FA4(&sp74[var_s0_2], var_a3);
             temp_v0 = func_00402D50();
             if ((temp_v0 == NULL) || (B_10000DD4 != 0)) {
                 D_10000000 = 1;
@@ -413,15 +377,16 @@ struct_dem_printcl_arg0* func_004011B4(void) {
         temp_s5->unk_C = NULL;
         if (sp60 != NULL) {
             sp5C->unk_C = temp_s5;
+            sp5C = temp_s5;
         } else {
             sp60 = temp_s5;
+            sp5C = temp_s5;
         }
-        sp5C = temp_s5;
-        sp68 -= 1;
     }
 
     return sp60;
 }
+
 #else
 struct_dem_printcl_arg0* func_004011B4(void);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
@@ -1889,7 +1854,7 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
         if (*var_s1 == 0x55) {
             strcat(sp87C, "unsigned ");
             break;
-        
+
         }
         var_s1 += 1;
     }
