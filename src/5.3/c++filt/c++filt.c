@@ -88,14 +88,23 @@ typedef struct struct_demangle_sp24 {
 STATIC int D_10000000 = 0;
 STATIC int D_10000004 = -1;
 
+#define STACK_BUF_LEN 10
+
 STATIC char* B_10000DD0;
 STATIC char B_10000DD4;
 STATIC char* B_10000DD8;
 STATIC int B_10000DDC;
-STATIC char* B_10000DE0[10];
-STATIC int B_10000E08[10];
-STATIC char B_10000E30[10];
+STATIC char* B_10000DE0[STACK_BUF_LEN];
+STATIC int B_10000E08[STACK_BUF_LEN];
+STATIC char B_10000E30[STACK_BUF_LEN];
 STATIC struct_dem_printarglist_arg0* B_10000E3C;
+
+#define ADV() if (B_10000DDC > 0) { \
+            B_10000DD4 = *B_10000DD8++; \
+        } else { \
+            B_10000DD4 = '\0'; \
+        } \
+        B_10000DDC--
 
 
 void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
@@ -141,36 +150,25 @@ STATIC char* func_00400EF8(char* arg0) {
     return temp_v0;
 }
 
-#if 0
-void func_00400FA4(char* arg0, int arg1) {
+STATIC void func_00400FA4(char* arg0, int arg1) {
     int var_a0;
 
     if ((arg0 == NULL) || (*arg0 == 0) || (arg1 <= 0)) {
         func_00400DE4("bad argument to push()", NULL, NULL);
     }
-    var_a0 = D_10000004 + 1;
-    if (var_a0 >= 0xA) {
+
+    if (D_10000004 + 1 >= STACK_BUF_LEN) {
         func_00400DE4("overflow of stack in push()", NULL, NULL);
-        var_a0 = D_10000004 + 1;
     }
-    D_10000004 = var_a0;
+
+    D_10000004++;
     B_10000DE0[D_10000004] = B_10000DD8;
     B_10000E08[D_10000004] = B_10000DDC;
     B_10000E30[D_10000004] = B_10000DD4;
     B_10000DD8 = arg0;
     B_10000DDC = arg1;
-    if (arg1 > 0) {
-        B_10000DD4 = *arg0;
-        B_10000DD8 = arg0 + 1;
-    } else {
-        B_10000DD4 = 0;
-    }
-    B_10000DDC = arg1 - 1;
+    ADV();
 }
-#else
-void func_00400FA4(char* arg0, int arg1);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00400FA4.s")
-#endif
 
 STATIC void func_004010F8(void) {
     if (D_10000004 < 0) {
@@ -183,16 +181,9 @@ STATIC void func_004010F8(void) {
     D_10000004--;
 }
 
-// STATIC
-#define ADV() if (B_10000DDC > 0) { \
-            B_10000DD4 = *B_10000DD8++; \
-        } else { \
-            B_10000DD4 = '\0'; \
-        } \
-        B_10000DDC--;
-
 #ifdef NON_EQUIVALENT
 //#if 1
+// STATIC
 struct_dem_printcl_arg0* func_004011B4(void) {
     char* var_v1_2;
     int var_a3;
@@ -220,21 +211,21 @@ struct_dem_printcl_arg0* func_004011B4(void) {
     }
 
     if ((isdigit(B_10000DD4)) && (B_10000DD8[var_a2] == 'Q') && (isdigit(B_10000DD8[var_a2+1])) && (B_10000DD8[var_a2+2] == '_')) {
-        ADV()
+        ADV();
 
         if (var_a2 != 0) {
-            ADV()
+            ADV();
         }
 
         if (var_a2 == 2) {
-            ADV()
+            ADV();
         }
 
         if (0) {}
     }
 
     if (B_10000DD4 == 'Q') {
-        ADV()
+        ADV();
 
         if (!isdigit(B_10000DD4)) {
             D_10000000 = 1;
@@ -248,14 +239,14 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             return NULL;
         }
 
-        ADV()
+        ADV();
 
         if (B_10000DD4 != '_') {
             D_10000000 = 1;
             return NULL;
         }
 
-        ADV()
+        ADV();
     }
 
     while (sp68-- > 0) {
@@ -265,16 +256,16 @@ struct_dem_printcl_arg0* func_004011B4(void) {
         }
 
         var_a3 = B_10000DD4 - '0';
-        ADV()
+        ADV();
 
         if (isdigit(B_10000DD4)) {
             var_a3 = (var_a3 * 10) + (B_10000DD4 - '0');
-            ADV()
+            ADV();
         }
 
         if (isdigit(B_10000DD4)) {
             var_a3 = (var_a3 * 10) + (B_10000DD4 - '0');
-            ADV()
+            ADV();
         }
 
         if (var_a3 <= 0) {
@@ -289,7 +280,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             }
 
             sp74[var_a2] = B_10000DD4;
-            ADV()
+            ADV();
         }
 
         sp74[var_a2] = 0;
