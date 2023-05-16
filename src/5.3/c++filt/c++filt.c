@@ -180,6 +180,9 @@ STATIC void func_004010F8(void) {
     D_10000004--;
 }
 
+// #define NON_EQUIVALENT
+// #define putchar_locked(x) putchar(x)
+
 #ifdef NON_EQUIVALENT
 //#if 1
 // STATIC
@@ -1781,7 +1784,7 @@ STATIC void func_004054C0(FILE* arg0) {
 
         while (1) {
             while (*var_s0 && *var_s0 < 0x21) {
-                putc_locked(*var_s0, stdout);
+                putchar_locked(*var_s0);
                 var_s0++;
             }
 
