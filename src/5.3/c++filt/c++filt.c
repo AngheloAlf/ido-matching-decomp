@@ -816,41 +816,56 @@ STATIC struct_dem_printarglist_arg0* func_00402D50(void) {
     }
 }
 
+#define STR_EQUAL(a, b) ((*(a) == *(b)) && (strcmp((a), (b)) == 0))
+#define STR_EQUAL_N(a, b) (strncmp((a), (b), sizeof((b)) - 1) == 0)
+
 #ifdef NON_EQUIVALENT
-//#if 1
+// #if 1
 int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     char sp460[0x400];
     int var_a2; // sp45C
     int var_a1; // sp458
+    // sp454 ?
+    // sp450 ?
+    // sp44C ?
+    char* temp_v1_2; // sp448
+    // sp444 ?
+    // sp440 ?
     char sp40[0x400];
-    int temp_a1;
     int var_v1_5; // sp3C
+    // sp38?
+    // sp34?
+    char* var_a3; //sp30
+
     int var_a1_2;
     int var_a1_3;
     int var_v1_2;
+    char* temp_v0_10;
     char* temp_v0_6;
     char* var_a0;
     char* var_a0_2;
     char* var_a0_3;
     char* var_v1;
-    char* var_v1_4;
-    char var_v0;
-    char* var_a3;
+    char temp_a0;
+    char temp_a1_4;
+    char temp_t6;
+    int var_v0;
 
     if ((arg0 == NULL) || (arg1 == NULL) || (arg2 == NULL)) {
         return -1;
     }
-    if (*arg0 == 0) {
+
+    if (arg0[0] == 0) {
         return -1;
     }
 
     B_10000DD0 = arg2;
     D_10000004 = -1;
     D_10000000 = 0;
-    arg1->unk_08 = 0;
+    arg1->unk_08 = NULL;
     arg1->unk_0C = NULL;
     arg1->unk_1A = 0;
-    arg1->unk_10 = 0;
+    arg1->unk_10 = NULL;
     arg1->unk_00 = NULL;
     arg1->unk_04 = NULL;
     arg1->unk_18 = -1;
@@ -858,41 +873,37 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
 
     if ((arg0[0] == 0x5F) && (arg0[1] == 0x5F)) {
         var_a0 = arg0 + 2;
-        if (isdigit(arg0[2]) != 0) {
+        if (isdigit(arg0[2])) {
             var_a1 = 0;
             var_v0 = arg0[2];
             while (isdigit(var_v0)) {
                 var_a0 += 1;
-                temp_a1 = var_v0 + (var_a1 * 0xA);
-                var_v0 = (u8) *var_a0;
-                var_a1 = temp_a1 - 0x30;
+                var_a1 = var_v0 + (var_a1 * 0xA) - 0x30;
+                var_v0 = *var_a0;
             }
 
             if (*var_a0 != 0) {
                 arg1->unk_00 = func_00400EF8(var_a0);
                 arg1->unk_18 = var_a1;
-                goto block_188;
+                goto block_187;
             }
         }
     }
 
-    if ((arg0[0] == 0x5F) && (arg0[1] == 0x5F) && ((strncmp(arg0, "__sti__", 7U) == 0) || (strncmp(arg0, "__std__", 7U) == 0) || (strncmp(arg0, "__ptbl_vec__", 0xCU) == 0))) {
+    if ((arg0[0] == 0x5F) && (arg0[1] == 0x5F) && (STR_EQUAL_N(arg0, "__sti__") || STR_EQUAL_N(arg0, "__std__") || STR_EQUAL_N(arg0, "__ptbl_vec__"))) {
         arg1->unk_1A = arg0[4];
-        var_a0_2 = arg0 + 0xC;
-        if (arg0[2] == 0x73) {
-            var_a0_2 = arg0 + 7;
-        }
+        var_a0_2 = (arg0[2] == 0x73) ? arg0 + 7 : arg0 + 0xC;
 
         while (*var_a0_2 == 0x5F) {
             var_a0_2 += 1;
         }
 
         var_v1 = var_a0_2;
-        while ((var_a0_2[0] != 0) && (((u8) var_v1[0] != 0x5F) || (var_v1[1] != 0x63) || (var_v1[2] != 0x5F))) {
+        while ((var_v1[0] != 0) && ((var_v1[0] != 0x5F) || (var_v1[1] != 0x63) || (var_v1[2] != 0x5F))) {
             var_v1 += 1;
         }
-
         *var_v1 = 0;
+
         if (var_a0_2[0] == 0) {
             return -1;
         }
@@ -901,7 +912,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     } else {
         var_a0_3 = arg0;
         var_v1_2 = 0;
-        while ((var_a0_3[0] != 0) && (((u8) var_a0_3[0] != 0x5F) || (var_a0_3 == arg0) || (arg0[-1] != 0x5F))) {
+        while ((var_a0_3[0] != 0) && ((var_a0_3[0] != 0x5F) || (var_a0_3 == arg0) || (var_a0_3[-1] != 0x5F))) {
             var_a0_3 += 1;
         }
 
@@ -920,7 +931,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             D_10000000 = 0;
             if (var_v1_2 == 1) {
                 sprintf(sp40, "%d%s", strlen(arg0), arg0);
-                func_00400FA4(sp40, 0x270F);
+                func_00400FA4(&sp40, 0x270F);
             } else {
                 func_00400FA4(arg0 + 2, 0x270F);
             }
@@ -937,50 +948,53 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             sp460[0] = 0;
             while (isalnum(B_10000DD4) || (B_10000DD4 == 0x5F)) {
                 sp460[var_a2] = B_10000DD4;
-
                 var_a2 += 1;
-                sp460[var_a2] = 0;
+                var_a3 = &sp460[var_a2];
+                *var_a3 = 0;
+                if ((*B_10000DD8 == 0) || ((*B_10000DD8 == 0x5F) && (B_10000DD8[1] == 0x5F) && (B_10000DD8[2] != 0x5F))) {
+                    ADV();
 
-                if ((B_10000DD8[0] == 0) || ((B_10000DD8[0] == 0x5F) && (B_10000DD8[1] == 0x5F) && (B_10000DD8[2] != 0x5F))) {
-                    ADV();
-                } else {
-                    ADV();
-                    if ((sp460[0] == *"__op") && (strcmp(sp460, "__op") == 0)) {
-                        var_v1_4 = B_10000DD8 - 1;
-                        arg1->unk_08 = func_00401B48(-1, 0, 0);
-                        var_a3 = &sp460[var_a2];
-                        if (arg1->unk_08 == 0) {
-                            return -1;
-                        }
-                        temp_v0_6 = B_10000DD8 - 1;
-                        while ((u32) var_v1_4 < (u32) temp_v0_6) {
-                            *var_a3++ = *var_v1_4++;
-                        }
-                        *var_a3 = 0;
-                    }
+                    break;
                 }
+                ADV();
+
+                if (STR_EQUAL(sp460, "__op")) {
+                    temp_v1_2 = B_10000DD8 - 1;
+                    arg1->unk_08 = func_00401B48(-1, NULL, NULL);
+                    if (arg1->unk_08 == NULL) {
+                        return -1;
+                    }
+                    temp_v0_6 = B_10000DD8 - 1;
+                    while ((u32) temp_v1_2 < (u32) temp_v0_6) {
+                        *var_a3++ = *temp_v1_2++;
+                    }
+                    *var_a3 = 0;
+                    break;
+                }
+
             }
 
-            if (!isalpha(sp460[0]) && (sp460[0] != 0x5F)) {
+            if (!(isalpha(sp460[0])) && (sp460[0] != 0x5F)) {
                 return -1;
             }
 
             if (B_10000DD4 == 0x5F) {
-                if (B_10000DD8[0] == 0x5F) {
+                if (*B_10000DD8 == 0x5F) {
                     ADV();
                     ADV();
+
                     if (B_10000DD4 == 0) {
                         return -1;
                     }
                 }
             }
 
-            if (isdigit(B_10000DD4) || (B_10000DD4 == 0x51)) {
+            if ((isdigit(B_10000DD4)) || (B_10000DD4 == 0x51)) {
                 arg1->unk_0C = func_004011B4();
                 if (arg1->unk_0C == NULL) {
                     return -1;
                 }
-            } else if ((B_10000DD4 == 0x70) && (strncmp(B_10000DD8, "t__F", 4U) == 0)) {
+            } else if ((B_10000DD4 == 0x70) && STR_EQUAL_N(B_10000DD8, "t__F")) {
                 ADV();
                 ADV();
                 ADV();
@@ -993,37 +1007,36 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                 var_a1_2 = B_10000DD4 - 0x30;
                 ADV();
 
-                if (isdigit(B_10000DD4) != 0) {
-                    var_a1_2 = ((var_a1_2 * 0xA) + B_10000DD4) - 0x30;
-                    ADV();
-                }
                 if (isdigit(B_10000DD4)) {
                     var_a1_2 = ((var_a1_2 * 0xA) + B_10000DD4) - 0x30;
                     ADV();
                 }
+
+                if (isdigit(B_10000DD4)) {
+                    var_a1_2 = ((var_a1_2 * 0xA) + B_10000DD4) - 0x30;
+                    ADV();
+                }
+
                 if (var_a1_2 <= 0) {
                     return -1;
                 }
 
-                // TODO
-                // var_a1_3 = ;
-                while (var_a1_3 > 0) {
-                    if (!isalnum(B_10000DD4) && (B_10000DD4 != 0x5F)) {
+                while (var_a1_2--) {
+                    if (!(isalnum(B_10000DD4)) && (B_10000DD4 != 0x5F)) {
                         return -1;
                     }
+
                     ADV();
-                    var_a1_3 -= 1;
                 }
 
-                if ((B_10000DD4 != 0x5F) || (B_10000DD8[0] != 0x5F)) {
+                if ((B_10000DD4 != 0x5F) || (temp_a1_4 = *B_10000DD8, (temp_a1_4 != 0x5F))) {
                     return -1;
                 }
                 ADV();
                 ADV();
             }
-
-            if ((sp460[0] == *"__vtbl") && (strcmp(sp460, "__vtbl") == 0)) {
-                if ((B_10000DD4 == 0x5F) && (B_10000DD8[0] == 0x5F) && (B_10000DD8[1] != 0)) {
+            if (STR_EQUAL(sp460, "__vtbl")) {
+                if ((B_10000DD4 == 0x5F) && (*B_10000DD8 == 0x5F) && (B_10000DD8[1] != 0)) {
                     arg1->unk_04 = func_00400EF8(B_10000DD8 + 1);
                 }
             } else {
@@ -1031,25 +1044,26 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                     arg1->unk_1A = B_10000DD4;
                     ADV();
                 }
+
                 if (B_10000DD4 == 0x46) {
                     ADV();
                     arg1->unk_10 = func_00402D50();
-                    if (arg1->unk_10 == 0) {
+                    if (arg1->unk_10 == NULL) {
                         return -1;
                     }
                 }
             }
 
-            if (((B_10000DD4 != 0) && ((sp460[0] != *"__vtbl") || (strcmp(sp460, "__vtbl") != 0))) || (D_10000000 != 0)) {
+            if (((B_10000DD4 != 0) && !STR_EQUAL(sp460, "__vtbl")) || (D_10000000 != 0)) {
                 return -1;
             }
             arg1->unk_00 = func_00400EF8(sp460);
         }
     }
+block_187:
 
-block_188:
     var_v1_5 = 0;
-    switch (arg1->unk_1A) {                           /* irregular */
+    switch (arg1->unk_1A) {
         case 0x69:
             var_v1_5 = 1;
             break;
@@ -1065,17 +1079,16 @@ block_188:
         case 0x53:
             var_v1_5 = 7;
             break;
-
         default:
-            func_00400DE4("bad type set for p->sc", 0, 0);
+            func_00400DE4("bad type set for p->sc", NULL, NULL);
             var_v1_5 = 0;
             break;
 
         case 0x0:
             if (arg1->unk_18 != -1) {
                 var_v1_5 = 0xE;
-            } else if (arg1->unk_10 != 0) {
-                if (arg1->unk_08 != 0) {
+            } else if (arg1->unk_10 != NULL) {
+                if (arg1->unk_08 != NULL) {
                     var_v1_5 = 9;
                 } else if (arg1->unk_0C != NULL) {
                     if ((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F)) {
@@ -1093,7 +1106,7 @@ block_188:
                     var_v1_5 = 5;
                 }
             } else if ((arg1->unk_00 == NULL) && (arg1->unk_0C != NULL)) {
-                if (arg1->unk_0C != 0) {
+                if (arg1->unk_0C->unk_04 != NULL) {
                     var_v1_5 = 0x10;
                 } else {
                     var_v1_5 = 0xF;
@@ -1112,7 +1125,7 @@ block_188:
     }
 
     if (var_v1_5 == 0) {
-        func_00400DE4("cannot characterize type of input", 0, 0);
+        func_00400DE4("cannot characterize type of input", NULL, NULL);
     }
     arg1->unk_14 = var_v1_5;
     return 0;
