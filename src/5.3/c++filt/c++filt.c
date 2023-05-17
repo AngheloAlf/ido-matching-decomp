@@ -32,6 +32,11 @@ typedef u8 UNK_TYPE1;
 
 #define STATIC static
 
+// #define NON_EQUIVALENT
+#ifndef putchar_locked
+#define putchar_locked(x) putchar(x)
+#endif
+
 typedef enum enum_dem_explain_arg0 {
     /*  1 */ ENUM_DEM_EXPLAIN_ARG_1 = 1,
     /*  2 */ ENUM_DEM_EXPLAIN_ARG_2,
@@ -179,9 +184,6 @@ STATIC void func_004010F8(void) {
     B_10000DD4 = B_10000E30[D_10000004];
     D_10000004--;
 }
-
-// #define NON_EQUIVALENT
-// #define putchar_locked(x) putchar(x)
 
 #ifdef NON_EQUIVALENT
 //#if 1
@@ -406,106 +408,35 @@ STATIC struct_dem_printarglist_arg0* func_00401A70(struct_dem_printarglist_arg0*
 
 #ifdef NON_EQUIVALENT
 struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_arg0* arg1[], int* arg2) {
-    char spFA4[UNK_SIZE];
-    s32 spFA0;
-    s32 spF9C;
+    char spFA4[0x100]; // arbitrary
+    int var_t5; // spFA0
+    int spF9C;
     struct_dem_printcl_arg0* spF98;
     struct_dem_printarglist_arg0* spF90;
     struct_dem_printarglist_arg0* spF8C;
     char spB8C[0x400];
-    s32 spB88;
-    s32 spB84;
-    UNK_TYPE sp9F4[UNK_SIZE];
-    s32 sp9F0;
-    s32 sp9EC;
-    s32 sp9E8;
-    s32 sp9E4;
+    int var_ra; // spB88
+    int spB84;
+    UNK_TYPE sp9F4[100];
+    int sp9F0;
+    int var_a1_4; // sp9EC
+    int sp9E8;
+    int sp9E4;
     char sp5E4[0x400];
     char sp1E4[0x400];
-    struct_dem_printcl_arg0 *sp54[UNK_SIZE];
-    s32 sp50;
-    s32 sp4C;
-    struct_dem_printcl_arg0** sp30;                 /* compiler-managed */
-    s32 temp_a1;
-    s32 temp_a3;
-    s32 temp_a3_2;
-    s32 temp_s0_2;
-    s32 temp_t5;
-    s32 temp_t6_2;
-    s32 temp_t7_2;
-    s32 temp_t7_6;
-    s32 temp_t7_7;
-    s32 temp_t8_4;
-    s32 temp_t9_12;
-    s32 temp_t9_2;
-    s32 temp_t9_5;
-    s32 temp_v0_3;
-    s32 var_a0_2;
-    s32 var_a1;
-    s32 var_a1_2;
-    s32 var_a1_3;
-    s32 var_a1_4;
-    s32 var_a1_5;
-    s32 var_ra;
-    s32 var_t5;
-    s32 var_v0;
-    s32 var_v0_2;
-    s32 var_v0_3;
-    s32 var_v0_4;
-    s32 var_v0_5;
-    s32 var_v1;
-    s32* temp_t6_7;
-    s32* var_v1_2;
-    s32* var_v1_3;
+    struct_dem_printcl_arg0 *sp54[100];
+    int sp50;
+    int sp4C;
+    int temp_a1;
+    int var_a0_2;
+    int var_a1;
+    int var_a1_5;
+    int var_v0_2;
     char* temp_a2;
-    char* temp_a2_2;
-    char* temp_s0;
-    char* var_a2;
     struct_dem_printarglist_arg0* temp_v0;
-    struct_dem_printarglist_arg0* temp_v0_5;
-    struct_dem_printarglist_arg0* temp_v0_6;
-    struct_dem_printarglist_arg0* temp_v0_7;
     struct_dem_printarglist_arg0* var_a0;
-    struct_dem_printcl_arg0* temp_t6_9;
     struct_dem_printcl_arg0* temp_v0_4;
     struct_dem_printcl_arg0* temp_v0_8;
-    struct_dem_printcl_arg0* temp_v0_9;
-    struct_dem_printcl_arg0** temp_a0_3;
-    struct_dem_printcl_arg0** temp_t8_5;
-    struct_dem_printcl_arg0** var_v1_4;
-    struct_dem_printcl_arg0** var_v1_5;
-    u8 temp_a0;
-    u8 temp_a0_2;
-    u8 temp_t6;
-    u8 temp_t6_10;
-    u8 temp_t6_11;
-    u8 temp_t6_3;
-    u8 temp_t6_5;
-    u8 temp_t6_6;
-    u8 temp_t7;
-    u8 temp_t7_10;
-    u8 temp_t7_3;
-    u8 temp_t7_4;
-    u8 temp_t7_5;
-    u8 temp_t7_8;
-    u8 temp_t7_9;
-    u8 temp_t8;
-    u8 temp_t8_10;
-    u8 temp_t8_2;
-    u8 temp_t8_3;
-    u8 temp_t8_7;
-    u8 temp_t8_8;
-    u8 temp_t8_9;
-    u8 temp_t9;
-    u8 temp_t9_10;
-    u8 temp_t9_11;
-    u8 temp_t9_4;
-    u8 temp_t9_6;
-    u8 temp_t9_7;
-    u8 temp_t9_8;
-    u8 temp_t9_9;
-    UNK_TYPE* temp_t6_8;
-    UNK_TYPE* temp_t8_6;
 
     if (arg2 != NULL) {
         if (*arg2 > 0) {
@@ -538,7 +469,7 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
             case 0x53:
             case 0x55:
             case 0x56:
-                spFA4[var_t5] = (s8) (u8) B_10000DD4;
+                spFA4[var_t5] = B_10000DD4;
                 var_t5 += 1;
                 ADV();
                 break;
@@ -553,73 +484,62 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
             case 0x72:
             case 0x73:
             case 0x76:
-                spF9C = (s32) (u8) B_10000DD4;
+                spF9C = B_10000DD4;
                 ADV();
                 break;
 
             case 0x41:
-                spFA4[var_t5] = (s8) (u8) B_10000DD4;
+                spFA4[var_t5] = B_10000DD4;
                 var_t5 += 1;
                 ADV();
                 if (!(isdigit(B_10000DD4))) {
                     D_10000000 = 1;
                     return NULL;
                 }
-                var_a1_5 = (u8) B_10000DD4 - 0x30;
+
+                var_a1_5 = B_10000DD4 - 0x30;
                 ADV();
-                if (isdigit(B_10000DD4)) {
-                    do {
-                        var_a1_5 = ((var_a1_5 * 0xA) + (u8) B_10000DD4) - 0x30;
-                        ADV();
-                    } while (isdigit(B_10000DD4));
+                while (isdigit(B_10000DD4)) {
+                    var_a1_5 = ((var_a1_5 * 0xA) + B_10000DD4) - 0x30;
+                    ADV();
                 }
-                if ((u8) B_10000DD4 != 0x5F) {
+
+                if (B_10000DD4 != 0x5F) {
                     D_10000000 = 1;
                     return NULL;
                 }
                 ADV();
-                (&sp9F4[0])[sp9F0] = var_a1_5;
+                sp9F4[sp9F0] = var_a1_5;
                 sp9F0 += 1;
                 break;
 
             case 0x46:
-                spF9C = (s32) (u8) B_10000DD4;
+                spF9C = B_10000DD4;
                 ADV();
-                spB88 = var_ra;
-                spFA0 = var_t5;
-                temp_v0_6 = func_00402D50();
-                spF90 = temp_v0_6;
-                if (temp_v0_6 == NULL) {
+                spF90 = func_00402D50();
+                if (spF90 == NULL) {
                     D_10000000 = 1;
                     return NULL;
                 }
-                if ((u8) B_10000DD4 != 0x5F) {
+                if (B_10000DD4 != 0x5F) {
                     D_10000000 = 1;
                     return NULL;
                 }
                 ADV();
-                spB88 = var_ra;
-                spFA0 = var_t5;
-                temp_v0_7 = func_00401B48(-1, NULL, NULL);
-                spF8C = temp_v0_7;
-                if (temp_v0_7 == NULL) {
+                spF8C = func_00401B48(-1, NULL, NULL);
+                if (spF8C == NULL) {
                     D_10000000 = 1;
                     return NULL;
                 }
                 break;
 
             case 0x4D:
-                spFA4[var_t5] = (s8) (u8) B_10000DD4;
-                temp_t5 = var_t5 + 1;
+                spFA4[var_t5] = B_10000DD4;
+                var_t5++;
                 sp9E8 = 1;
-                temp_a0_3 = &(&sp54[0])[sp50];
                 ADV();
-                spB88 = var_ra;
-                sp30 = temp_a0_3;
-                spFA0 = temp_t5;
                 temp_v0_8 = func_004011B4();
-                var_t5 = temp_t5;
-                *temp_a0_3 = temp_v0_8;
+                sp54[sp50] = temp_v0_8;
                 sp50 += 1;
                 if (temp_v0_8 == NULL) {
                     D_10000000 = 1;
@@ -634,7 +554,7 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
                     D_10000000 = 1;
                     return NULL;
                 }
-                temp_a1 = (u8) B_10000DD4 - 0x30;
+                temp_a1 = B_10000DD4 - 0x30;
                 ADV();
                 if (temp_a1 <= 0) {
                     D_10000000 = 1;
@@ -644,15 +564,14 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
                     D_10000000 = 1;
                     return NULL;
                 }
-                #if 1
+
                 temp_v0 = func_00401A70(arg1[temp_a1-1]);
-                #endif
                 B_10000E3C = temp_v0;
                 return temp_v0;
 
             case 0x4E:
                 ADV();
-                if (!(isdigit(B_10000DD4))) {
+                if (!isdigit(B_10000DD4)) {
                     D_10000000 = 1;
                     return NULL;
                 }
@@ -660,9 +579,8 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
                     D_10000000 = 1;
                     return NULL;
                 }
-                temp_t9_12 = (u8) B_10000DD4 - 0x31;
-                *arg2 = temp_t9_12;
-                if (temp_t9_12 < 0) {
+                *arg2 = B_10000DD4 - 0x31;
+                if (*arg2 < 0) {
                     D_10000000 = 1;
                     return NULL;
                 }
@@ -679,11 +597,8 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
             case 0x38:
             case 0x39:
             case 0x51:
-                spB88 = var_ra;
-                spFA0 = var_t5;
-                temp_v0_9 = func_004011B4();
-                spF98 = temp_v0_9;
-                if (temp_v0_9 == NULL) {
+                spF98 = func_004011B4();
+                if (spF98 == NULL) {
                     D_10000000 = 1;
                     return NULL;
                 }
@@ -697,72 +612,61 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
         if (spF9C != 0) {
             if ((spF9C != 0) && (spB84 != 0)) {
                 sp9E4 = 0;
-                if ((u8) B_10000DD4 == 0x4C) {
-                    temp_a0 = (u8) *B_10000DD8;
-                    if (temp_a0 == 0x4D) {
+                if (B_10000DD4 == 0x4C) {
+                    if (*B_10000DD8 == 0x4D) {
                         ADV();
                         ADV();
 
                         while ((B_10000DD4 != 0x5F) && (B_10000DD4 != 0)) {
                             ADV();
                         }
-                        if ((u8) B_10000DD4 == 0) {
+                        if (B_10000DD4 == 0) {
                             D_10000000 = 1;
                             return NULL;
                         }
                         ADV();
 
-                        while (((u8) B_10000DD4 != 0x5F) && ((u8) B_10000DD4 != 0)) {
+                        while ((B_10000DD4 != 0x5F) && (B_10000DD4 != 0)) {
                             ADV();
                         }
 
-                        if ((u8) B_10000DD4 == 0) {
+                        if (B_10000DD4 == 0) {
                             D_10000000 = 1;
                             return NULL;
                         }
                         ADV();
-                        var_a1 = (u8) B_10000DD4 - 0x30;
+                        var_a1 = B_10000DD4 - 0x30;
                         ADV();
-                        B_10000DDC = temp_t9_5;
-                        temp_t7_2 = isdigit(B_10000DD4);
-                        var_v0 = temp_t7_2;
-                        if (temp_t7_2 != 0) {
-                            var_a1 = ((var_a1 * 0xA) + (u8) B_10000DD4) - 0x30;
-                            if (temp_t9_5 > 0) {
-                                temp_t9_6 = (u8) *B_10000DD8;
-                                B_10000DD8 += 1;
-                                B_10000DD4 = (s8) temp_t9_6;
-                            } else {
-                                B_10000DD4 = 0;
-                            }
-                            B_10000DDC = temp_t9_5 - 1;
-                            var_v0 = isdigit(B_10000DD4);
+                        if (isdigit(B_10000DD4)) {
+                            var_a1 = ((var_a1 * 0xA) + B_10000DD4) - 0x30;
+                            ADV();
                         }
-                        if (var_v0 != 0) {
-                            var_a1 = ((var_a1 * 0xA) + (u8) B_10000DD4) - 0x30;
+                        if (isdigit(B_10000DD4)) {
+                            var_a1 = ((var_a1 * 0xA) + B_10000DD4) - 0x30;
                             ADV();
                         }
                         sp9E4 = 1;
                         goto block_172;
                     }
                 }
-                if ((u8) B_10000DD4 == 0x4C) {
+
+                if (B_10000DD4 == 0x4C) {
                     ADV();
-                    if (!(isdigit(B_10000DD4))) {
+                    if (!isdigit(B_10000DD4)) {
                         D_10000000 = 1;
                         return NULL;
                     }
-                    var_a1 = (u8) B_10000DD4 - 0x30;
+
+                    var_a1 = B_10000DD4 - 0x30;
                     ADV();
                     if (isdigit(B_10000DD4)) {
-                        temp_a0_2 = (u8) *B_10000DD8;
-                        if (temp_a0_2 == 0x5F) {
-                            var_a1 = ((var_a1 * 0xA) + (u8) B_10000DD4) - 0x30;
+                        if (*B_10000DD8 == 0x5F) {
+                            var_a1 = ((var_a1 * 0xA) + B_10000DD4) - 0x30;
                             ADV();
                             ADV();
                         }
                     }
-                    if ((u8) B_10000DD4 == 0x6E) {
+                    if (B_10000DD4 == 0x6E) {
                         var_a1 -= 1;
                         ADV();
                         spB8C[0] = 0x2D;
@@ -770,16 +674,16 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
                     }
                     goto block_172;
                 }
-                if ((u8) B_10000DD4 == 0x30) {
+                if (B_10000DD4 == 0x30) {
                     var_a1 = 1;
                     goto block_172;
                 }
 
                 if (isdigit(B_10000DD4)) {
-                    var_a1 = (u8) B_10000DD4 - 0x30;
+                    var_a1 = B_10000DD4 - 0x30;
                     ADV();
                     if (isdigit(B_10000DD4)) {
-                        var_a1 = ((var_a1 * 0xA) + (u8) B_10000DD4) - 0x30;
+                        var_a1 = ((var_a1 * 0xA) + B_10000DD4) - 0x30;
                         ADV();
                     }
 block_172:
@@ -788,56 +692,38 @@ block_172:
                         D_10000000 = 1;
                         return NULL;
                     }
-                    var_a1_2 = var_a1 - 1;
-                    if (var_a1 > 0) {
 
-                        while (1) {
-                            if (!(isalnum(B_10000DD4)) && ((u8) B_10000DD4 != 0x5F)) {
+                    while (var_a1--) {
+                        if (!(isalnum(B_10000DD4)) && (B_10000DD4 != 0x5F)) {
+                            D_10000000 = 1;
+                            return NULL;
+                        }
+                        temp_a2 = &spB8C[var_ra];
+                        temp_a2[1-1] = B_10000DD4;
+                        var_ra += 1;
+                        ADV();
+                        if ((var_a1 > 0) && (var_ra >= 2) && (temp_a2[-1] == 0x5F) && (temp_a2[-2] == 0x5F)) {
+                            sp4C = sp50;
+                            temp_v0_4 = func_004011B4();
+                            var_a0_2 = sp4C;
+                            sp54[sp50] = temp_v0_4;
+                            var_ra -= 2;
+                            sp50 += 1;
+                            if (temp_v0_4 == NULL) {
                                 D_10000000 = 1;
                                 return NULL;
                             }
-                            temp_a2 = &spB8C[var_ra];
-                            temp_a2[1-1] = (u8) B_10000DD4;
-                            var_ra += 1;
-                            ADV();
-                            temp_v0_3 = var_a1_2 > 0;
-                            if ((temp_v0_3 != 0) && (var_ra >= 2) && (temp_a2[1-1] == 0x5F) && (temp_a2[1-2] == 0x5F)) {
-                                spB88 = var_ra;
-                                sp30 = temp_a2 + 1;
-                                spFA0 = var_t5;
-                                sp4C = sp50;
-                                temp_v0_4 = func_004011B4();
-                                var_a0_2 = sp4C;
-                                sp54[sp50] = temp_v0_4;
-                                var_ra -= 2;
-                                sp50 += 1;
-                                if (temp_v0_4 == NULL) {
-                                    D_10000000 = 1;
-                                    return NULL;
-                                }
-                                temp_a2[1-1] = 0;
-                                temp_a2[1-2] = 0;
-                                break;
-                            }
-                            var_a1_2 -= 1;
-                            if (temp_v0_3 == 0) {
-                                break;
-                            }
+                            temp_a2[-1] = 0;
+                            temp_a2[-2] = 0;
+                            break;
                         }
                     }
 
                     spB8C[var_ra] = 0;
                     if (((sp9E8 != 0) && (sp9E4 != 0)) || (var_a0_2 >= 0)) {
-                        if (var_a0_2 >= 0) {
-                            var_v1 = var_a0_2;
-                        } else {
-                            var_v1 = 0;
-                        }
-                        spFA0 = var_t5;
-                        dem_printcl(sp54[var_v1], sp1E4);
-                        sprintf(&sp5E4, "%s::%s", sp1E4, spB8C);
-                        strcpy(spB8C, &sp5E4);
-                        var_t5 = spFA0;
+                        dem_printcl(sp54[(var_a0_2 >= 0) ? var_a0_2 : 0], sp1E4);
+                        sprintf(sp5E4, "%s::%s", sp1E4, spB8C);
+                        strcpy(spB8C, sp5E4);
                         var_ra = strlen(spB8C);
                     }
                 } else {
@@ -846,125 +732,50 @@ block_172:
                 }
             }
 
-            temp_s0 = var_t5 + &spFA4;
-            temp_a2_2 = &spB8C[var_ra];
-            *temp_s0 = 0;
-            *temp_a2_2 = 0;
-            sp30 = temp_a2_2;
-            temp_v0_5 = func_00400E64(0x24);
+            spFA4[var_t5] = 0;
+            spB8C[var_ra] = 0;
+            var_a0 = func_00400E64(0x24);
 
-            var_a2 = temp_a2_2;
-            var_a0 = temp_v0_5;
-            if (temp_s0 != spFA4) {
+            if (&spFA4[var_t5] != spFA4) {
                 B_10000E3C = var_a0;
-                sp30 = var_a2;
-                var_a2 = sp30;
-                var_a0 = B_10000E3C;
                 var_a0->unk_00 = func_00400EF8(spFA4);
             } else {
-                temp_v0_5->unk_00 = 0;
+                var_a0->unk_00 = 0;
             }
-            if (var_a2 != spB8C) {
+            if (&spB8C[var_ra] != spB8C) {
                 B_10000E3C = var_a0;
-                var_a0 = B_10000E3C;
                 var_a0->unk_1C = func_00400EF8(spB8C);
             } else {
                 var_a0->unk_1C = NULL;
             }
             if (sp9F0 > 0) {
                 B_10000E3C = var_a0;
-                var_a1_3 = 0;
-                var_a0 = B_10000E3C;
                 var_a0->unk_04 = func_00400E64(sp9F0 * 4);
-                temp_a3 = sp9F0 & 3;
-                if (sp9F0 > 0) {
-                    if (temp_a3 != 0) {
-                        var_v0_2 = 0 * 4;
-                        var_v1_2 = &(&sp9F4[0])[0];
-                        do {
-                            temp_t8_4 = *var_v1_2;
-                            var_a1_3 += 1;
-                            temp_t6_7 = var_a0->unk_04 + var_v0_2;
-                            var_v0_2 += 4;
-                            var_v1_2 += 4;
-                            *temp_t6_7 = temp_t8_4;
-                        } while (temp_a3 != var_a1_3);
-                        if (var_a1_3 != sp9F0) {
-                            goto block_209;
-                        }
-                    } else {
-block_209:
-                        var_v0_3 = var_a1_3 * 4;
-                        #if 1
-                        var_v1_3 = &(&sp9F4[0])[var_a1_3];
-                        do {
-                            *(var_a0->unk_04 + var_v0_3) = var_v1_3[0];
-                            (var_a0->unk_04 + var_v0_3)[1] = var_v1_3[1];
-                            (var_a0->unk_04 + var_v0_3)[2] = var_v1_3[2];
-                            temp_t7_6 = var_v1_3[3];
-                            var_v1_3 += 0x10;
-                            temp_t6_8 = var_a0->unk_04 + var_v0_3;
-                            var_v0_3 += 0x10;
-                            temp_t6_8[3] = temp_t7_6;
-                        } while (var_v1_3 != &sp9F4[sp9F0]);
-                        #endif
-                    }
+
+                for (var_v0_2 = 0; var_v0_2 < sp9F0; var_v0_2++) {
+                    var_a0->unk_04[var_v0_2] = sp9F4[var_v0_2];
                 }
             } else {
                 var_a0->unk_04 = NULL;
             }
-            var_a0->unk_20 = (s8) spF9C;
+
+            var_a0->unk_20 = spF9C;
             var_a0->unk_08 = spF90;
             var_a0->unk_0C = spF8C;
             var_a0->unk_10 = spF98;
-            temp_s0_2 = sp50 * 4;
             if (sp50 > 0) {
                 B_10000E3C = var_a0;
-                sp9EC = 0;
-                var_a1_4 = sp9EC;
-                var_a0 = B_10000E3C;
-                var_a0->unk_14 = func_00400E64(temp_s0_2 + 4);
-                temp_a3_2 = sp50 & 3;
-                if (sp50 > 0) {
-                    if (temp_a3_2 != 0) {
-                        var_v0_4 = var_a1_4 * 4;
-                        var_v1_4 = &(&sp54[0])[var_a1_4];
-                        do {
-                            temp_t6_9 = *var_v1_4;
-                            var_a1_4 += 1;
-                            temp_t8_5 = var_a0->unk_14 + var_v0_4;
-                            var_v0_4 += 4;
-                            var_v1_4 += 4;
-                            *temp_t8_5 = temp_t6_9;
-                        } while (temp_a3_2 != var_a1_4);
+                var_a0->unk_14 = func_00400E64((sp50 + 1) * 4);
 
-                        if (var_a1_4 != sp50) {
-                            goto block_220;
-                        }
-                    } else {
-block_220:
-                        // unrolled loop?
-                        var_v1_5 = &(&sp54[0])[var_a1_4];
-                        #if 1
-                        do {
-                            *(var_a0->unk_14 + var_a1_4) = var_v1_5[0];
-                            (var_a0->unk_14 + var_a1_4)[1] = (s32) var_v1_5[1];
-                            (var_a0->unk_14 + var_a1_4)[2] = (s32) var_v1_5[2];
-                            temp_t7_7 = var_v1_5[3];
-                            var_v1_5 += 0x10;
-                            temp_t8_6 = var_a0->unk_14 + var_a1_4;
-                            var_v0_5 += 0x10/4;
-                            temp_t8_6[3] = temp_t7_7;
-                        } while (var_v1_5 != &(&sp54[0])[sp50]);
-                        #endif
-                    }
+                for (var_a1_4 = 0; var_a1_4 < sp50; var_a1_4++) {
+                    var_a0->unk_14[var_a1_4] = sp54[var_a1_4];
                 }
-                #if 1
-                *(var_a0->unk_14 + temp_s0_2) = 0;
-                #endif
+
+                var_a0->unk_14[sp50] = NULL;
             } else {
                 var_a0->unk_14 = NULL;
             }
+
             var_a0->unk_18 = NULL;
             B_10000E3C = var_a0;
             return var_a0;
@@ -1010,11 +821,10 @@ STATIC struct_dem_printarglist_arg0* func_00402D50(void) {
 int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     char sp460[0x400];
     int var_a2; // sp45C
-    int sp458;
+    int var_a1; // sp458
     char sp40[0x400];
-    int var_v1_5; // sp3C
     int temp_a1;
-    int var_a1;
+    int var_v1_5; // sp3C
     int var_a1_2;
     int var_a1_3;
     int var_v1_2;
@@ -1059,7 +869,6 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             }
 
             if (*var_a0 != 0) {
-                sp458 = var_a1;
                 arg1->unk_0 = func_00400EF8(var_a0);
                 arg1->unk_18 = var_a1;
                 goto block_188;
@@ -1110,8 +919,8 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             D_10000004 = -1;
             D_10000000 = 0;
             if (var_v1_2 == 1) {
-                sprintf(&sp40, "%d%s", strlen(arg0), arg0);
-                func_00400FA4(&sp40, 0x270F);
+                sprintf(sp40, "%d%s", strlen(arg0), arg0);
+                func_00400FA4(sp40, 0x270F);
             } else {
                 func_00400FA4(arg0 + 2, 0x270F);
             }
@@ -1231,7 +1040,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                 }
             }
 
-            if (((B_10000DD4 != 0) && ((sp460[0] != *"__vtbl") || (strcmp(sp460[0], "__vtbl") != 0))) || (D_10000000 != 0)) {
+            if (((B_10000DD4 != 0) && ((sp460[0] != *"__vtbl") || (strcmp(sp460, "__vtbl") != 0))) || (D_10000000 != 0)) {
                 return -1;
             }
             arg1->unk_0 = func_00400EF8(sp460);
