@@ -661,7 +661,7 @@ class GlobalAsmBlock:
             self.add_sized(self.count_quoted_size(line, z, real_line, output_enc), real_line)
         elif line.startswith('.byte'):
             self.add_sized(len(line.split(',')), real_line)
-        elif line.startswith('.half'):
+        elif line.startswith('.half') or line.startswith('.hword'):
             self.align2()
             self.add_sized(2*len(line.split(',')), real_line)
         elif line.startswith('.'):
@@ -1071,7 +1071,7 @@ def fixup_objfile(objfile_name, functions, asm_prelude, assembler, output_enc, d
                 else:
                     asm.append('.space {}'.format(loc - prev_loc))
             to_copy[sectype].append((loc, size, temp_name, function.fn_desc))
-            if function.text_glabels:
+            if function.text_glabels and sectype == '.text':
                 func_sizes[function.text_glabels[0]] = size
             prev_locs[sectype] = loc + size
         if not ifdefed:
