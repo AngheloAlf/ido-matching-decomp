@@ -407,6 +407,7 @@ STATIC struct_dem_printarglist_arg0* func_00401A70(struct_dem_printarglist_arg0*
 }
 
 #ifdef NON_EQUIVALENT
+//#if 1
 struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_arg0* arg1[], int* arg2) {
     char spFA4[0x100]; // arbitrary
     int var_t5; // spFA0
@@ -784,6 +785,14 @@ block_172:
 }
 #else
 struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_arg0* arg1[], int *arg2);
+
+void dummy_func(void) {
+    (void)"                                                                                                                                                                           ";
+    (void)"                                                                                                                                                                           ";
+    (void)"                                                                                                                                                                           ";
+    (void)"                                                                                                                                                                           ";
+}
+
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
 #endif
 
@@ -835,11 +844,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     char* var_a0_3; // sp440 ?
     char sp40[0x400];
     int var_v1_5; // sp3C
-    char* var_v1; // sp38?
     int var_v0; // sp34?
-    char* var_a3; //sp30
-
-    char* temp_v0_6;
 
     if ((arg0 == NULL) || (arg1 == NULL) || (arg2 == NULL)) {
         return -1;
@@ -863,12 +868,13 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
 
     if ((arg0[0] == 0x5F) && (arg0[1] == 0x5F)) {
         var_a0 = arg0 + 2;
-        var_v0 = arg0[2];
+        var_v0 = *var_a0;
         if (isdigit(var_v0)) {
             var_a1 = 0;
             while (isdigit(var_v0)) {
-                var_a0 += 1;
+                var_v0 = *var_a0;
                 var_a1 = var_v0 + (var_a1 * 0xA) - 0x30;
+                var_a0++;
                 var_v0 = *var_a0;
             }
 
@@ -888,11 +894,11 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             var_a0_2 += 1;
         }
 
-        var_v1 = var_a0_2;
-        while ((var_v1[0] != 0) && ((var_v1[0] != 0x5F) || (var_v1[1] != 0x63) || (var_v1[2] != 0x5F))) {
-            var_v1 += 1;
+        var_a0_3 = var_a0_2;
+        while ((var_a0_3[0] != 0) && ((var_a0_3[0] != 0x5F) || (var_a0_3[1] != 0x63) || (var_a0_3[2] != 0x5F))) {
+            var_a0_3 += 1;
         }
-        *var_v1 = 0;
+        *var_a0_3 = 0;
 
         if (var_a0_2[0] == 0) {
             return -1;
@@ -937,13 +943,10 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             var_a2 = 0;
             sp460[0] = 0;
             while (isalnum(B_10000DD4) || (B_10000DD4 == 0x5F)) {
-                sp460[var_a2] = B_10000DD4;
-                var_a2 += 1;
-                var_a3 = &sp460[var_a2];
-                *var_a3 = 0;
-                if ((*B_10000DD8 == 0) || ((*B_10000DD8 == 0x5F) && (B_10000DD8[1] == 0x5F) && (B_10000DD8[2] != 0x5F))) {
+                sp460[var_a2++] = B_10000DD4;
+                sp460[var_a2] = 0;
+                if (B_10000DD8[0] == 0 || (B_10000DD8[0] == 0x5F) && (B_10000DD8[1] == 0x5F) && (B_10000DD8[2] != 0x5F)) {
                     ADV();
-
                     break;
                 }
                 ADV();
@@ -955,11 +958,10 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                         return -1;
                     }
 
-                    temp_v0_6 = B_10000DD8 - 1;
-                    while ((u32) temp_v1_2 < (u32) temp_v0_6) {
-                        *var_a3++ = *temp_v1_2++;
+                    while ((u32) temp_v1_2 < (u32) (B_10000DD8 - 1)) {
+                        sp460[var_a2++] = *temp_v1_2++;
                     }
-                    *var_a3 = 0;
+                    sp460[var_a2] = 0;
                     break;
                 }
 
@@ -969,11 +971,11 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                 return -1;
             }
 
-            if ((B_10000DD4 == 0x5F) && (*B_10000DD8 == 0x5F)) {
+            if ((B_10000DD4 == 0x5F) && (B_10000DD8[0] == 0x5F)) {
                 ADV();
                 ADV();
 
-                if (B_10000DD4 == 0) {
+                if (!B_10000DD4) {
                     return -1;
                 }
             }
@@ -993,6 +995,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                 if (!isdigit(B_10000DD4)) {
                     return -1;
                 }
+
                 var_a1_2 = B_10000DD4 - 0x30;
                 ADV();
 
@@ -1010,7 +1013,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
                     return -1;
                 }
 
-                while (var_a1_2--) {
+                while (var_a1_2-- > 0) {
                     if (!(isalnum(B_10000DD4)) && (B_10000DD4 != 0x5F)) {
                         return -1;
                     }
@@ -1052,101 +1055,68 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
 
 block_187:
     var_v1_5 = 0;
-    switch (arg1->unk_1A) {
-        case 0x69:
-            var_v1_5 = 1;
-            break;
-        case 0x64:
-            var_v1_5 = 2;
-            break;
-        case 0x62:
-            var_v1_5 = 4;
-            break;
-        case 0x43:
-            var_v1_5 = 8;
-            break;
-        case 0x53:
-            var_v1_5 = 7;
-            break;
+    if (arg1->unk_1A != 0) {
+        switch (arg1->unk_1A) {
+            case 0x69:
+                var_v1_5 = 1;
+                break;
+            case 0x64:
+                var_v1_5 = 2;
+                break;
+            case 0x62:
+                var_v1_5 = 4;
+                break;
+            case 0x43:
+                var_v1_5 = 8;
+                break;
+            case 0x53:
+                var_v1_5 = 7;
+                break;
 
-        case 0x44: // dummy to force order
-        //case 0x45:
-        //case 0x46:
-        //case 0x47:
-        //case 0x48:
-        //case 0x49:
-        //case 0x4A:
-        //case 0x4B:
-        //case 0x4C:
-        //case 0x4D:
-        //case 0x4E:
-        //case 0x4F:
-        //case 0x50:
-        //case 0x51:
-        //case 0x52:
-        //case 0x54:
-        //case 0x55:
-        //case 0x56:
-        //case 0x57:
-        //case 0x58:
-        //case 0x59:
-        //case 0x5A:
-        //case 0x5B:
-        //case 0x5C:
-        //case 0x5D:
-        //case 0x5E:
-        //case 0x5F:
-        //case 0x60:
-        //case 0x61:
-        //case 0x63:
-        //case 0x65:
-        //case 0x66:
-        //case 0x67:
-        //case 0x68:
-        default:
-            func_00400DE4("bad type set for p->sc", NULL, NULL);
-            var_v1_5 = 0;
-            break;
+            default:
+                func_00400DE4("bad type set for p->sc", NULL, NULL);
+                var_v1_5 = 0;
+                break;
 
-        case 0x0:
-            if (arg1->unk_18 != -1) {
-                var_v1_5 = 0xE;
-            } else if (arg1->unk_10 != NULL) {
-                if (arg1->unk_08 != NULL) {
-                    var_v1_5 = 9;
-                } else if (arg1->unk_0C != NULL) {
-                    if ((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F)) {
-                        if ((arg1->unk_00[2] == 0x63) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0)) {
-                            var_v1_5 = 0xA;
-                        } else if ((arg1->unk_00[2] == 0x64) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0)) {
-                            var_v1_5 = 0xB;
-                        } else {
-                            var_v1_5 = 6;
-                        }
+        }
+    } else {
+        if (arg1->unk_18 != -1) {
+            var_v1_5 = 0xE;
+        } else if (arg1->unk_10 != NULL) {
+            if (arg1->unk_08 != NULL) {
+                var_v1_5 = 9;
+            } else if (arg1->unk_0C != NULL) {
+                if ((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F)) {
+                    if ((arg1->unk_00[2] == 0x63) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0)) {
+                        var_v1_5 = 0xA;
+                    } else if ((arg1->unk_00[2] == 0x64) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0)) {
+                        var_v1_5 = 0xB;
                     } else {
                         var_v1_5 = 6;
                     }
                 } else {
-                    var_v1_5 = 5;
+                    var_v1_5 = 6;
                 }
-            } else if ((arg1->unk_00 == NULL) && (arg1->unk_0C != NULL)) {
-                if (arg1->unk_0C->unk_04 != NULL) {
-                    var_v1_5 = 0x10;
-                } else {
-                    var_v1_5 = 0xF;
-                }
-            } else if (arg1->unk_00 != NULL) {
-                if (arg1->unk_0C != NULL) {
-                    if (((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F) && (arg1->unk_00[2] == 0x76) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0x62) && (arg1->unk_00[5] == 0x6C) && (arg1->unk_00[6] == 0))) {
-                        var_v1_5 = 3;
-                    } else {
-                        var_v1_5 = 0xD;
-                    }
-                } else {
-                    var_v1_5 = 0xC;
-                }
+            } else {
+                var_v1_5 = 5;
             }
-            break;
+        } else if ((arg1->unk_00 == NULL) && (arg1->unk_0C != NULL)) {
+            if (arg1->unk_0C->unk_04 != NULL) {
+                var_v1_5 = 0x10;
+            } else {
+                var_v1_5 = 0xF;
+            }
+        } else if (arg1->unk_00 != NULL) {
+            if (arg1->unk_0C != NULL) {
+                if (((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F) && (arg1->unk_00[2] == 0x76) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0x62) && (arg1->unk_00[5] == 0x6C) && (arg1->unk_00[6] == 0))) {
+                    var_v1_5 = 3;
+                } else {
+                    var_v1_5 = 0xD;
+                }
+            } else {
+                var_v1_5 = 0xC;
+            }
+        }
     }
 
     if (var_v1_5 == 0) {
