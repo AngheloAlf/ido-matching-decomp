@@ -5,29 +5,8 @@
 #include "inttypes.h"
 #include "ctype.h"
 
-typedef signed char            s8;
-typedef unsigned char          u8;
-typedef signed short int       s16;
-typedef unsigned short int     u16;
-typedef signed int             s32;
-typedef unsigned int           u32;
-typedef signed long long int   s64;
-typedef unsigned long long int u64;
-
-typedef volatile u8  vu8;
-typedef volatile u16 vu16;
-typedef volatile u32 vu32;
-typedef volatile u64 vu64;
-typedef volatile s8  vs8;
-typedef volatile s16 vs16;
-typedef volatile s32 vs32;
-typedef volatile s64 vs64;
-
-typedef float  f32;
-typedef double f64;
-
-typedef s32 UNK_TYPE;
-typedef u8 UNK_TYPE1;
+typedef int UNK_TYPE;
+typedef unsigned char UNK_TYPE1;
 #define UNK_SIZE 1
 
 #define STATIC static
@@ -185,8 +164,8 @@ STATIC void func_004010F8(void) {
     D_10000004--;
 }
 
-#ifdef NON_EQUIVALENT
-//#if 1
+//#ifdef NON_EQUIVALENT
+#if 1
 // STATIC
 struct_dem_printcl_arg0* func_004011B4(void) {
     char* var_v1_2;
@@ -214,7 +193,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
         }
     }
 
-    if ((isdigit(B_10000DD4)) && (B_10000DD8[var_a2] == 'Q') && (isdigit(B_10000DD8[var_a2+1])) && (B_10000DD8[var_a2+2] == '_')) {
+    if (isdigit(B_10000DD4) && (B_10000DD8[var_a2] == 'Q') && isdigit(B_10000DD8[var_a2+1]) && (B_10000DD8[var_a2+2] == '_')) {
         ADV();
 
         if (var_a2 != 0) {
@@ -310,13 +289,14 @@ struct_dem_printcl_arg0* func_004011B4(void) {
                 D_10000000 = 1;
                 return NULL;
             }
+
             sp74[var_s0] = 0;
             temp_s5->unk_00 = func_00400EF8(sp74);
 
             var_s0 += 6;
 
             var_a3 = sp74[var_s0] - '0';
-            if (!(isdigit(sp74[var_s0]))) {
+            if (!isdigit(sp74[var_s0])) {
                 D_10000000 = 1;
                 return NULL;
             }
@@ -381,7 +361,6 @@ struct_dem_printcl_arg0* func_004011B4(void) {
 
     return sp60;
 }
-
 #else
 struct_dem_printcl_arg0* func_004011B4(void);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
@@ -1151,7 +1130,7 @@ int dem(char*, struct_demangle_sp24*, char*);
 #endif
 
 void dem_printcl(struct_dem_printcl_arg0* arg0, char* arg1) {
-    s32 var_s2;
+    int var_s2;
     char sp44[0x400];
 
     if ((arg0 == NULL) || (arg1 == NULL)) {
