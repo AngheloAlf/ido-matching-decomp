@@ -146,13 +146,13 @@ $(BUILD)/%.o: %.c
 
 # cc is special and is stored in a different folder
 $(ASM)/$(VERSION)/cc/.disasm: $(IRIX_USR_DIR)/bin/cc
-	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/cc.splits.csv --split-functions $(ASM)/$(VERSION)/functions/cc --save-context $(CONTEXT)/$(VERSION)/cc.csv $< $(dir $@)
+	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/cc.splits.csv --symbol-addrs $(SYMBOLS)/$(VERSION)/cc.symbol_addrs.txt --split-functions $(ASM)/$(VERSION)/functions/cc --save-context $(CONTEXT)/$(VERSION)/cc.csv $< $(dir $@)
 
 $(ASM)/$(VERSION)/%/.disasm: $(IRIX_USR_DIR)/lib/%
-	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/$*.splits.csv --split-functions $(ASM)/$(VERSION)/functions/$* --save-context $(CONTEXT)/$(VERSION)/$*.csv $(IRIX_USR_DIR)/lib/$* $(ASM)/$(VERSION)/$*
+	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/$*.splits.csv --symbol-addrs $(SYMBOLS)/$(VERSION)/$*.symbol_addrs.txt --split-functions $(ASM)/$(VERSION)/functions/$* --save-context $(CONTEXT)/$(VERSION)/$*.csv $(IRIX_USR_DIR)/lib/$* $(ASM)/$(VERSION)/$*
 
 $(ASM)/$(VERSION)/%/.disasm: $(IRIX_USR_DIR)/lib/c++/%
-	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/$*.splits.csv --split-functions $(ASM)/$(VERSION)/functions/$* --save-context $(CONTEXT)/$(VERSION)/$*.csv $(IRIX_USR_DIR)/lib/c++/$* $(ASM)/$(VERSION)/$*
+	$(DISASSEMBLER) $(DISASSEMBLER_FLAGS) --file-splits $(SYMBOLS)/$(VERSION)/$*.splits.csv --symbol-addrs $(SYMBOLS)/$(VERSION)/$*.symbol_addrs.txt --split-functions $(ASM)/$(VERSION)/functions/$* --save-context $(CONTEXT)/$(VERSION)/$*.csv $(IRIX_USR_DIR)/lib/c++/$* $(ASM)/$(VERSION)/$*
 
 
 

@@ -1,0 +1,284 @@
+
+// .text
+
+_ftext = 0x00400BC0; // type:func
+func_00400BD0 = 0x00400BD0; // type:func
+__start = 0x00400CC0; // type:func
+_mcount = 0x00400DC8; // type:func
+func_00400DE4 = 0x00400DE4; // type:func
+func_00400E64 = 0x00400E64; // type:func
+func_00400EF8 = 0x00400EF8; // type:func
+func_00400FA4 = 0x00400FA4; // type:func
+func_004010F8 = 0x004010F8; // type:func
+func_004011B4 = 0x004011B4; // type:func
+func_00401A70 = 0x00401A70; // type:func
+func_00401B48 = 0x00401B48; // type:func
+func_00402D50 = 0x00402D50; // type:func
+dem = 0x00402E24; // type:func
+dem_printcl = 0x00403F0C; // type:func
+dem_printarglist = 0x00404118; // type:func
+dem_printarg = 0x0040431C; // type:func
+dem_printfunc = 0x00404D3C; // type:func
+dem_print = 0x00404F24; // type:func
+dem_explain = 0x004052CC; // type:func
+demangle = 0x00405410; // type:func
+func_004054C0 = 0x004054C0; // type:func
+main = 0x004056A4; // type:func
+
+// 
+
+D_405800 = 0x00405800; //
+
+// .text
+
+__istart = 0x0040580C; // type:func
+_etext = 0x00405820; // type:func
+strlen = 0x0FABEEA8; // type:func
+strcmp = 0x0FABF768; // type:func
+strcpy = 0x0FABF7B8; // type:func
+fgets = 0x0FABF8F8; // type:func
+strncmp = 0x0FAC0DF4; // type:func
+sprintf = 0x0FAC0F24; // type:func
+strcat = 0x0FAC11FC; // type:func
+fclose = 0x0FAC7178; // type:func
+fprintf = 0x0FAC7F1C; // type:func
+fopen = 0x0FAC858C; // type:func
+exit = 0x0FAD22C8; // type:func
+__flsbuf = 0x0FAD42AC; // type:func
+__readenv_sigfpe = 0x0FAD6770; // type:func
+__semputc = 0x0FADF928; // type:func
+printf = 0x0FB37970; // type:func
+
+// 
+
+__ctype = 0x0FB504F0; //
+__us_rsthread_stdio = 0x0FB51F00; //
+_environ = 0x0FB52740; //
+__iob = 0x0FB528E4; //
+
+// .data
+
+D_10000000 = 0x10000000; //
+D_10000004 = 0x10000004; //
+D_10000008 = 0x10000008; //
+
+// .rodata
+
+RO_10000150 = 0x10000150; // type:asciz
+STR_1000016C = 0x1000016C; // type:asciz
+STR_10000184 = 0x10000184; // type:asciz
+STR_1000019C = 0x1000019C; // type:asciz
+STR_100001B4 = 0x100001B4; // type:asciz
+STR_100001D0 = 0x100001D0; // type:asciz
+STR_100001E8 = 0x100001E8; // type:asciz
+STR_10000204 = 0x10000204; // type:asciz
+STR_1000020C = 0x1000020C; // type:asciz
+STR_10000214 = 0x10000214; // type:asciz
+STR_1000021C = 0x1000021C; // type:asciz
+STR_1000022C = 0x1000022C; // type:asciz
+STR_10000234 = 0x10000234; // type:asciz
+STR_1000023C = 0x1000023C; // type:asciz
+STR_10000244 = 0x10000244; // type:asciz
+STR_1000024C = 0x1000024C; // type:asciz
+STR_10000254 = 0x10000254; // type:asciz
+STR_1000025C = 0x1000025C; // type:asciz
+STR_10000264 = 0x10000264; // type:asciz
+STR_1000026C = 0x1000026C; // type:asciz
+STR_10000284 = 0x10000284; // type:asciz
+STR_100002A8 = 0x100002A8; // type:asciz
+STR_100002C8 = 0x100002C8; // type:asciz
+STR_100002CC = 0x100002CC; // type:asciz
+STR_100002D0 = 0x100002D0; // type:asciz
+STR_100002D4 = 0x100002D4; // type:asciz
+STR_100002D8 = 0x100002D8; // type:asciz
+STR_100002DC = 0x100002DC; // type:asciz
+STR_10000300 = 0x10000300; // type:asciz
+STR_10000304 = 0x10000304; // type:asciz
+STR_1000030C = 0x1000030C; // type:asciz
+STR_10000310 = 0x10000310; // type:asciz
+STR_10000314 = 0x10000314; // type:asciz
+STR_10000334 = 0x10000334; // type:asciz
+STR_1000033C = 0x1000033C; // type:asciz
+STR_10000344 = 0x10000344; // type:asciz
+STR_1000034C = 0x1000034C; // type:asciz
+STR_10000350 = 0x10000350; // type:asciz
+STR_10000358 = 0x10000358; // type:asciz
+STR_10000364 = 0x10000364; // type:asciz
+STR_1000036C = 0x1000036C; // type:asciz
+STR_10000374 = 0x10000374; // type:asciz
+STR_10000380 = 0x10000380; // type:asciz
+STR_10000384 = 0x10000384; // type:asciz
+STR_100003A4 = 0x100003A4; // type:asciz
+STR_100003A8 = 0x100003A8; // type:asciz
+STR_100003B0 = 0x100003B0; // type:asciz
+STR_100003BC = 0x100003BC; // type:asciz
+STR_100003C0 = 0x100003C0; // type:asciz
+STR_100003C4 = 0x100003C4; // type:asciz
+STR_100003CC = 0x100003CC; // type:asciz
+STR_100003D8 = 0x100003D8; // type:asciz
+STR_100003DC = 0x100003DC; // type:asciz
+STR_100003E0 = 0x100003E0; // type:asciz
+STR_100003EC = 0x100003EC; // type:asciz
+STR_100003F0 = 0x100003F0; // type:asciz
+STR_100003F4 = 0x100003F4; // type:asciz
+STR_10000404 = 0x10000404; // type:asciz
+STR_10000408 = 0x10000408; // type:asciz
+STR_1000040C = 0x1000040C; // type:asciz
+STR_10000410 = 0x10000410; // type:asciz
+STR_10000414 = 0x10000414; // type:asciz
+STR_1000041C = 0x1000041C; // type:asciz
+STR_10000424 = 0x10000424; // type:asciz
+STR_10000430 = 0x10000430; // type:asciz
+STR_1000044C = 0x1000044C; // type:asciz
+STR_10000450 = 0x10000450; // type:asciz
+STR_10000454 = 0x10000454; // type:asciz
+STR_10000458 = 0x10000458; // type:asciz
+STR_10000460 = 0x10000460; // type:asciz
+STR_10000474 = 0x10000474; // type:asciz
+STR_10000484 = 0x10000484; // type:asciz
+STR_10000490 = 0x10000490; // type:asciz
+STR_10000494 = 0x10000494; // type:asciz
+STR_10000498 = 0x10000498; // type:asciz
+STR_100004A0 = 0x100004A0; // type:asciz
+STR_100004A4 = 0x100004A4; // type:asciz
+STR_100004AC = 0x100004AC; // type:asciz
+STR_100004B8 = 0x100004B8; // type:asciz
+STR_100004C0 = 0x100004C0; // type:asciz
+STR_100004CC = 0x100004CC; // type:asciz
+STR_100004D4 = 0x100004D4; // type:asciz
+STR_100004E0 = 0x100004E0; // type:asciz
+STR_100004E8 = 0x100004E8; // type:asciz
+STR_100004F8 = 0x100004F8; // type:asciz
+STR_10000500 = 0x10000500; // type:asciz
+STR_10000510 = 0x10000510; // type:asciz
+STR_10000518 = 0x10000518; // type:asciz
+STR_10000524 = 0x10000524; // type:asciz
+STR_1000052C = 0x1000052C; // type:asciz
+STR_10000538 = 0x10000538; // type:asciz
+STR_10000540 = 0x10000540; // type:asciz
+STR_1000054C = 0x1000054C; // type:asciz
+STR_10000554 = 0x10000554; // type:asciz
+STR_10000560 = 0x10000560; // type:asciz
+STR_10000568 = 0x10000568; // type:asciz
+STR_10000574 = 0x10000574; // type:asciz
+STR_1000057C = 0x1000057C; // type:asciz
+STR_10000588 = 0x10000588; // type:asciz
+STR_10000590 = 0x10000590; // type:asciz
+STR_1000059C = 0x1000059C; // type:asciz
+STR_100005A4 = 0x100005A4; // type:asciz
+STR_100005B0 = 0x100005B0; // type:asciz
+STR_100005B8 = 0x100005B8; // type:asciz
+STR_100005C4 = 0x100005C4; // type:asciz
+STR_100005CC = 0x100005CC; // type:asciz
+STR_100005D8 = 0x100005D8; // type:asciz
+STR_100005E0 = 0x100005E0; // type:asciz
+STR_100005EC = 0x100005EC; // type:asciz
+STR_100005F4 = 0x100005F4; // type:asciz
+STR_10000600 = 0x10000600; // type:asciz
+STR_10000608 = 0x10000608; // type:asciz
+STR_10000614 = 0x10000614; // type:asciz
+STR_1000061C = 0x1000061C; // type:asciz
+STR_10000628 = 0x10000628; // type:asciz
+STR_10000630 = 0x10000630; // type:asciz
+STR_1000063C = 0x1000063C; // type:asciz
+STR_10000644 = 0x10000644; // type:asciz
+STR_10000650 = 0x10000650; // type:asciz
+STR_10000658 = 0x10000658; // type:asciz
+STR_10000664 = 0x10000664; // type:asciz
+STR_1000066C = 0x1000066C; // type:asciz
+STR_10000678 = 0x10000678; // type:asciz
+STR_10000680 = 0x10000680; // type:asciz
+STR_1000068C = 0x1000068C; // type:asciz
+STR_10000694 = 0x10000694; // type:asciz
+STR_100006A0 = 0x100006A0; // type:asciz
+STR_100006A8 = 0x100006A8; // type:asciz
+STR_100006B4 = 0x100006B4; // type:asciz
+STR_100006BC = 0x100006BC; // type:asciz
+STR_100006C8 = 0x100006C8; // type:asciz
+STR_100006D0 = 0x100006D0; // type:asciz
+STR_100006DC = 0x100006DC; // type:asciz
+STR_100006E4 = 0x100006E4; // type:asciz
+STR_100006F0 = 0x100006F0; // type:asciz
+STR_100006F8 = 0x100006F8; // type:asciz
+STR_10000704 = 0x10000704; // type:asciz
+STR_1000070C = 0x1000070C; // type:asciz
+STR_10000718 = 0x10000718; // type:asciz
+STR_10000720 = 0x10000720; // type:asciz
+STR_1000072C = 0x1000072C; // type:asciz
+STR_10000734 = 0x10000734; // type:asciz
+STR_10000740 = 0x10000740; // type:asciz
+STR_10000748 = 0x10000748; // type:asciz
+STR_10000754 = 0x10000754; // type:asciz
+STR_1000075C = 0x1000075C; // type:asciz
+STR_10000768 = 0x10000768; // type:asciz
+STR_10000770 = 0x10000770; // type:asciz
+STR_1000077C = 0x1000077C; // type:asciz
+STR_10000784 = 0x10000784; // type:asciz
+STR_10000790 = 0x10000790; // type:asciz
+STR_10000798 = 0x10000798; // type:asciz
+STR_100007A4 = 0x100007A4; // type:asciz
+STR_100007AC = 0x100007AC; // type:asciz
+STR_100007B8 = 0x100007B8; // type:asciz
+STR_100007C0 = 0x100007C0; // type:asciz
+STR_100007CC = 0x100007CC; // type:asciz
+STR_100007EC = 0x100007EC; // type:asciz
+STR_100007F4 = 0x100007F4; // type:asciz
+STR_10000800 = 0x10000800; // type:asciz
+STR_1000080C = 0x1000080C; // type:asciz
+STR_1000081C = 0x1000081C; // type:asciz
+STR_10000820 = 0x10000820; // type:asciz
+STR_10000828 = 0x10000828; // type:asciz
+STR_10000830 = 0x10000830; // type:asciz
+STR_10000838 = 0x10000838; // type:asciz
+STR_10000840 = 0x10000840; // type:asciz
+STR_10000844 = 0x10000844; // type:asciz
+STR_10000848 = 0x10000848; // type:asciz
+STR_1000084C = 0x1000084C; // type:asciz
+STR_10000854 = 0x10000854; // type:asciz
+STR_10000874 = 0x10000874; // type:asciz
+STR_10000890 = 0x10000890; // type:asciz
+STR_100008A0 = 0x100008A0; // type:asciz
+STR_100008C0 = 0x100008C0; // type:asciz
+STR_100008CC = 0x100008CC; // type:asciz
+STR_100008DC = 0x100008DC; // type:asciz
+STR_100008F4 = 0x100008F4; // type:asciz
+STR_10000910 = 0x10000910; // type:asciz
+STR_10000934 = 0x10000934; // type:asciz
+STR_10000940 = 0x10000940; // type:asciz
+STR_1000094C = 0x1000094C; // type:asciz
+STR_10000954 = 0x10000954; // type:asciz
+STR_10000960 = 0x10000960; // type:asciz
+STR_10000970 = 0x10000970; // type:asciz
+STR_1000097C = 0x1000097C; // type:asciz
+STR_1000098C = 0x1000098C; // type:asciz
+STR_100009B0 = 0x100009B0; // type:asciz
+STR_100009B4 = 0x100009B4; // type:asciz
+STR_100009B8 = 0x100009B8; // type:asciz
+STR_100009BC = 0x100009BC; // type:asciz
+STR_10000CA0 = 0x10000CA0; // type:asciz
+
+// 
+
+D_10000CF0 = 0x10000CF0; //
+D_10000D5D = 0x10000D5D; // type:u8
+D_10000D60 = 0x10000D60; //
+D_10000D64 = 0x10000D64; //
+
+// .bss
+
+B_10000DD0 = 0x10000DD0; //
+B_10000DD4 = 0x10000DD4; // type:s8
+B_10000DD8 = 0x10000DD8; //
+B_10000DDC = 0x10000DDC; //
+B_10000DE0 = 0x10000DE0; //
+B_10000E08 = 0x10000E08; //
+B_10000E30 = 0x10000E30; //
+B_10000E3C = 0x10000E3C; //
+__Argc = 0x10000E40; //
+__Argv = 0x10000E44; //
+__rld_obj_head = 0x10000E48; //
+// B_10000E4C = 0x10000E4C; // isAutogeneratedPad
+
+// 
+
+D_10008CE0 = 0x10008CE0; //
