@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "src",
                 "include",
-                "include/indy"
+                "include/indy",
+                "include/cdlibs"
             ],
             "defines": [
                 "_MIPS_FPSET=16",
