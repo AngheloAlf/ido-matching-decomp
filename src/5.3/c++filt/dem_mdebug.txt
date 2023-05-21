@@ -1,0 +1,63 @@
+File: dem.c
+ FILE :: #line 1 "dem.c"
+   STATIC :: spbase;
+   STATIC :: cc;
+   STATIC :: base;
+   STATIC :: baselen;
+   STATIC :: waserror;
+   STATIC :: stackp;
+   STATIC :: stackl;
+   STATIC :: stackc;
+   STATIC :: sp;
+   STATICPROC :: static int fatal()
+   END :: None
+   STATICPROC :: static int gs()
+   END :: None
+   STATICPROC :: static int copy()
+   END :: None
+   STATICPROC :: static int push()
+   END :: None
+   STATICPROC :: static int pop()
+   END :: None
+   STATICPROC :: static int getclass()
+   END :: None
+   STATICPROC :: static int arg_copy()
+   END :: None
+   STATICPROC :: static int getarg()
+     STATIC :: p;
+     LABEL :: tcase:
+   END :: None
+   STATICPROC :: static int getarglist()
+   END :: None
+   PROC :: int dem()
+     LABEL :: done:
+     LABEL :: done2:
+   END :: None
+   PROC :: int dem_printcl()
+   END :: None
+   PROC :: int dem_printarglist()
+   END :: None
+   PROC :: int dem_printarg()
+   END :: None
+   STATIC :: ops;
+   PROC :: int dem_printfunc()
+   END :: None
+   PROC :: int dem_print()
+   END :: None
+   PROC :: int dem_explain()
+   END :: None
+   PROC :: int demangle()
+   END :: None
+ END :: // end of file: "dem.c"
+
+File: /joist/5.3MR/root/usr/include/stdio.h
+ FILE :: #line 1 "/joist/5.3MR/root/usr/include/stdio.h"
+ END :: // end of file: "/joist/5.3MR/root/usr/include/stdio.h"
+
+File: /joist/5.3MR/root/usr/include/string.h
+ FILE :: #line 1 "/joist/5.3MR/root/usr/include/string.h"
+ END :: // end of file: "/joist/5.3MR/root/usr/include/string.h"
+
+File: /joist/5.3MR/root/usr/include/ctype.h
+ FILE :: #line 1 "/joist/5.3MR/root/usr/include/ctype.h"
+ END :: // end of file: "/joist/5.3MR/root/usr/include/ctype.h"
