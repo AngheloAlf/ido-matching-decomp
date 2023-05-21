@@ -1,20 +1,24 @@
-
 // .text
 
 _ftext = 0x00400BC0; // type:func
 func_00400BD0 = 0x00400BD0; // type:func
 __start = 0x00400CC0; // type:func
 _mcount = 0x00400DC8; // type:func
-func_00400DE4 = 0x00400DE4; // type:func
-func_00400E64 = 0x00400E64; // type:func
-func_00400EF8 = 0x00400EF8; // type:func
-func_00400FA4 = 0x00400FA4; // type:func
-func_004010F8 = 0x004010F8; // type:func
-func_004011B4 = 0x004011B4; // type:func
-func_00401A70 = 0x00401A70; // type:func
-func_00401B48 = 0x00401B48; // type:func
-func_00402D50 = 0x00402D50; // type:func
+
+fatal = 0x00400DE4; // type:func
+gs = 0x00400E64; // type:func
+copy = 0x00400EF8; // type:func
+push = 0x00400FA4; // type:func
+pop = 0x004010F8; // type:func
+getclass = 0x004011B4; // type:func
+arg_copy = 0x00401A70; // type:func
+getarg = 0x00401B48; // type:func
+    // STATIC :: p;
+    // LABEL :: tcase:
+getarglist = 0x00402D50; // type:func
 dem = 0x00402E24; // type:func
+    // LABEL :: done:
+    // LABEL :: done2:
 dem_printcl = 0x00403F0C; // type:func
 dem_printarglist = 0x00404118; // type:func
 dem_printarg = 0x0040431C; // type:func
@@ -22,6 +26,7 @@ dem_printfunc = 0x00404D3C; // type:func
 dem_print = 0x00404F24; // type:func
 dem_explain = 0x004052CC; // type:func
 demangle = 0x00405410; // type:func
+
 func_004054C0 = 0x004054C0; // type:func
 main = 0x004056A4; // type:func
 

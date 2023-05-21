@@ -11,25 +11,30 @@ typedef unsigned char UNK_TYPE1;
 #define UNK_SIZE 1
 
 #define STATIC static
+#define NORETURN
 
 // #define NON_EQUIVALENT
 #ifndef putchar_locked
 #define putchar_locked(x) putchar(x)
 #endif
 
-STATIC int D_10000000 = 0;
-STATIC int D_10000004 = -1;
-
 #define STACK_BUF_LEN 10
 
-STATIC char* B_10000DD0;
-STATIC char B_10000DD4;
-STATIC char* B_10000DD8;
-STATIC int B_10000DDC;
-STATIC char* B_10000DE0[STACK_BUF_LEN];
-STATIC int B_10000E08[STACK_BUF_LEN];
-STATIC char B_10000E30[STACK_BUF_LEN];
-STATIC DEMARG* B_10000E3C;
+STATIC char* B_10000DD0; // spbase
+STATIC char B_10000DD4; // cc
+
+STATIC char* B_10000DD8; // base
+STATIC int B_10000DDC; // baselen
+
+STATIC int D_10000000 = 0; // waserror
+
+STATIC char* B_10000DE0[STACK_BUF_LEN]; // stackp?
+STATIC int B_10000E08[STACK_BUF_LEN]; // stackl?
+STATIC char B_10000E30[STACK_BUF_LEN]; // stackc?
+
+STATIC int D_10000004 = -1; // sp
+
+STATIC DEMARG* B_10000E3C; // p? in-function-static?
 
 #define ADV() if (B_10000DDC > 0) { \
             B_10000DD4 = *B_10000DD8++; \
@@ -39,10 +44,11 @@ STATIC DEMARG* B_10000E3C;
         B_10000DDC--
 
 
-STATIC DEMARG *func_00402D50(void);
+STATIC DEMARG *getarglist(void);
 
 
-STATIC void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
+NORETURN
+STATIC void fatal(const char* arg0, const char *arg1, const char *arg2) {
     char sp20[0x400];
 
     sprintf(sp20, arg0, arg1, arg2);
@@ -50,11 +56,11 @@ STATIC void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) 
     exit(1);
 }
 
-STATIC void* func_00400E64(int size) {
+STATIC void* gs(int size) {
     char* var_v1;
 
     if (size <= 0) {
-        func_00400DE4("bad argument to gs()", NULL, NULL);
+        fatal("bad argument to gs()", NULL, NULL);
     }
 
 
@@ -67,26 +73,26 @@ STATIC void* func_00400E64(int size) {
     return var_v1;
 }
 
-STATIC char* func_00400EF8(char* arg0) {
+STATIC char* copy(char* arg0) {
     char* temp_v0;
 
     if ((arg0 == NULL) || (arg0[0] == '\0')) {
-        func_00400DE4("bad argument to copy()", NULL, NULL);
+        fatal("bad argument to copy()", NULL, NULL);
     }
-    temp_v0 = func_00400E64(strlen(arg0) + 1);
+    temp_v0 = gs(strlen(arg0) + 1);
     strcpy(temp_v0, arg0);
     return temp_v0;
 }
 
-STATIC void func_00400FA4(char* arg0, int arg1) {
+STATIC void push(char* arg0, int arg1) {
     int var_a0;
 
     if ((arg0 == NULL) || (*arg0 == 0) || (arg1 <= 0)) {
-        func_00400DE4("bad argument to push()", NULL, NULL);
+        fatal("bad argument to push()", NULL, NULL);
     }
 
     if (D_10000004 + 1 >= STACK_BUF_LEN) {
-        func_00400DE4("overflow of stack in push()", NULL, NULL);
+        fatal("overflow of stack in push()", NULL, NULL);
     }
 
     D_10000004++;
@@ -98,9 +104,9 @@ STATIC void func_00400FA4(char* arg0, int arg1) {
     ADV();
 }
 
-STATIC void func_004010F8(void) {
+STATIC void pop(void) {
     if (D_10000004 < 0) {
-        func_00400DE4("bad argument to pop()", NULL, NULL);
+        fatal("bad argument to pop()", NULL, NULL);
     }
 
     B_10000DD8 = B_10000DE0[D_10000004];
@@ -112,7 +118,7 @@ STATIC void func_004010F8(void) {
 #ifdef NON_EQUIVALENT
 //#if 1
 // STATIC
-DEMCL* func_004011B4(void) {
+DEMCL* getclass(void) {
     char* var_v1_2;
     int var_a3;
     int var_s0;
@@ -212,8 +218,8 @@ DEMCL* func_004011B4(void) {
         }
 
         sp74[var_a2] = 0;
-        temp_s5 = func_00400E64(0x10);
-        temp_s5->rname = func_00400EF8(sp74);
+        temp_s5 = gs(0x10);
+        temp_s5->rname = copy(sp74);
         temp_s5->clargs = NULL;
 
         for (var_s0 = 0; var_s0 < var_a2; var_s0++) {
@@ -228,7 +234,7 @@ DEMCL* func_004011B4(void) {
         }
 
         if (var_s0 == var_a2) {
-            temp_s5->name = func_00400EF8(sp74);
+            temp_s5->name = copy(sp74);
         } else {
             if ((sp74[var_s0+4] != '_') || (sp74[var_s0+5] != '_')) {
                 D_10000000 = 1;
@@ -236,7 +242,7 @@ DEMCL* func_004011B4(void) {
             }
 
             sp74[var_s0] = 0;
-            temp_s5->name = func_00400EF8(sp74);
+            temp_s5->name = copy(sp74);
 
             var_s0 += 6;
 
@@ -284,13 +290,13 @@ DEMCL* func_004011B4(void) {
                 return NULL;
             }
 
-            func_00400FA4(&sp74[var_s0_2], var_a3);
-            temp_v0 = func_00402D50();
+            push(&sp74[var_s0_2], var_a3);
+            temp_v0 = getarglist();
             if ((temp_v0 == NULL) || (B_10000DD4 != 0)) {
                 D_10000000 = 1;
                 return NULL;
             }
-            func_004010F8();
+            pop();
             temp_s5->clargs = temp_v0;
         }
 
@@ -307,18 +313,18 @@ DEMCL* func_004011B4(void) {
     return sp60;
 }
 #else
-DEMCL* func_004011B4(void);
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
+DEMCL* getclass(void);
+// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/getclass.s")
 #endif
 
-STATIC DEMARG* func_00401A70(DEMARG* arg0) {
+STATIC DEMARG* arg_copy(DEMARG* arg0) {
     DEMARG* temp_v0;
 
     if (arg0 == NULL) {
-        func_00400DE4("bad argument to arg_copy()", NULL, NULL);
+        fatal("bad argument to arg_copy()", NULL, NULL);
     }
 
-    temp_v0 = func_00400E64(sizeof(DEMARG));
+    temp_v0 = gs(sizeof(DEMARG));
     temp_v0->mods = arg0->mods;
     temp_v0->base = arg0->base;
     temp_v0->arr = arg0->arr;
@@ -333,7 +339,8 @@ STATIC DEMARG* func_00401A70(DEMARG* arg0) {
 
 #ifdef NON_EQUIVALENT
 //#if 1
-DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
+// has a label named tcase
+DEMARG* getarg(int arg0, DEMARG* arg1[], int* arg2) {
     char spFA4[0x100]; // arbitrary
     int var_t5; // spFA0
     int spF9C;
@@ -367,7 +374,7 @@ DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
     if (arg2 != NULL) {
         if (*arg2 > 0) {
             *arg2 = *arg2 - 1;
-            return func_00401A70(B_10000E3C);
+            return arg_copy(B_10000E3C);
         }
     }
 
@@ -442,7 +449,7 @@ DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
             case 0x46:
                 spF9C = B_10000DD4;
                 ADV();
-                spF90 = func_00402D50();
+                spF90 = getarglist();
                 if (spF90 == NULL) {
                     D_10000000 = 1;
                     return NULL;
@@ -452,7 +459,7 @@ DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
                     return NULL;
                 }
                 ADV();
-                spF8C = func_00401B48(-1, NULL, NULL);
+                spF8C = getarg(-1, NULL, NULL);
                 if (spF8C == NULL) {
                     D_10000000 = 1;
                     return NULL;
@@ -464,7 +471,7 @@ DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
                 var_t5++;
                 sp9E8 = 1;
                 ADV();
-                temp_v0_8 = func_004011B4();
+                temp_v0_8 = getclass();
                 sp54[sp50] = temp_v0_8;
                 sp50 += 1;
                 if (temp_v0_8 == NULL) {
@@ -491,7 +498,7 @@ DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
                     return NULL;
                 }
 
-                temp_v0 = func_00401A70(arg1[temp_a1-1]);
+                temp_v0 = arg_copy(arg1[temp_a1-1]);
                 B_10000E3C = temp_v0;
                 return temp_v0;
 
@@ -523,7 +530,7 @@ DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
             case 0x38:
             case 0x39:
             case 0x51:
-                spF98 = func_004011B4();
+                spF98 = getclass();
                 if (spF98 == NULL) {
                     D_10000000 = 1;
                     return NULL;
@@ -630,7 +637,7 @@ block_172:
                         ADV();
                         if ((var_a1 > 0) && (var_ra >= 2) && (temp_a2[-1] == 0x5F) && (temp_a2[-2] == 0x5F)) {
                             sp4C = sp50;
-                            temp_v0_4 = func_004011B4();
+                            temp_v0_4 = getclass();
                             var_a0_2 = sp4C;
                             sp54[sp50] = temp_v0_4;
                             var_ra -= 2;
@@ -660,23 +667,23 @@ block_172:
 
             spFA4[var_t5] = 0;
             spB8C[var_ra] = 0;
-            var_a0 = func_00400E64(0x24);
+            var_a0 = gs(0x24);
 
             if (&spFA4[var_t5] != spFA4) {
                 B_10000E3C = var_a0;
-                var_a0->mods = func_00400EF8(spFA4);
+                var_a0->mods = copy(spFA4);
             } else {
                 var_a0->mods = 0;
             }
             if (&spB8C[var_ra] != spB8C) {
                 B_10000E3C = var_a0;
-                var_a0->lit = func_00400EF8(spB8C);
+                var_a0->lit = copy(spB8C);
             } else {
                 var_a0->lit = NULL;
             }
             if (sp9F0 > 0) {
                 B_10000E3C = var_a0;
-                var_a0->arr = func_00400E64(sp9F0 * 4);
+                var_a0->arr = gs(sp9F0 * 4);
 
                 for (var_v0_2 = 0; var_v0_2 < sp9F0; var_v0_2++) {
                     var_a0->arr[var_v0_2] = sp9F4[var_v0_2];
@@ -691,7 +698,7 @@ block_172:
             var_a0->clname = spF98;
             if (sp50 > 0) {
                 B_10000E3C = var_a0;
-                var_a0->mname = func_00400E64((sp50 + 1) * 4);
+                var_a0->mname = gs((sp50 + 1) * 4);
 
                 for (var_a1_4 = 0; var_a1_4 < sp50; var_a1_4++) {
                     var_a0->mname[var_a1_4] = sp54[var_a1_4];
@@ -709,12 +716,12 @@ block_172:
     }
 }
 #else
-DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int *arg2);
+DEMARG* getarg(int arg0, DEMARG* arg1[], int *arg2);
 
-// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
+// #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/getarg.s")
 #endif
 
-STATIC DEMARG* func_00402D50(void) {
+STATIC DEMARG* getarglist(void) {
     DEMARG* var_s3 = NULL; // head
     DEMARG* var_s0 = NULL;
     int var_s1 = -1;
@@ -723,7 +730,7 @@ STATIC DEMARG* func_00402D50(void) {
     int sp34 = 0;
 
     while (1) {
-        temp_v0 = func_00401B48(var_s1, sp3C, &sp34);
+        temp_v0 = getarg(var_s1, sp3C, &sp34);
         if (temp_v0 == NULL) {
             if (D_10000000 != 0) {
                 return NULL;
@@ -748,6 +755,7 @@ STATIC DEMARG* func_00402D50(void) {
 
 #ifdef NON_EQUIVALENT
 //#if 1
+// has two labels, done and done2
 int dem(char* s, DEM* p, char* buf) {
     // spXXX means that variable must belong in that stack position
     // spXXX? means I have no clue if the variable is real or its stack position
@@ -797,7 +805,7 @@ int dem(char* s, DEM* p, char* buf) {
             }
 
             if (*var_a0) {
-                p->f = func_00400EF8(var_a0);
+                p->f = copy(var_a0);
                 p->slev = var_a1;
                 goto block_187;
             }
@@ -822,7 +830,7 @@ int dem(char* s, DEM* p, char* buf) {
             return -1;
         }
 
-        p->f = func_00400EF8(var_a0);
+        p->f = copy(var_a0);
         B_10000DD4 = 0;
         goto block_187;
     }
@@ -851,11 +859,11 @@ int dem(char* s, DEM* p, char* buf) {
         D_10000000 = 0;
         if (var_v1_2 == 1) {
             sprintf(sp40, "%d%s", strlen(s), s);
-            func_00400FA4(sp40, 0x270F);
+            push(sp40, 0x270F);
         } else {
-            func_00400FA4(s + 2, 0x270F);
+            push(s + 2, 0x270F);
         }
-        p->cl = func_004011B4();
+        p->cl = getclass();
         if (p->cl == NULL) {
             return -1;
         }
@@ -864,7 +872,7 @@ int dem(char* s, DEM* p, char* buf) {
     }
 
     D_10000004 = -1;
-    func_00400FA4(s, 0x270F);
+    push(s, 0x270F);
     D_10000000 = 0;
     var_a2 = 0;
     sp460[0] = 0;
@@ -880,7 +888,7 @@ int dem(char* s, DEM* p, char* buf) {
         if (STR_EQUAL(sp460, "__op")) {
             temp_v1_2 = B_10000DD8 - 1;
 
-            p->fargs = func_00401B48(-1, NULL, NULL);
+            p->fargs = getarg(-1, NULL, NULL);
             if (p->fargs == NULL) {
                 return -1;
             }
@@ -909,7 +917,7 @@ int dem(char* s, DEM* p, char* buf) {
     }
 
     if ((isdigit(B_10000DD4)) || (B_10000DD4 == 0x51)) {
-        p->cl = func_004011B4();
+        p->cl = getclass();
         if (p->cl == NULL) {
             return -1;
         }
@@ -962,7 +970,7 @@ int dem(char* s, DEM* p, char* buf) {
 
     if (STR_EQUAL(sp460, "__vtbl")) {
         if ((B_10000DD4 == 0x5F) && (B_10000DD8[0] == 0x5F) && (B_10000DD8[1])) {
-            p->vtname = func_00400EF8(B_10000DD8 + 1);
+            p->vtname = copy(B_10000DD8 + 1);
         }
     } else {
         if (((B_10000DD4 == 0x43) || (B_10000DD4 == 0x53)) && (B_10000DD8[0] == 0x46)) {
@@ -972,7 +980,7 @@ int dem(char* s, DEM* p, char* buf) {
 
         if (B_10000DD4 == 0x46) {
             ADV();
-            p->args = func_00402D50();
+            p->args = getarglist();
             if (p->args == NULL) {
                 return -1;
             }
@@ -987,7 +995,7 @@ int dem(char* s, DEM* p, char* buf) {
         return -1;
     }
 
-    p->f = func_00400EF8(sp460);
+    p->f = copy(sp460);
 
 
 block_187:
@@ -1011,7 +1019,7 @@ block_187:
                 var_v1_5 = 7;
                 break;
             default:
-                func_00400DE4("bad type set for p->sc", NULL, NULL);
+                fatal("bad type set for p->sc", NULL, NULL);
                 var_v1_5 = 0;
                 break;
         }
@@ -1058,7 +1066,7 @@ block_187:
     }
 
     if (!var_v1_5) {
-        func_00400DE4("cannot characterize type of input", NULL, NULL);
+        fatal("cannot characterize type of input", NULL, NULL);
     }
 
     p->type = var_v1_5;
@@ -1073,7 +1081,7 @@ void dem_printcl(DEMCL* p, char* buf) {
     char sp44[0x400];
 
     if ((p == NULL) || (buf == NULL)) {
-        func_00400DE4("bad argument to dem_printcl()", NULL, NULL);
+        fatal("bad argument to dem_printcl()", NULL, NULL);
     }
 
     *buf = '\0';
@@ -1105,7 +1113,7 @@ void dem_printcl(DEMCL* p, char* buf) {
 
 void dem_printarglist(DEMARG* p, char* buf, int sv) {
     if ((p == NULL) || (buf == NULL) || (sv < 0) || (sv >= 2)) {
-        func_00400DE4("bad argument to dem_printarglist()", NULL, NULL);
+        fatal("bad argument to dem_printarglist()", NULL, NULL);
     }
 
     if ((p->base == 0x76) && (p->mods == 0)&& (p->next != NULL) && (p->next->base == 0x65) && (p->next->next == 0)) {
@@ -1157,7 +1165,7 @@ void dem_printarg(DEMARG* p, char* buf, int f) {
     int var_s5;
 
     if ((p == NULL) || (buf == NULL) || (f < 0) || ((f >= 2))) {
-        func_00400DE4("bad argument to dem_printarg()", NULL, NULL);
+        fatal("bad argument to dem_printarg()", NULL, NULL);
     }
 
     sp6C = f == 0;
@@ -1214,7 +1222,7 @@ void dem_printarg(DEMARG* p, char* buf, int f) {
         break;
 
     default:
-        func_00400DE4("bad base type in dem_printarg()", NULL, NULL);
+        fatal("bad base type in dem_printarg()", NULL, NULL);
         break;
     }
 
@@ -1294,7 +1302,7 @@ void dem_printarg(DEMARG* p, char* buf, int f) {
             }
             strcpy(sp74, sp474);
         } else if ((*var_s1 != 0x55) && (*var_s1 != 0x43) && (*var_s1 != 0x53) && (*var_s1 != 0x56)) {
-            func_00400DE4("bad value in modifier list", NULL, NULL);
+            fatal("bad value in modifier list", NULL, NULL);
         }
         var_s1 += 1;
     }
@@ -1339,6 +1347,7 @@ typedef struct MangledMap {
     /* 0x4 */ const char* demangled;
 } MangledMap; // size = 0x8
 
+// ops?
 STATIC struct MangledMap D_10000008[] = {
     { "__pp", "operator++" },
     { "__as", "operator=" },
@@ -1388,7 +1397,7 @@ void dem_printfunc(DEM* dp, char* buf) {
     char buff[0x400];
 
     if ((dp == NULL) || (buf == NULL)) {
-        func_00400DE4("bad argument to dem_printfunc()", NULL, NULL);
+        fatal("bad argument to dem_printfunc()", NULL, NULL);
     }
 
     if ((dp->f[0] == '_') && (dp->f[1] == '_')) {
@@ -1527,7 +1536,7 @@ char* dem_explain(enum DEM_TYPE t) {
             return "template type";
 
         default:
-            func_00400DE4("bad type passed to dem_explain()", NULL, NULL);
+            fatal("bad type passed to dem_explain()", NULL, NULL);
             return "";
     }
 }
