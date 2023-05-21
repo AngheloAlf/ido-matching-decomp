@@ -4,6 +4,7 @@
 #include "string.h"
 #include "inttypes.h"
 #include "ctype.h"
+#include "dem.h"
 
 typedef int UNK_TYPE;
 typedef unsigned char UNK_TYPE1;
@@ -15,58 +16,6 @@ typedef unsigned char UNK_TYPE1;
 #ifndef putchar_locked
 #define putchar_locked(x) putchar(x)
 #endif
-
-typedef enum enum_dem_explain_arg0 {
-    /*  1 */ ENUM_DEM_EXPLAIN_ARG_1 = 1,
-    /*  2 */ ENUM_DEM_EXPLAIN_ARG_2,
-    /*  3 */ ENUM_DEM_EXPLAIN_ARG_3,
-    /*  4 */ ENUM_DEM_EXPLAIN_ARG_4,
-    /*  5 */ ENUM_DEM_EXPLAIN_ARG_5,
-    /*  6 */ ENUM_DEM_EXPLAIN_ARG_6,
-    /*  7 */ ENUM_DEM_EXPLAIN_ARG_7,
-    /*  8 */ ENUM_DEM_EXPLAIN_ARG_8,
-    /*  9 */ ENUM_DEM_EXPLAIN_ARG_9,
-    /* 10 */ ENUM_DEM_EXPLAIN_ARG_10,
-    /* 11 */ ENUM_DEM_EXPLAIN_ARG_11,
-    /* 12 */ ENUM_DEM_EXPLAIN_ARG_12,
-    /* 13 */ ENUM_DEM_EXPLAIN_ARG_13,
-    /* 14 */ ENUM_DEM_EXPLAIN_ARG_14,
-    /* 15 */ ENUM_DEM_EXPLAIN_ARG_15,
-    /* 16 */ ENUM_DEM_EXPLAIN_ARG_16
-} enum_dem_explain_arg0;
-
-struct struct_dem_printcl_arg0;
-
-typedef struct struct_dem_printarglist_arg0 {
-    /* 0x00 */ char* unk_00;
-    /* 0x04 */ long* unk_04;                         /* inferred */
-    /* 0x08 */ struct struct_dem_printarglist_arg0* unk_08; /* inferred */
-    /* 0x0C */ struct struct_dem_printarglist_arg0* unk_0C; /* inferred */
-    /* 0x10 */ struct struct_dem_printcl_arg0* unk_10;     /* inferred */
-    /* 0x14 */ struct struct_dem_printcl_arg0** unk_14;                        /* inferred */
-    /* 0x18 */ struct struct_dem_printarglist_arg0* unk_18;
-    /* 0x1C */ char* unk_1C;
-    /* 0x20 */ char unk_20;
-} struct_dem_printarglist_arg0; // size = 0x24
-
-typedef struct struct_dem_printcl_arg0 {
-    /* 0x0 */ char *unk_00;
-    /* 0x4 */ struct_dem_printarglist_arg0 *unk_04;
-    /* 0x8 */ char *unk_08;
-    /* 0xC */ struct struct_dem_printcl_arg0 *unk_0C;
-} struct_dem_printcl_arg0; // size >= 0x10
-
-typedef struct struct_demangle_sp24 {
-    /* 0x00 */ char* unk_00;
-    /* 0x04 */ char* unk_04;                           /* inferred */
-    /* 0x08 */ struct_dem_printarglist_arg0* unk_08;  /* inferred */
-    /* 0x0C */ struct_dem_printcl_arg0* unk_0C;
-    /* 0x10 */ struct_dem_printarglist_arg0* unk_10;
-    /* 0x14 */ int unk_14;
-    /* 0x18 */ short unk_18;
-    /* 0x1A */ char unk_1A;
-} struct_demangle_sp24;                             /* size = 0x1C */
-
 
 STATIC int D_10000000 = 0;
 STATIC int D_10000004 = -1;
@@ -80,7 +29,7 @@ STATIC int B_10000DDC;
 STATIC char* B_10000DE0[STACK_BUF_LEN];
 STATIC int B_10000E08[STACK_BUF_LEN];
 STATIC char B_10000E30[STACK_BUF_LEN];
-STATIC struct_dem_printarglist_arg0* B_10000E3C;
+STATIC DEMARG* B_10000E3C;
 
 #define ADV() if (B_10000DDC > 0) { \
             B_10000DD4 = *B_10000DD8++; \
@@ -90,11 +39,7 @@ STATIC struct_dem_printarglist_arg0* B_10000E3C;
         B_10000DDC--
 
 
-void dem_printarg(struct_dem_printarglist_arg0* arg0, char *arg1, int arg2);
-void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2);
-
-STATIC struct_dem_printarglist_arg0 *func_00402D50(void);
-void dem_printcl(struct_dem_printcl_arg0* arg0, char* arg1);
+STATIC DEMARG *func_00402D50(void);
 
 
 STATIC void func_00400DE4(const char* arg0, const char *arg1, const char *arg2) {
@@ -164,10 +109,10 @@ STATIC void func_004010F8(void) {
     D_10000004--;
 }
 
-//#ifdef NON_EQUIVALENT
-#if 1
+#ifdef NON_EQUIVALENT
+//#if 1
 // STATIC
-struct_dem_printcl_arg0* func_004011B4(void) {
+DEMCL* func_004011B4(void) {
     char* var_v1_2;
     int var_a3;
     int var_s0;
@@ -175,10 +120,10 @@ struct_dem_printcl_arg0* func_004011B4(void) {
     int var_a2;
     int var_s0_2;
     int sp68;
-    struct_dem_printcl_arg0* temp_s5;
-    struct_dem_printcl_arg0* sp60;
-    struct_dem_printcl_arg0* sp5C;
-    struct_dem_printarglist_arg0* temp_v0;
+    DEMCL* temp_s5;
+    DEMCL* sp60;
+    DEMCL* sp5C;
+    DEMARG* temp_v0;
 
     sp60 = NULL;
     sp5C = NULL;
@@ -268,8 +213,8 @@ struct_dem_printcl_arg0* func_004011B4(void) {
 
         sp74[var_a2] = 0;
         temp_s5 = func_00400E64(0x10);
-        temp_s5->unk_08 = func_00400EF8(sp74);
-        temp_s5->unk_04 = NULL;
+        temp_s5->rname = func_00400EF8(sp74);
+        temp_s5->clargs = NULL;
 
         for (var_s0 = 0; var_s0 < var_a2; var_s0++) {
             if ((sp74[var_s0] == '_') && (sp74[var_s0+1] == '_') && (sp74[var_s0+2] == 'p') && (sp74[var_s0+3] == 't')) {
@@ -283,7 +228,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
         }
 
         if (var_s0 == var_a2) {
-            temp_s5->unk_00 = func_00400EF8(sp74);
+            temp_s5->name = func_00400EF8(sp74);
         } else {
             if ((sp74[var_s0+4] != '_') || (sp74[var_s0+5] != '_')) {
                 D_10000000 = 1;
@@ -291,7 +236,7 @@ struct_dem_printcl_arg0* func_004011B4(void) {
             }
 
             sp74[var_s0] = 0;
-            temp_s5->unk_00 = func_00400EF8(sp74);
+            temp_s5->name = func_00400EF8(sp74);
 
             var_s0 += 6;
 
@@ -346,12 +291,12 @@ struct_dem_printcl_arg0* func_004011B4(void) {
                 return NULL;
             }
             func_004010F8();
-            temp_s5->unk_04 = temp_v0;
+            temp_s5->clargs = temp_v0;
         }
 
-        temp_s5->unk_0C = NULL;
+        temp_s5->next = NULL;
         if (sp60 != NULL) {
-            sp5C->unk_0C = temp_s5;
+            sp5C->next = temp_s5;
             sp5C = temp_s5;
         } else {
             sp60 = temp_s5;
@@ -362,38 +307,39 @@ struct_dem_printcl_arg0* func_004011B4(void) {
     return sp60;
 }
 #else
-struct_dem_printcl_arg0* func_004011B4(void);
+DEMCL* func_004011B4(void);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_004011B4.s")
 #endif
 
-STATIC struct_dem_printarglist_arg0* func_00401A70(struct_dem_printarglist_arg0* arg0) {
-    struct_dem_printarglist_arg0* temp_v0;
+STATIC DEMARG* func_00401A70(DEMARG* arg0) {
+    DEMARG* temp_v0;
 
     if (arg0 == NULL) {
         func_00400DE4("bad argument to arg_copy()", NULL, NULL);
     }
-    temp_v0 = func_00400E64(sizeof(struct_dem_printarglist_arg0));
-    temp_v0->unk_00 = arg0->unk_00;
-    temp_v0->unk_20 = arg0->unk_20;
-    temp_v0->unk_04 = arg0->unk_04;
-    temp_v0->unk_08 = arg0->unk_08;
-    temp_v0->unk_10 = arg0->unk_10;
-    temp_v0->unk_14 = arg0->unk_14;
-    temp_v0->unk_1C = arg0->unk_1C;
-    temp_v0->unk_0C = arg0->unk_0C;
-    temp_v0->unk_18 = 0;
+
+    temp_v0 = func_00400E64(sizeof(DEMARG));
+    temp_v0->mods = arg0->mods;
+    temp_v0->base = arg0->base;
+    temp_v0->arr = arg0->arr;
+    temp_v0->func = arg0->func;
+    temp_v0->clname = arg0->clname;
+    temp_v0->mname = arg0->mname;
+    temp_v0->lit = arg0->lit;
+    temp_v0->ret = arg0->ret;
+    temp_v0->next = NULL;
     return temp_v0;
 }
 
 #ifdef NON_EQUIVALENT
 //#if 1
-struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_arg0* arg1[], int* arg2) {
+DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int* arg2) {
     char spFA4[0x100]; // arbitrary
     int var_t5; // spFA0
     int spF9C;
-    struct_dem_printcl_arg0* spF98;
-    struct_dem_printarglist_arg0* spF90;
-    struct_dem_printarglist_arg0* spF8C;
+    DEMCL* spF98;
+    DEMARG* spF90;
+    DEMARG* spF8C;
     char spB8C[0x400];
     int var_ra; // spB88
     int spB84;
@@ -404,7 +350,7 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
     int sp9E4;
     char sp5E4[0x400];
     char sp1E4[0x400];
-    struct_dem_printcl_arg0 *sp54[100];
+    DEMCL *sp54[100];
     int sp50;
     int sp4C;
     int temp_a1;
@@ -413,10 +359,10 @@ struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_ar
     int var_a1_5;
     int var_v0_2;
     char* temp_a2;
-    struct_dem_printarglist_arg0* temp_v0;
-    struct_dem_printarglist_arg0* var_a0;
-    struct_dem_printcl_arg0* temp_v0_4;
-    struct_dem_printcl_arg0* temp_v0_8;
+    DEMARG* temp_v0;
+    DEMARG* var_a0;
+    DEMCL* temp_v0_4;
+    DEMCL* temp_v0_8;
 
     if (arg2 != NULL) {
         if (*arg2 > 0) {
@@ -718,69 +664,62 @@ block_172:
 
             if (&spFA4[var_t5] != spFA4) {
                 B_10000E3C = var_a0;
-                var_a0->unk_00 = func_00400EF8(spFA4);
+                var_a0->mods = func_00400EF8(spFA4);
             } else {
-                var_a0->unk_00 = 0;
+                var_a0->mods = 0;
             }
             if (&spB8C[var_ra] != spB8C) {
                 B_10000E3C = var_a0;
-                var_a0->unk_1C = func_00400EF8(spB8C);
+                var_a0->lit = func_00400EF8(spB8C);
             } else {
-                var_a0->unk_1C = NULL;
+                var_a0->lit = NULL;
             }
             if (sp9F0 > 0) {
                 B_10000E3C = var_a0;
-                var_a0->unk_04 = func_00400E64(sp9F0 * 4);
+                var_a0->arr = func_00400E64(sp9F0 * 4);
 
                 for (var_v0_2 = 0; var_v0_2 < sp9F0; var_v0_2++) {
-                    var_a0->unk_04[var_v0_2] = sp9F4[var_v0_2];
+                    var_a0->arr[var_v0_2] = sp9F4[var_v0_2];
                 }
             } else {
-                var_a0->unk_04 = NULL;
+                var_a0->arr = NULL;
             }
 
-            var_a0->unk_20 = spF9C;
-            var_a0->unk_08 = spF90;
-            var_a0->unk_0C = spF8C;
-            var_a0->unk_10 = spF98;
+            var_a0->base = spF9C;
+            var_a0->func = spF90;
+            var_a0->ret = spF8C;
+            var_a0->clname = spF98;
             if (sp50 > 0) {
                 B_10000E3C = var_a0;
-                var_a0->unk_14 = func_00400E64((sp50 + 1) * 4);
+                var_a0->mname = func_00400E64((sp50 + 1) * 4);
 
                 for (var_a1_4 = 0; var_a1_4 < sp50; var_a1_4++) {
-                    var_a0->unk_14[var_a1_4] = sp54[var_a1_4];
+                    var_a0->mname[var_a1_4] = sp54[var_a1_4];
                 }
 
-                var_a0->unk_14[sp50] = NULL;
+                var_a0->mname[sp50] = NULL;
             } else {
-                var_a0->unk_14 = NULL;
+                var_a0->mname = NULL;
             }
 
-            var_a0->unk_18 = NULL;
+            var_a0->next = NULL;
             B_10000E3C = var_a0;
             return var_a0;
         }
     }
 }
 #else
-struct_dem_printarglist_arg0* func_00401B48(int arg0, struct_dem_printarglist_arg0* arg1[], int *arg2);
-
-void dummy_func(void) {
-    (void)"                                                                                                                                                                           ";
-    (void)"                                                                                                                                                                           ";
-    (void)"                                                                                                                                                                           ";
-    (void)"                                                                                                                                                                           ";
-}
+DEMARG* func_00401B48(int arg0, DEMARG* arg1[], int *arg2);
 
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/func_00401B48.s")
 #endif
 
-STATIC struct_dem_printarglist_arg0* func_00402D50(void) {
-    struct_dem_printarglist_arg0* var_s3 = NULL; // head
-    struct_dem_printarglist_arg0* var_s0 = NULL;
+STATIC DEMARG* func_00402D50(void) {
+    DEMARG* var_s3 = NULL; // head
+    DEMARG* var_s0 = NULL;
     int var_s1 = -1;
-    struct_dem_printarglist_arg0 *sp3C[100];
-    struct_dem_printarglist_arg0* temp_v0;
+    DEMARG *sp3C[100];
+    DEMARG* temp_v0;
     int sp34 = 0;
 
     while (1) {
@@ -798,7 +737,7 @@ STATIC struct_dem_printarglist_arg0* func_00402D50(void) {
             var_s3 = temp_v0;
             var_s0 = temp_v0;
         } else {
-            var_s0->unk_18 = temp_v0;
+            var_s0->next = temp_v0;
             var_s0 = temp_v0;
         }
     }
@@ -809,7 +748,7 @@ STATIC struct_dem_printarglist_arg0* func_00402D50(void) {
 
 #ifdef NON_EQUIVALENT
 //#if 1
-int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
+int dem(char* s, DEM* p, char* buf) {
     // spXXX means that variable must belong in that stack position
     // spXXX? means I have no clue if the variable is real or its stack position
     char sp460[0x400];
@@ -823,30 +762,30 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     char var_v0; // sp34?
     char* var_a0_3; // sp440 ?
     char sp40[0x400];
-    int var_v1_5; // sp3C
+    enum DEM_TYPE var_v1_5; // sp3C
 
-    if ((arg0 == NULL) || (arg1 == NULL) || (arg2 == NULL)) {
+    if ((s == NULL) || (p == NULL) || (buf == NULL)) {
         return -1;
     }
 
-    if (!arg0[0]) {
+    if (!s[0]) {
         return -1;
     }
 
-    B_10000DD0 = arg2;
+    B_10000DD0 = buf;
     D_10000004 = -1;
     D_10000000 = 0;
-    arg1->unk_08 = NULL;
-    arg1->unk_0C = NULL;
-    arg1->unk_1A = 0;
-    arg1->unk_10 = NULL;
-    arg1->unk_00 = NULL;
-    arg1->unk_04 = NULL;
-    arg1->unk_18 = -1;
-    arg1->unk_14 = 0;
+    p->fargs = NULL;
+    p->cl = NULL;
+    p->sc = '\0';
+    p->args = NULL;
+    p->f = NULL;
+    p->vtname = NULL;
+    p->slev = -1;
+    p->type = DEM_NONE;
 
-    if ((arg0[0] == 0x5F) && (arg0[1] == 0x5F)) {
-        var_a0 = arg0 + 2;
+    if ((s[0] == 0x5F) && (s[1] == 0x5F)) {
+        var_a0 = s + 2;
         var_v0 = *var_a0;
 
         if (isdigit(var_v0)) {
@@ -858,16 +797,16 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             }
 
             if (*var_a0) {
-                arg1->unk_00 = func_00400EF8(var_a0);
-                arg1->unk_18 = var_a1;
+                p->f = func_00400EF8(var_a0);
+                p->slev = var_a1;
                 goto block_187;
             }
         }
     }
 
-    if ((arg0[0] == 0x5F) && (arg0[1] == 0x5F) && (STR_EQUAL_N(arg0, "__sti__") || STR_EQUAL_N(arg0, "__std__") || STR_EQUAL_N(arg0, "__ptbl_vec__"))) {
-        arg1->unk_1A = arg0[4];
-        var_a0 = (arg0[2] == 0x73) ? arg0 + 7 : arg0 + 12;
+    if ((s[0] == 0x5F) && (s[1] == 0x5F) && (STR_EQUAL_N(s, "__sti__") || STR_EQUAL_N(s, "__std__") || STR_EQUAL_N(s, "__ptbl_vec__"))) {
+        p->sc = s[4];
+        var_a0 = (s[2] == 0x73) ? s + 7 : s + 12;
 
         while (*var_a0 == 0x5F) {
             var_a0++;
@@ -883,15 +822,15 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
             return -1;
         }
 
-        arg1->unk_00 = func_00400EF8(var_a0);
+        p->f = func_00400EF8(var_a0);
         B_10000DD4 = 0;
         goto block_187;
     }
 
-    var_a0_3 = arg0;
+    var_a0_3 = s;
     var_v1_2 = 0;
 
-    while ((var_a0_3[0]) && ((var_a0_3[0] != 0x5F) || (var_a0_3 == arg0) || (var_a0_3[-1] != 0x5F))) {
+    while ((var_a0_3[0]) && ((var_a0_3[0] != 0x5F) || (var_a0_3 == s) || (var_a0_3[-1] != 0x5F))) {
         var_a0_3++;
     }
 
@@ -903,7 +842,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
         var_v1_2 = 1;
     }
 
-    if ((!var_v1_2) && (arg0[0] == 0x5F) && (arg0[1] == 0x5F) && (arg0[2] == 0x51) && (isdigit(arg0[3])) && (arg0[4] == 0x5F)) {
+    if ((!var_v1_2) && (s[0] == 0x5F) && (s[1] == 0x5F) && (s[2] == 0x51) && (isdigit(s[3])) && (s[4] == 0x5F)) {
         var_v1_2 = 2;
     }
 
@@ -911,13 +850,13 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
         D_10000004 = -1;
         D_10000000 = 0;
         if (var_v1_2 == 1) {
-            sprintf(sp40, "%d%s", strlen(arg0), arg0);
+            sprintf(sp40, "%d%s", strlen(s), s);
             func_00400FA4(sp40, 0x270F);
         } else {
-            func_00400FA4(arg0 + 2, 0x270F);
+            func_00400FA4(s + 2, 0x270F);
         }
-        arg1->unk_0C = func_004011B4();
-        if (arg1->unk_0C == NULL) {
+        p->cl = func_004011B4();
+        if (p->cl == NULL) {
             return -1;
         }
         B_10000DD4 = 0;
@@ -925,7 +864,7 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     }
 
     D_10000004 = -1;
-    func_00400FA4(arg0, 0x270F);
+    func_00400FA4(s, 0x270F);
     D_10000000 = 0;
     var_a2 = 0;
     sp460[0] = 0;
@@ -941,8 +880,8 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
         if (STR_EQUAL(sp460, "__op")) {
             temp_v1_2 = B_10000DD8 - 1;
 
-            arg1->unk_08 = func_00401B48(-1, NULL, NULL);
-            if (arg1->unk_08 == NULL) {
+            p->fargs = func_00401B48(-1, NULL, NULL);
+            if (p->fargs == NULL) {
                 return -1;
             }
 
@@ -970,8 +909,8 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
     }
 
     if ((isdigit(B_10000DD4)) || (B_10000DD4 == 0x51)) {
-        arg1->unk_0C = func_004011B4();
-        if (arg1->unk_0C == NULL) {
+        p->cl = func_004011B4();
+        if (p->cl == NULL) {
             return -1;
         }
     } else if ((B_10000DD4 == 0x70) && STR_EQUAL_N(B_10000DD8, "t__F")) {
@@ -1023,18 +962,18 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
 
     if (STR_EQUAL(sp460, "__vtbl")) {
         if ((B_10000DD4 == 0x5F) && (B_10000DD8[0] == 0x5F) && (B_10000DD8[1])) {
-            arg1->unk_04 = func_00400EF8(B_10000DD8 + 1);
+            p->vtname = func_00400EF8(B_10000DD8 + 1);
         }
     } else {
         if (((B_10000DD4 == 0x43) || (B_10000DD4 == 0x53)) && (B_10000DD8[0] == 0x46)) {
-            arg1->unk_1A = B_10000DD4;
+            p->sc = B_10000DD4;
             ADV();
         }
 
         if (B_10000DD4 == 0x46) {
             ADV();
-            arg1->unk_10 = func_00402D50();
-            if (arg1->unk_10 == NULL) {
+            p->args = func_00402D50();
+            if (p->args == NULL) {
                 return -1;
             }
         }
@@ -1048,11 +987,11 @@ int dem(char* arg0, struct_demangle_sp24* arg1, char* arg2) {
         return -1;
     }
 
-    arg1->unk_00 = func_00400EF8(sp460);
+    p->f = func_00400EF8(sp460);
 
 
 block_187:
-    t = arg1->unk_1A;
+    t = p->sc;
     var_v1_5 = 0;
     if (t) {
         switch (t) {
@@ -1077,16 +1016,16 @@ block_187:
                 break;
         }
     } else {
-        if (arg1->unk_18 != -1) {
+        if (p->slev != -1) {
             var_v1_5 = 14;
-        } else if (arg1->unk_10 != NULL) {
-            if (arg1->unk_08 != NULL) {
+        } else if (p->args != NULL) {
+            if (p->fargs != NULL) {
                 var_v1_5 = 9;
-            } else if (arg1->unk_0C != NULL) {
-                if ((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F)) {
-                    if ((arg1->unk_00[2] == 0x63) && (arg1->unk_00[3] == 0x74) && (!arg1->unk_00[4])) {
+            } else if (p->cl != NULL) {
+                if ((p->f[0] == 0x5F) && (p->f[1] == 0x5F)) {
+                    if ((p->f[2] == 0x63) && (p->f[3] == 0x74) && (!p->f[4])) {
                         var_v1_5 = 10;
-                    } else if ((arg1->unk_00[2] == 0x64) && (arg1->unk_00[3] == 0x74) && (!arg1->unk_00[4])) {
+                    } else if ((p->f[2] == 0x64) && (p->f[3] == 0x74) && (!p->f[4])) {
                         var_v1_5 = 11;
                     } else {
                         var_v1_5 = 6;
@@ -1097,17 +1036,17 @@ block_187:
             } else {
                 var_v1_5 = 5;
             }
-        } else if (arg1->unk_00 == NULL) {
-            if (arg1->unk_0C != NULL) {
-                if (arg1->unk_0C->unk_04 != NULL) {
+        } else if (p->f == NULL) {
+            if (p->cl != NULL) {
+                if (p->cl->clargs != NULL) {
                     var_v1_5 = 16;
                 } else {
                     var_v1_5 = 15;
                 }
             }
-        } else if (arg1->unk_00 != NULL) {
-            if (arg1->unk_0C != NULL) {
-                if (((arg1->unk_00[0] == 0x5F) && (arg1->unk_00[1] == 0x5F) && (arg1->unk_00[2] == 0x76) && (arg1->unk_00[3] == 0x74) && (arg1->unk_00[4] == 0x62) && (arg1->unk_00[5] == 0x6C) && (!arg1->unk_00[6]))) {
+        } else if (p->f != NULL) {
+            if (p->cl != NULL) {
+                if (((p->f[0] == 0x5F) && (p->f[1] == 0x5F) && (p->f[2] == 0x76) && (p->f[3] == 0x74) && (p->f[4] == 0x62) && (p->f[5] == 0x6C) && (!p->f[6]))) {
                     var_v1_5 = 3;
                 } else {
                     var_v1_5 = 13;
@@ -1121,77 +1060,81 @@ block_187:
     if (!var_v1_5) {
         func_00400DE4("cannot characterize type of input", NULL, NULL);
     }
-    arg1->unk_14 = var_v1_5;
+
+    p->type = var_v1_5;
     return 0;
 }
 #else
-int dem(char*, struct_demangle_sp24*, char*);
 // #pragma GLOBAL_ASM("asm/5.3/functions/c++filt/c++filt/dem.s")
 #endif
 
-void dem_printcl(struct_dem_printcl_arg0* arg0, char* arg1) {
+void dem_printcl(DEMCL* p, char* buf) {
     int var_s2;
     char sp44[0x400];
 
-    if ((arg0 == NULL) || (arg1 == NULL)) {
+    if ((p == NULL) || (buf == NULL)) {
         func_00400DE4("bad argument to dem_printcl()", NULL, NULL);
     }
-    *arg1 = 0;
+
+    *buf = '\0';
     var_s2 = 0;
-    while (arg0 != NULL) {
+    while (p != NULL) {
         var_s2++;
         if (var_s2 >= 2) {
-            strcat(arg1, "::");
+            strcat(buf, "::");
         }
-        strcat(arg1, arg0->unk_00);
-        if (arg0->unk_04 != NULL) {
-            if (arg1[strlen(arg1)-1] == 0x3C) {
-                strcat(arg1, " ");
+
+        strcat(buf, p->name);
+        if (p->clargs != NULL) {
+            if (buf[strlen(buf)-1] == 0x3C) {
+                strcat(buf, " ");
             }
-            strcat(arg1, "<");
-            dem_printarglist(arg0->unk_04, sp44, 0);
-            strcat(arg1, sp44);
-            if (arg1[strlen(arg1)-1] == 0x3E) {
-                strcat(arg1, " ");
+
+            strcat(buf, "<");
+            dem_printarglist(p->clargs, sp44, 0);
+            strcat(buf, sp44);
+            if (buf[strlen(buf)-1] == '>') {
+                strcat(buf, " ");
             }
-            strcat(arg1, ">");
+            strcat(buf, ">");
         }
-        arg0 = arg0->unk_0C;
+
+        p = p->next;
     }
 }
 
-void dem_printarglist(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
-    if ((arg0 == NULL) || (arg1 == NULL) || (arg2 < 0) || (arg2 >= 2)) {
+void dem_printarglist(DEMARG* p, char* buf, int sv) {
+    if ((p == NULL) || (buf == NULL) || (sv < 0) || (sv >= 2)) {
         func_00400DE4("bad argument to dem_printarglist()", NULL, NULL);
     }
 
-    if ((arg0->unk_20 == 0x76) && (arg0->unk_00 == 0)&& (arg0->unk_18 != NULL) && (arg0->unk_18->unk_20 == 0x65) && (arg0->unk_18->unk_18 == 0)) {
-        strcpy(arg1, "...");
-    } else if ((arg0->unk_20 == 0x76) && (arg0->unk_00 == 0)) {
-        strcpy(arg1, "void");
+    if ((p->base == 0x76) && (p->mods == 0)&& (p->next != NULL) && (p->next->base == 0x65) && (p->next->next == 0)) {
+        strcpy(buf, "...");
+    } else if ((p->base == 0x76) && (p->mods == 0)) {
+        strcpy(buf, "void");
     } else {
         int var_s1;
 
-        arg1[0] = 0;
+        buf[0] = '\0';
         var_s1 = 0;
-        while (arg0 != NULL) {
+        while (p != NULL) {
             char sp4C[0x400];
             var_s1++;
 
             if (var_s1 >= 2) {
-                strcat(arg1, (arg0->unk_20 == 0x65) ? " " : ",");
+                strcat(buf, (p->base == 0x65) ? " " : ",");
             }
 
-            dem_printarg(arg0, sp4C, arg2);
-            strcat(arg1, sp4C);
-            arg0 = arg0->unk_18;
+            dem_printarg(p, sp4C, sv);
+            strcat(buf, sp4C);
+            p = p->next;
         }
     }
 }
 
 #ifdef NON_EQUIVALENT
 // #if 1
-void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
+void dem_printarg(DEMARG* p, char* buf, int f) {
     char* sp1C84;
     char sp1884[0x400];
     char sp1484[0x400];
@@ -1213,12 +1156,12 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
     int var_s0_5;
     int var_s5;
 
-    if ((arg0 == NULL) || (arg1 == NULL) || (arg2 < 0) || ((arg2 >= 2))) {
+    if ((p == NULL) || (buf == NULL) || (f < 0) || ((f >= 2))) {
         func_00400DE4("bad argument to dem_printarg()", NULL, NULL);
     }
 
-    sp6C = arg2 == 0;
-    switch (arg0->unk_20) {
+    sp6C = f == 0;
+    switch (p->base) {
     case 0x76:
         sp1C84 = "void";
         break;
@@ -1261,12 +1204,12 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
         break;
 
     case 0x46:
-        dem_printarg(arg0->unk_0C, spC84, 0);
-        dem_printarglist(arg0->unk_08, sp1084, 0);
+        dem_printarg(p->ret, spC84, 0);
+        dem_printarglist(p->func, sp1084, 0);
         break;
 
     case 0x43:
-        dem_printcl(arg0->unk_10, sp1884);
+        dem_printcl(p->clname, sp1884);
         sp1C84 = sp1884;
         break;
 
@@ -1276,14 +1219,14 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
     }
 
     sp87C[0] = 0;
-    var_s0 = arg0->unk_00;
+    var_s0 = p->mods;
     if (var_s0 == 0) {
         var_s0 = "";
     }
 
     var_s1 = var_s0;
     while (*var_s1 != 0) {
-        if ((var_s1[0] == 0x43) && (var_s1[1] != 0x50) && (var_s1[1] != 0x52) && (var_s1[1] != 0x4D) && (var_s1[1] != 0x56) && ((var_s1[1] != 0) || (arg0->unk_20 != 0x46))) {
+        if ((var_s1[0] == 0x43) && (var_s1[1] != 0x50) && (var_s1[1] != 0x52) && (var_s1[1] != 0x4D) && (var_s1[1] != 0x56) && ((var_s1[1] != 0) || (p->base != 0x46))) {
             strcat(sp87C, "const ");
             break;
         }
@@ -1313,7 +1256,7 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
             sprintf(sp474, "&%s", sp74);
             strcpy(sp74, sp474);
         } else if (*var_s1 == 0x4D) {
-            dem_printcl(arg0->unk_14[var_s5++], sp1484);
+            dem_printcl(p->mname[var_s5++], sp1484);
             sprintf(sp474, "%s::*%s", sp1484, sp74);
             strcpy(sp74, sp474);
         } else if ((*var_s1 == 0x43) && (((var_s1[1] == 0x50)) || ((var_s1[1] == 0x56) && (var_s1[2] == 0x50)))) {
@@ -1331,12 +1274,12 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
                 var_s1 += 1;
             }
         } else if ((*var_s1 == 0x43) && (var_s1[1] == 0x4D)) {
-            dem_printcl(arg0->unk_14[var_s5++], sp1484);
+            dem_printcl(p->mname[var_s5++], sp1484);
             sprintf(sp474, "%s::*const%s%s", sp1484, ((isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " " : "", sp74);
             strcpy(sp74, sp474);
             var_s1 += 1;
         } else if (*var_s1 == 0x41) {
-            temp_s0 = arg0->unk_04[sp878++];
+            temp_s0 = p->arr[sp878++];
 
             var_s3 = (sp6C != 0) ? "" : "@";
 
@@ -1358,33 +1301,33 @@ void dem_printarg(struct_dem_printarglist_arg0* arg0, char* arg1, int arg2) {
 
     var_s3 = (sp6C != 0) ? "" : "@";
 
-    if (arg0->unk_20 == 0x46) {
+    if (p->base == 0x46) {
         var_s0_5 = 0;
         if (sp74[0] == 0x20) {
             var_s0_5 = 1;
         }
 
         var_s1 = "";
-        if ((arg0->unk_00 != 0) && (arg0->unk_00[strlen(arg0->unk_00)-1]  == 0x43)) {
+        if ((p->mods != 0) && (p->mods[strlen(p->mods)-1]  == 0x43)) {
             var_s1 = " const";
         }
 
         if (sp74[var_s0_5] != 0) {
-            sprintf(arg1, "%s%s (%s%s)(%s)%s", sp87C, spC84, &sp74[var_s0_5], var_s3, sp1084, var_s1);
+            sprintf(buf, "%s%s (%s%s)(%s)%s", sp87C, spC84, &sp74[var_s0_5], var_s3, sp1084, var_s1);
         } else {
-            sprintf(arg1, "%s%s %s(%s)%s", sp87C, spC84, var_s3, sp1084, var_s1);
+            sprintf(buf, "%s%s %s(%s)%s", sp87C, spC84, var_s3, sp1084, var_s1);
         }
     } else {
-        sprintf(arg1, "%s%s%s%s%s", sp87C, sp1C84, ((sp74[0] == 0x28) || (isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " ": "", sp74, var_s3);
+        sprintf(buf, "%s%s%s%s%s", sp87C, sp1C84, ((sp74[0] == 0x28) || (isalnum(sp74[0])) || (sp74[0] == 0x5F)) ? " ": "", sp74, var_s3);
     }
 
-    if (arg0->unk_1C != NULL) {
-        if (isdigit(*arg0->unk_1C) || (*arg0->unk_1C == 0x2D)) {
-            sprintf(sp474, "(%s)%s", arg1, arg0->unk_1C);
+    if (p->lit != NULL) {
+        if (isdigit(*p->lit) || (*p->lit == 0x2D)) {
+            sprintf(sp474, "(%s)%s", buf, p->lit);
         } else {
-            sprintf(sp474, "&%s", arg0->unk_1C);
+            sprintf(sp474, "&%s", p->lit);
         }
-        strcpy(arg1, sp474);
+        strcpy(buf, sp474);
     }
 }
 #else
@@ -1440,56 +1383,56 @@ STATIC struct MangledMap D_10000008[] = {
     { NULL, NULL },
 };
 
-void dem_printfunc(struct_demangle_sp24* arg0, char* arg1) {
+void dem_printfunc(DEM* dp, char* buf) {
     int i;
     char buff[0x400];
 
-    if ((arg0 == NULL) || (arg1 == NULL)) {
+    if ((dp == NULL) || (buf == NULL)) {
         func_00400DE4("bad argument to dem_printfunc()", NULL, NULL);
     }
 
-    if ((arg0->unk_00[0] == '_') && (arg0->unk_00[1] == '_')) {
-        if ((strncmp(arg0->unk_00, "__op", 4) == 0) && (arg0->unk_08 != NULL)) {
-            dem_printarg(arg0->unk_08, buff, 0);
-            sprintf(arg1, "operator %s", buff);
+    if ((dp->f[0] == '_') && (dp->f[1] == '_')) {
+        if ((strncmp(dp->f, "__op", 4) == 0) && (dp->fargs != NULL)) {
+            dem_printarg(dp->fargs, buff, 0);
+            sprintf(buf, "operator %s", buff);
         } else {
             i = 0;
-            while ((D_10000008[i].mangledName != NULL) && (strcmp(D_10000008[i].mangledName, arg0->unk_00) != 0)) {
+            while ((D_10000008[i].mangledName != NULL) && (strcmp(D_10000008[i].mangledName, dp->f) != 0)) {
                 i++;
             }
 
             if (D_10000008[i].mangledName != NULL) {
-                strcpy(arg1, D_10000008[i].demangled);
+                strcpy(buf, D_10000008[i].demangled);
             } else {
-                strcpy(arg1, arg0->unk_00);
+                strcpy(buf, dp->f);
             }
         }
     } else {
-        strcpy(arg1, arg0->unk_00);
+        strcpy(buf, dp->f);
     }
 }
 
-int dem_print(struct_demangle_sp24* arg0, char* arg1) {
+int dem_print(DEM* p, char* buf) {
     char sp30[0x400];
     char* var_a2;
     int var_v1;
 
-    if ((arg0 == NULL) || (arg1 == NULL)) {
+    if ((p == NULL) || (buf == NULL)) {
         return -1;
     }
 
-    *arg1 = '\0';
-    if ((arg0->unk_00 == NULL) && (arg0->unk_0C != NULL)) {
-        dem_printcl(arg0->unk_0C, arg1);
-    } else if ((arg0->unk_1A == 'i') || (arg0->unk_1A == 'd')) {
-        sprintf(arg1, "%s:__st%c", arg0->unk_00, arg0->unk_1A);
-    } else if (arg0->unk_1A == 'b') {
-        sprintf(arg1, "%s:__ptbl_vec", arg0->unk_00);
+    *buf = '\0';
+    if ((p->f == NULL) && (p->cl != NULL)) {
+        dem_printcl(p->cl, buf);
+    } else if ((p->sc == 'i') || (p->sc == 'd')) {
+        sprintf(buf, "%s:__st%c", p->f, p->sc);
+    } else if (p->sc == 'b') {
+        sprintf(buf, "%s:__ptbl_vec", p->f);
     } else {
-        if (arg0->unk_0C != 0) {
-            dem_printcl(arg0->unk_0C, sp30);
-            strcat(arg1, sp30);
-            strcat(arg1, "::");
+        if (p->cl != 0) {
+            dem_printcl(p->cl, sp30);
+            strcat(buf, sp30);
+            strcat(buf, "::");
         }
 
         var_v1 = strlen(sp30);
@@ -1508,85 +1451,101 @@ int dem_print(struct_demangle_sp24* arg0, char* arg1) {
             }
         }
 
-        if ((arg0->unk_00[0] == *"__ct") && (strcmp(arg0->unk_00, "__ct") == 0)) {
-            strcat(arg1, &var_a2[1]);
-        } else if ((arg0->unk_00[0] == *"__dt") && (strcmp(arg0->unk_00, "__dt") == 0)) {
-            strcat(arg1, "~");
-            strcat(arg1, &var_a2[1]);
+        if ((p->f[0] == *"__ct") && (strcmp(p->f, "__ct") == 0)) {
+            strcat(buf, &var_a2[1]);
+        } else if ((p->f[0] == *"__dt") && (strcmp(p->f, "__dt") == 0)) {
+            strcat(buf, "~");
+            strcat(buf, &var_a2[1]);
         } else {
-            dem_printfunc(arg0, sp30);
-            strcat(arg1, sp30);
+            dem_printfunc(p, sp30);
+            strcat(buf, sp30);
         }
 
-        if (arg0->unk_10 != NULL) {
-            strcat(arg1, "(");
-            dem_printarglist(arg0->unk_10, sp30, 0);
-            strcat(arg1, sp30);
-            strcat(arg1, ")");
+        if (p->args != NULL) {
+            strcat(buf, "(");
+            dem_printarglist(p->args, sp30, 0);
+            strcat(buf, sp30);
+            strcat(buf, ")");
         }
 
-        if (arg0->unk_1A == 'C') {
-            strcat(arg1, " const");
+        if (p->sc == 'C') {
+            strcat(buf, " const");
         }
     }
 
     return 0;
 }
 
-const char* dem_explain(enum_dem_explain_arg0 arg) {
-    switch (arg) {
-        case ENUM_DEM_EXPLAIN_ARG_1:
+char* dem_explain(enum DEM_TYPE t) {
+    switch (t) {
+        case DEM_STI:
             return "STATIC construction function";
-        case ENUM_DEM_EXPLAIN_ARG_2:
-            return "STATIC destruction function";
-        case ENUM_DEM_EXPLAIN_ARG_3:
-            return "virtual table";
-        case ENUM_DEM_EXPLAIN_ARG_4:
-            return "ptbl vector pointing to vtbls";
-        case ENUM_DEM_EXPLAIN_ARG_5:
-            return "function";
-        case ENUM_DEM_EXPLAIN_ARG_6:
-            return "member function";
-        case ENUM_DEM_EXPLAIN_ARG_7:
-            return "STATIC member function";
-        case ENUM_DEM_EXPLAIN_ARG_8:
-            return "constant member function";
-        case ENUM_DEM_EXPLAIN_ARG_9:
-            return "conversion operator member function";
-        case ENUM_DEM_EXPLAIN_ARG_10:
-            return "constructor";
-        case ENUM_DEM_EXPLAIN_ARG_11:
-            return "destructor";
-        case ENUM_DEM_EXPLAIN_ARG_12:
-            return "data";
-        case ENUM_DEM_EXPLAIN_ARG_13:
-            return "member data";
-        case ENUM_DEM_EXPLAIN_ARG_14:
-            return "local variable";
-        case ENUM_DEM_EXPLAIN_ARG_15:
-            return "class type";
-        case ENUM_DEM_EXPLAIN_ARG_16:
-            return "template type";
-    }
 
-    func_00400DE4("bad type passed to dem_explain()", NULL, NULL);
-    return "";
+        case DEM_STD:
+            return "STATIC destruction function";
+
+        case DEM_VTBL:
+            return "virtual table";
+
+        case DEM_PTBL:
+            return "ptbl vector pointing to vtbls";
+
+        case DEM_FUNC:
+            return "function";
+
+        case DEM_MFUNC:
+            return "member function";
+
+        case DEM_SMFUNC:
+            return "STATIC member function";
+
+        case DEM_CMFUNC:
+            return "constant member function";
+
+        case DEM_OMFUNC:
+            return "conversion operator member function";
+
+        case DEM_CTOR:
+            return "constructor";
+
+        case DEM_DTOR:
+            return "destructor";
+
+        case DEM_DATA:
+            return "data";
+
+        case DEM_MDATA:
+            return "member data";
+
+        case DEM_LOCAL:
+            return "local variable";
+
+        case DEM_CTYPE:
+            return "class type";
+
+        case DEM_TTYPE:
+            return "template type";
+
+        default:
+            func_00400DE4("bad type passed to dem_explain()", NULL, NULL);
+            return "";
+    }
 }
 
-int demangle(char* arg0, char* dst) {
+int demangle(const char *in, char *out) {
     char sp40[0x1000];
-    struct_demangle_sp24 sp24;
+    DEM sp24;
 
-    if ((arg0 == NULL) || (*arg0 == '\0') || (dst == NULL)) {
+    if ((in == NULL) || (*in == '\0') || (out == NULL)) {
         return -1;
     }
 
-    if (dem(arg0, &sp24, sp40) < 0) {
-        strcpy(dst, arg0);
+    if (dem((void*)in, &sp24, sp40) < 0) {
+        strcpy(out, in);
         return -1;
     }
 
-    dem_print(&sp24, dst);
+    dem_print(&sp24, out);
     return 0;
 }
 
